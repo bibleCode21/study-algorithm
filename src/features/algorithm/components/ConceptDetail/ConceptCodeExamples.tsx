@@ -1,5 +1,7 @@
+'use client';
+
 import { ConceptCodeExamplesProps } from '@/features/algorithm/types/components';
-import CodeBlock from '@/components/CodeBlock';
+import CodeBlockClient from '@/components/CodeBlock/CodeBlockClient';
 
 export default function ConceptCodeExamples({ codeExamples }: ConceptCodeExamplesProps) {
     if (codeExamples.length === 0) {
@@ -12,7 +14,11 @@ export default function ConceptCodeExamples({ codeExamples }: ConceptCodeExample
             <div className="space-y-6">
                 {codeExamples.map((example, index) => (
                     <div key={index}>
-                        <CodeBlock language={example.language} code={example.code} />
+                        <CodeBlockClient
+                            language={example.language}
+                            code={example.code}
+                            highlightedHtml={example.highlightedHtml}
+                        />
                     </div>
                 ))}
             </div>

@@ -1,41 +1,41 @@
 import { notFound } from 'next/navigation';
 import { concepts } from '@/data/concepts';
 import { getConceptCodeSync } from '@/data/concepts/getConceptCode';
+import { highlightCode } from '@/utils/codeHighlight';
 import ConceptHeader from '@/features/algorithm/components/ConceptDetail/ConceptHeader';
-import ConceptDescription from '@/features/algorithm/components/ConceptDetail/ConceptDescription';
-import ConceptComplexity from '@/features/algorithm/components/ConceptDetail/ConceptComplexity';
-import ConceptCodeExamples from '@/features/algorithm/components/ConceptDetail/ConceptCodeExamples';
+import ConceptViewWrapper from '@/features/algorithm/components/ConceptDetail/ConceptViewWrapper';
 import ConceptNavigation from '@/features/algorithm/components/ConceptDetail/ConceptNavigation';
 
 interface ConceptDetailPageProps {
-  params: Promise<{ id: string }>;
+    params: Promise<{ id: string }>;
 }
 
 export default async function ConceptDetailPage({ params }: ConceptDetailPageProps) {
-  const { id } = await params;
-  const concept = concepts.find((c) => c.id === id);
+    const { id } = await params;
+    const concept = concepts.find((c) => c.id === id);
 
-  if (!concept) {
-    notFound();
-  }
+    if (!concept) {
+        notFound();
+    }
 
-  const codeExamples = getConceptCodeSync(id);
+    const codeExamples = getConceptCodeSync(id);
 
-  return (
-    <main className="bg-gray-50 min-h-screen">
-      <article className="mx-auto max-w-4xl px-6 md:px-8 py-12">
-        <ConceptHeader concept={concept} />
-        <ConceptDescription description={concept.description} />
-        {concept.type === 'algorithm' && concept.timeComplexity && (
-          <ConceptComplexity
-            timeComplexity={concept.timeComplexity}
-            spaceComplexity={concept.spaceComplexity}
-          />
-        )}
-        <ConceptCodeExamples codeExamples={codeExamples} />
-        <ConceptNavigation conceptType={concept.type} />
-      </article>
-    </main>
-  );
+    // 서버에서 코드 하이라이팅 미리 처리
+    const highlightedCodeExamples = await Promise.all(
+        codeExamples.map(async (example) => ({
+            ...example,
+            highlightedHtml: await highlightCode(example.code, example.language),
+        }))
+    );
+
+    return (
+        <main className="bg-gray-50 min-h-screen">
+            <article className="mx-auto max-w-4xl px-6 md:px-8 py-12">
+                <ConceptHeader concept={concept} />
+                <ConceptViewWrapper concept={concept} codeExamples={highlightedCodeExamples} />
+                <ConceptNavigation conceptType={concept.type} />
+            </article>
+        </main>
+    );
 }
 

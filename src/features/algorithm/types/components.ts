@@ -24,7 +24,7 @@ export interface ConceptComplexityProps {
 
 // ConceptCodeExamples 컴포넌트 Props
 export interface ConceptCodeExamplesProps {
-    codeExamples: CodeExample[];
+    codeExamples: (CodeExample & { highlightedHtml: string })[];
 }
 
 // ConceptNavigation 컴포넌트 Props
@@ -55,4 +55,19 @@ export interface CategoryFilterProps {
     categories: string[];
     selectedCategories: string[];
     onCategoryChange: (categories: string[]) => void;
+}
+
+// ViewSwitcher 컴포넌트 Props
+export type ViewMode = 'default' | 'compact' | 'visual' | 'codeFirst';
+
+export interface ViewSwitcherProps {
+    currentView: ViewMode;
+    onViewChange: (view: ViewMode) => void;
+}
+
+// ConceptView 컴포넌트 Props
+export interface ConceptViewProps {
+    concept: Concept;
+    codeExamples: (CodeExample & { highlightedHtml: string })[];
+    viewMode: ViewMode;
 }

@@ -1,4 +1,3 @@
-import { Concept } from '@/features/algorithm/types/algorithm';
 import { ConceptHeaderProps } from '@/features/algorithm/types/components';
 import Badge from '@/components/ui/Badge';
 
@@ -25,7 +24,7 @@ export default function ConceptHeader({ concept }: ConceptHeaderProps) {
                 ))}
             </div>
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 mb-4">
                 {concept.tags.map((tag) => (
                     <span
                         key={tag}
