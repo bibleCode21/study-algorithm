@@ -1,24 +1,42 @@
 import { ConceptViewProps } from '@/features/algorithm/types/components';
-import ConceptCodeExamples from '@/features/algorithm/components/ConceptDetail/ConceptCodeExamples';
 import ConceptComplexity from '@/features/algorithm/components/ConceptDetail/ConceptComplexity';
+import ConceptDescription from '@/features/algorithm/components/ConceptDetail/ConceptDescription';
+import AnnotatedCodeBlock from './AnnotatedCodeBlock';
+import { getCodeAnnotations } from '@/features/algorithm/utils/codeAnnotations';
 
 export default function CodeFirstView({ concept, codeExamples }: ConceptViewProps) {
-    return (
-        <>
-            <ConceptCodeExamples codeExamples={codeExamples} />
-            {concept.type === 'algorithm' && concept.timeComplexity && (
-                <ConceptComplexity
-                    timeComplexity={concept.timeComplexity}
-                    spaceComplexity={concept.spaceComplexity}
+  return (
+    <div className="space-y-8">
+      <section>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">코드 예제 및 해석</h2>
+        <div className="space-y-6">
+          {codeExamples.map((example, index) => {
+            const annotations = getCodeAnnotations(concept.id, example.language, example.code);
+            return (
+              <div key={index}>
+                <AnnotatedCodeBlock
+                  language={example.language}
+                  code={example.code}
+                  highlightedHtml={example.highlightedHtml}
+                  annotations={annotations}
                 />
-            )}
-            <section className="mt-8">
-                <h2 className="text-xl font-semibold text-gray-900 mb-3">설명</h2>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-                    {concept.description}
-                </p>
-            </section>
-        </>
-    );
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {concept.type === 'algorithm' && concept.timeComplexity && (
+        <section>
+          <ConceptComplexity
+            timeComplexity={concept.timeComplexity}
+            spaceComplexity={concept.spaceComplexity}
+          />
+        </section>
+      )}
+
+      <ConceptDescription description={concept.description} />
+    </div>
+  );
 }
 

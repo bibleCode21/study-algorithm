@@ -58,7 +58,7 @@ export interface CategoryFilterProps {
 }
 
 // ViewSwitcher 컴포넌트 Props
-export type ViewMode = 'default' | 'compact' | 'visual' | 'codeFirst';
+export type ViewMode = 'default' | 'compact' | 'codeFirst';
 
 export interface ViewSwitcherProps {
     currentView: ViewMode;

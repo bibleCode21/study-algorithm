@@ -17,13 +17,13 @@ const STORAGE_KEY = 'concept-view-mode';
 export default function ConceptViewWrapper({ concept, codeExamples }: ConceptViewWrapperProps) {
     const [viewMode, setViewMode] = useState<ViewMode>('default');
 
-    // 로컬 스토리지에서 저장된 뷰 모드 불러오기
-    useEffect(() => {
-        const savedView = localStorage.getItem(STORAGE_KEY) as ViewMode | null;
-        if (savedView && ['default', 'compact', 'visual', 'codeFirst'].includes(savedView)) {
-            setViewMode(savedView);
-        }
-    }, []);
+  // 로컬 스토리지에서 저장된 뷰 모드 불러오기
+  useEffect(() => {
+    const savedView = localStorage.getItem(STORAGE_KEY) as ViewMode | null;
+    if (savedView && ['default', 'compact', 'codeFirst'].includes(savedView)) {
+      setViewMode(savedView);
+    }
+  }, []);
 
     // 뷰 모드 변경 시 로컬 스토리지에 저장
     const handleViewChange = (view: ViewMode) => {
