@@ -1,11 +1,4 @@
-import { ReactNode } from 'react';
-
-interface CardProps {
-    children: ReactNode;
-    className?: string;
-    as?: 'article' | 'div' | 'section';
-    onClick?: () => void;
-}
+import { CardProps } from '@/types/ui';
 
 export default function Card({
     children,

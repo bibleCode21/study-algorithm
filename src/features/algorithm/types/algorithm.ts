@@ -1,5 +1,4 @@
 // 알고리즘 및 데이터 구조 관련 타입
-
 export interface CodeExample {
     language: string;
     code: string;

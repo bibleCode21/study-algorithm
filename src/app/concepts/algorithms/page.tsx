@@ -1,4 +1,4 @@
-import ConceptCard from '@/features/algorithm/components/ConceptCard';
+import ConceptsList from '@/features/algorithm/components/ConceptsList';
 import { concepts } from '@/data/concepts';
 
 export default function AlgorithmsPage() {
@@ -18,15 +18,7 @@ export default function AlgorithmsPage() {
             다양한 알고리즘 개념 학습 및 시각화
           </p>
         </header>
-        {algorithms.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {algorithms.map((concept) => (
-              <ConceptCard key={concept.id} concept={concept} />
-            ))}
-          </div>
-        ) : (
-          <p className="text-gray-500 text-center py-12">알고리즘 개념이 아직 없습니다.</p>
-        )}
+        <ConceptsList concepts={algorithms} />
       </section>
     </main>
   );

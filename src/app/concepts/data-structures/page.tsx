@@ -1,4 +1,4 @@
-import ConceptCard from '@/features/algorithm/components/ConceptCard';
+import ConceptsList from '@/features/algorithm/components/ConceptsList';
 import { concepts } from '@/data/concepts';
 
 export default function DataStructuresPage() {
@@ -18,15 +18,7 @@ export default function DataStructuresPage() {
             알고리즘 학습 전 필수 데이터 구조 개념
           </p>
         </header>
-        {dataStructures.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {dataStructures.map((concept) => (
-              <ConceptCard key={concept.id} concept={concept} />
-            ))}
-          </div>
-        ) : (
-          <p className="text-gray-500 text-center py-12">데이터 구조 개념이 아직 없습니다.</p>
-        )}
+        <ConceptsList concepts={dataStructures} />
       </section>
     </main>
   );
