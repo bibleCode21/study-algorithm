@@ -1,0 +1,169 @@
+'use client';
+
+import { useState } from 'react';
+import { Problem } from '@/features/practice/types/problem';
+import { compileTypeScript, executeCode, deepEqual } from '@/features/practice/utils/codeExecutor';
+
+interface TestRunnerProps {
+  problem: Problem;
+  code: string;
+}
+
+interface TestResult {
+  passed: boolean;
+  input: any;
+  expected: any;
+  actual: any;
+  error?: string;
+}
+
+export default function TestRunner({ problem, code }: TestRunnerProps) {
+  const [results, setResults] = useState<TestResult[] | null>(null);
+  const [isRunning, setIsRunning] = useState(false);
+  const [compileError, setCompileError] = useState<string | null>(null);
+
+  const runTests = async () => {
+    setIsRunning(true);
+    setCompileError(null);
+    setResults(null);
+
+    try {
+      // TypeScript를 JavaScript로 컴파일
+      const compileResult = await compileTypeScript(code);
+
+      if (!compileResult.success || !compileResult.jsCode) {
+        setCompileError(compileResult.error || '컴파일 오류가 발생했습니다.');
+        setIsRunning(false);
+        return;
+      }
+
+      // 각 테스트 케이스 실행
+      const testResults: TestResult[] = [];
+
+      for (const testCase of problem.testCases) {
+        const executeResult = executeCode(compileResult.jsCode, testCase.input);
+
+        if (!executeResult.success) {
+          testResults.push({
+            passed: false,
+            input: testCase.input,
+            expected: testCase.expectedOutput,
+            actual: null,
+            error: executeResult.error || '실행 오류가 발생했습니다.',
+          });
+        } else {
+          const passed = deepEqual(executeResult.result, testCase.expectedOutput);
+          testResults.push({
+            passed,
+            input: testCase.input,
+            expected: testCase.expectedOutput,
+            actual: executeResult.result,
+          });
+        }
+      }
+
+      setResults(testResults);
+    } catch (error) {
+      setCompileError(error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.');
+    } finally {
+      setIsRunning(false);
+    }
+  };
+
+  const passedCount = results?.filter((r) => r.passed).length || 0;
+  const totalCount = problem.testCases.length;
+
+  return (
+    <div className="bg-white rounded-lg border border-gray-200 p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-semibold text-gray-900">테스트 실행</h2>
+        <button
+          onClick={runTests}
+          disabled={isRunning}
+          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+        >
+          {isRunning ? '실행 중...' : '실행'}
+        </button>
+      </div>
+
+      {compileError && (
+        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-sm font-medium text-red-800 mb-1">컴파일 오류</p>
+          <pre className="text-xs text-red-700 whitespace-pre-wrap overflow-x-auto">
+            {compileError}
+          </pre>
+        </div>
+      )}
+
+      {results && (
+        <div className="space-y-3">
+          <div className="flex items-center gap-2 text-sm">
+            <span className="font-medium text-gray-700">결과:</span>
+            <span
+              className={`font-semibold ${
+                passedCount === totalCount ? 'text-green-600' : 'text-red-600'
+              }`}
+            >
+              {passedCount} / {totalCount} 통과
+            </span>
+          </div>
+
+          <div className="space-y-2">
+            {results.map((result, index) => (
+              <div
+                key={index}
+                className={`p-3 rounded-lg border ${
+                  result.passed
+                    ? 'bg-green-50 border-green-200'
+                    : 'bg-red-50 border-red-200'
+                }`}
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <span
+                    className={`text-sm font-medium ${
+                      result.passed ? 'text-green-700' : 'text-red-700'
+                    }`}
+                  >
+                    {result.passed ? '✓ 통과' : '✗ 실패'}
+                  </span>
+                  <span className="text-xs text-gray-500">테스트 케이스 {index + 1}</span>
+                </div>
+                {result.error ? (
+                  <p className="text-sm text-red-700">{result.error}</p>
+                ) : (
+                  <div className="text-xs space-y-1">
+                    <div>
+                      <span className="text-gray-600">입력:</span>
+                      <pre className="mt-1 bg-white p-2 rounded overflow-x-auto">
+                        {JSON.stringify(result.input, null, 2)}
+                      </pre>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">예상:</span>
+                      <pre className="mt-1 bg-white p-2 rounded overflow-x-auto">
+                        {JSON.stringify(result.expected, null, 2)}
+                      </pre>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">실제:</span>
+                      <pre className="mt-1 bg-white p-2 rounded overflow-x-auto">
+                        {JSON.stringify(result.actual, null, 2)}
+                      </pre>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!results && (
+        <p className="text-sm text-gray-500 text-center py-8">
+          '실행' 버튼을 클릭하여 테스트를 실행하세요.
+        </p>
+      )}
+    </div>
+  );
+}
+

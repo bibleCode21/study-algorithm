@@ -30,6 +30,7 @@ export interface ConceptCodeExamplesProps {
 // ConceptNavigation 컴포넌트 Props
 export interface ConceptNavigationProps {
     conceptType: Concept['type'];
+    conceptId?: string;
 }
 
 // ConceptCard 하위 컴포넌트 Props

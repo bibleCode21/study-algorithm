@@ -33,7 +33,7 @@ export default async function ConceptDetailPage({ params }: ConceptDetailPagePro
             <article className="mx-auto max-w-4xl px-6 md:px-8 py-12">
                 <ConceptHeader concept={concept} />
                 <ConceptViewWrapper concept={concept} codeExamples={highlightedCodeExamples} />
-                <ConceptNavigation conceptType={concept.type} />
+                <ConceptNavigation conceptType={concept.type} conceptId={concept.id} />
             </article>
         </main>
     );

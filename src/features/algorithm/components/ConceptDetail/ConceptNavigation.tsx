@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ConceptNavigationProps } from '@/features/algorithm/types/components';
 
-export default function ConceptNavigation({ conceptType }: ConceptNavigationProps) {
+export default function ConceptNavigation({ conceptType, conceptId }: ConceptNavigationProps) {
     const listPath = conceptType === 'data-structure' ? '/concepts/data-structures' : '/concepts/algorithms';
     const listLabel = conceptType === 'data-structure' ? '데이터 구조' : '알고리즘';
 
@@ -14,12 +14,22 @@ export default function ConceptNavigation({ conceptType }: ConceptNavigationProp
                 >
                     ← {listLabel} 목록
                 </Link>
-                <Link
-                    href="/"
-                    className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
-                >
-                    홈으로
-                </Link>
+                <div className="flex items-center gap-4">
+                    {conceptId && (
+                        <Link
+                            href={`/concept/${conceptId}/practice`}
+                            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium transition-colors"
+                        >
+                            문제 풀기
+                        </Link>
+                    )}
+                    <Link
+                        href="/"
+                        className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                    >
+                        홈으로
+                    </Link>
+                </div>
             </div>
         </footer>
     );
