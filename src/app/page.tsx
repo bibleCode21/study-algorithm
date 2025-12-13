@@ -9,6 +9,7 @@ export default function Home() {
             title: '데이터 구조',
             description: '알고리즘 학습 전 필수 데이터 구조 개념 학습',
             items: ['Array, Stack, Queue', 'Tree, Heap, Hash Table', 'Linked List 등'],
+            href: '/concepts/data-structures',
         },
         {
             icon: 'AL',
@@ -17,6 +18,7 @@ export default function Home() {
             title: '알고리즘',
             description: '다양한 알고리즘 개념 학습 및 시각화',
             items: ['정렬, 탐색 알고리즘', '그래프 알고리즘', '동적 프로그래밍'],
+            href: '/concepts/algorithms',
         },
         {
             icon: 'PR',
@@ -25,6 +27,7 @@ export default function Home() {
             title: '문제 풀이',
             description: '랜덤 문제 풀이를 통한 실전 연습',
             items: ['랜덤 문제 출제', '코드 에디터', '테스트 케이스 실행'],
+            href: '/practice',
         },
     ];
 
