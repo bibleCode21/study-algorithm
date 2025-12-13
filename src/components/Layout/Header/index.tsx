@@ -19,7 +19,7 @@ export default function Header() {
                             홈
                         </Link>
                         <Link
-                            href="/concept"
+                            href="/concepts/data-structures"
                             className="text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
                         >
                             개념
