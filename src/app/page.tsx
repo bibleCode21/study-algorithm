@@ -43,7 +43,7 @@ export default function Home() {
                         <h1 id="hero-heading" className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
                             알고리즘 정리
                         </h1>
-                        <p className="text-lg text-gray-600 mb-8">
+                        <p className="text-lg text-gray-600">
                             공부한 알고리즘들을 체계적으로 정리하고 시각화할 수 있는 웹 애플리케이션
                         </p>
                     </header>

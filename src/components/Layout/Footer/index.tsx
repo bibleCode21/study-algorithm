@@ -8,7 +8,7 @@ export default function Footer() {
                         <p>공부한 알고리즘들을 체계적으로 정리하고 시각화</p>
                     </div>
                     <div className="text-xs text-gray-500">
-                        <p>© 2024 알고리즘 정리. All rights reserved.</p>
+                        <p>© 2025 bibleCode21. All rights reserved.</p>
                     </div>
                 </div>
             </div>
