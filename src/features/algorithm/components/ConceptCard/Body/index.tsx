@@ -1,6 +1,6 @@
 import { ConceptCardBodyProps } from '@/features/algorithm/types/components';
 
-export default function ConceptCardBody({ concept }: ConceptCardBodyProps) {
+const ConceptCardBody = ({ concept }: ConceptCardBodyProps) => {
     return (
         <>
             <p className="text-sm text-gray-600 mb-4 line-clamp-3">

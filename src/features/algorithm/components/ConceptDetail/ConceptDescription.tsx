@@ -85,9 +85,9 @@ const parseMarkdown = (text: string): React.ReactNode[] => {
 
     flushList();
     return result;
-}
+};
 
-export default function ConceptDescription({ description }: ConceptDescriptionProps) {
+const ConceptDescription = ({ description }: ConceptDescriptionProps) => {
     return (
         <section className="mb-8">
             <h2 className="text-xl font-semibold text-gray-900 mb-3">설명</h2>

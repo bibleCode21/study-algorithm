@@ -44,12 +44,12 @@ export const highlightCode = async (code: string, language: string): Promise<str
     highlightCache.set(cacheKey, fallback);
     return fallback;
   }
-}
+};
 
 /**
  * HTML 이스케이프 유틸리티
  */
-function escapeHtml(text: string): string {
+const escapeHtml = (text: string): string => {
   const map: Record<string, string> = {
     '&': '&amp;',
     '<': '&lt;',

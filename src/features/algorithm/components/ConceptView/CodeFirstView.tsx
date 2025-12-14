@@ -4,7 +4,7 @@ import ConceptDescription from '@/features/algorithm/components/ConceptDetail/Co
 import AnnotatedCodeBlock from './AnnotatedCodeBlock';
 import { getCodeAnnotations } from '@/features/algorithm/utils/codeAnnotations';
 
-export default function CodeFirstView({ concept, codeExamples }: ConceptViewProps) {
+const CodeFirstView = ({ concept, codeExamples }: ConceptViewProps) => {
   return (
     <div className="space-y-8">
       <section>

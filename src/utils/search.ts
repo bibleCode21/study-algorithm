@@ -36,7 +36,7 @@ export const searchConcepts = (concepts: Concept[], query: string): Concept[] =>
 
         return false;
     });
-}
+};
 
 /**
  * 개념을 카테고리로 필터링합니다.
@@ -44,10 +44,10 @@ export const searchConcepts = (concepts: Concept[], query: string): Concept[] =>
  * @param categories 선택된 카테고리 배열
  * @returns 필터링된 개념 배열
  */
-export function filterByCategories(
-    concepts: Concept[],
-    categories: string[]
-): Concept[] {
+export const filterByCategories = (
+  concepts: Concept[],
+  categories: string[]
+): Concept[] => {
     if (categories.length === 0) {
         return concepts;
     }
