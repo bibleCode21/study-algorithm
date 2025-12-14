@@ -6,7 +6,7 @@ import { Concept } from '@/features/algorithm/types/algorithm';
  * @param query 검색어
  * @returns 필터링된 개념 배열
  */
-export function searchConcepts(concepts: Concept[], query: string): Concept[] {
+export const searchConcepts = (concepts: Concept[], query: string): Concept[] => {
     if (!query.trim()) {
         return concepts;
     }
@@ -55,5 +55,5 @@ export function filterByCategories(
     return concepts.filter((concept) =>
         concept.category.some((cat) => categories.includes(cat))
     );
-}
+};
 

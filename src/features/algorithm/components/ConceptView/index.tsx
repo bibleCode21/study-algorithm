@@ -3,7 +3,7 @@ import DefaultView from './DefaultView';
 import CompactView from './CompactView';
 import CodeFirstView from './CodeFirstView';
 
-export default function ConceptView({ concept, codeExamples, viewMode }: ConceptViewProps) {
+const ConceptView = ({ concept, codeExamples, viewMode }: ConceptViewProps) => {
     switch (viewMode) {
         case 'compact':
             return <CompactView concept={concept} codeExamples={codeExamples} viewMode={viewMode} />;
@@ -13,5 +13,7 @@ export default function ConceptView({ concept, codeExamples, viewMode }: Concept
         default:
             return <DefaultView concept={concept} codeExamples={codeExamples} viewMode={viewMode} />;
     }
-}
+};
+
+export default ConceptView;
 

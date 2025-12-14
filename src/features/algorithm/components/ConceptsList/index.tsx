@@ -7,7 +7,7 @@ import SearchBar from '@/components/SearchBar';
 import CategoryFilter from '@/features/algorithm/components/CategoryFilter';
 import { searchConcepts, filterByCategories } from '@/utils/search';
 
-export default function ConceptsList({ concepts }: ConceptsListProps) {
+const ConceptsList = ({ concepts }: ConceptsListProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
@@ -71,5 +71,7 @@ export default function ConceptsList({ concepts }: ConceptsListProps) {
       )}
     </div>
   );
-}
+};
+
+export default ConceptsList;
 

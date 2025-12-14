@@ -10,12 +10,12 @@ interface AnnotatedCodeBlockProps {
     annotations?: { line: number; comment: string }[];
 }
 
-export default function AnnotatedCodeBlock({
+const AnnotatedCodeBlock = ({
     language,
     code,
     highlightedHtml,
     annotations = [],
-}: AnnotatedCodeBlockProps) {
+}: AnnotatedCodeBlockProps) => {
     const [expandedLines, setExpandedLines] = useState<Set<number>>(new Set());
 
     const toggleLine = (line: number) => {
@@ -67,5 +67,7 @@ export default function AnnotatedCodeBlock({
             </div>
         </div>
     );
-}
+};
+
+export default AnnotatedCodeBlock;
 

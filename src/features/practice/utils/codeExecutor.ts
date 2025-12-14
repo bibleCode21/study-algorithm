@@ -1,9 +1,9 @@
 /**
  * TypeScript 코드를 JavaScript로 컴파일합니다.
  */
-export async function compileTypeScript(
+export const compileTypeScript = async (
   code: string
-): Promise<{ success: boolean; jsCode?: string; error?: string }> {
+): Promise<{ success: boolean; jsCode?: string; error?: string }> => {
   try {
     // 동적 import로 TypeScript 컴파일러 로드
     const ts = await import('typescript');
@@ -25,7 +25,36 @@ export async function compileTypeScript(
       error: error instanceof Error ? error.message : '컴파일 오류가 발생했습니다.',
     };
   }
-}
+};
+
+/**
+ * 깊은 복사를 수행하는 함수
+ */
+const deepClone = (obj: any): any => {
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+
+  if (obj instanceof Date) {
+    return new Date(obj.getTime());
+  }
+
+  if (obj instanceof Array) {
+    return obj.map((item) => deepClone(item));
+  }
+
+  if (typeof obj === 'object') {
+    const cloned: any = {};
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        cloned[key] = deepClone(obj[key]);
+      }
+    }
+    return cloned;
+  }
+
+  return obj;
+};
 
 /**
  * JavaScript 코드를 실행하고 결과를 반환합니다.
@@ -33,11 +62,14 @@ export async function compileTypeScript(
  * @param input 테스트 케이스 입력
  * @returns 실행 결과 또는 에러
  */
-export function executeCode(
+export const executeCode = (
   jsCode: string,
   input: any
-): { success: boolean; result?: any; error?: string } {
+): { success: boolean; result?: any; error?: string } => {
   try {
+    // 입력값을 깊은 복사하여 원본이 수정되지 않도록 함
+    const clonedInput = deepClone(input);
+
     // Function 생성자를 사용하여 안전하게 코드 실행
     // solution 함수를 추출하여 실행
     const wrappedCode = `
@@ -52,7 +84,7 @@ export function executeCode(
     `;
 
     const func = new Function('input', wrappedCode);
-    const result = func(input);
+    const result = func(clonedInput);
 
     return {
       success: true,
@@ -64,12 +96,12 @@ export function executeCode(
       error: error instanceof Error ? error.message : '코드 실행 중 오류가 발생했습니다.',
     };
   }
-}
+};
 
 /**
  * 두 값을 깊은 비교하여 같은지 확인합니다.
  */
-export function deepEqual(a: any, b: any): boolean {
+export const deepEqual = (a: any, b: any): boolean => {
   if (a === b) {
     return true;
   }
@@ -119,5 +151,5 @@ export function deepEqual(a: any, b: any): boolean {
   }
 
   return true;
-}
+};
 

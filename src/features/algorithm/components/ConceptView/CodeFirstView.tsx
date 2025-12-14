@@ -38,5 +38,7 @@ export default function CodeFirstView({ concept, codeExamples }: ConceptViewProp
       <ConceptDescription description={concept.description} />
     </div>
   );
-}
+};
+
+export default CodeFirstView;
 

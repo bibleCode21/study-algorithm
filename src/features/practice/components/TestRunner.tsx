@@ -17,7 +17,7 @@ interface TestResult {
     error?: string;
 }
 
-export default function TestRunner({ problem, code }: TestRunnerProps) {
+const TestRunner = ({ problem, code }: TestRunnerProps) => {
     const [results, setResults] = useState<TestResult[] | null>(null);
     const [isRunning, setIsRunning] = useState(false);
     const [compileError, setCompileError] = useState<string | null>(null);
@@ -195,5 +195,7 @@ export default function TestRunner({ problem, code }: TestRunnerProps) {
             )}
         </div>
     );
-}
+};
+
+export default TestRunner;
 

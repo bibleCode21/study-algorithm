@@ -1,7 +1,7 @@
 import { ConceptHeaderProps } from '@/features/algorithm/types/components';
 import Badge from '@/components/ui/Badge';
 
-export default function ConceptHeader({ concept }: ConceptHeaderProps) {
+const ConceptHeader = ({ concept }: ConceptHeaderProps) => {
     const typeLabel = concept.type === 'data-structure' ? '데이터 구조' : '알고리즘';
     const typeVariant = concept.type === 'data-structure' ? 'primary' : 'success';
 
@@ -36,5 +36,7 @@ export default function ConceptHeader({ concept }: ConceptHeaderProps) {
             </div>
         </header>
     );
-}
+};
+
+export default ConceptHeader;
 

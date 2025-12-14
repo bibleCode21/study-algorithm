@@ -9,7 +9,7 @@ interface SolutionViewProps {
   highlightedSolutionCode: string;
 }
 
-export default function SolutionView({ problem, highlightedSolutionCode }: SolutionViewProps) {
+const SolutionView = ({ problem, highlightedSolutionCode }: SolutionViewProps) => {
   const [showSolution, setShowSolution] = useState(false);
 
   if (!problem.solution) {
@@ -47,5 +47,7 @@ export default function SolutionView({ problem, highlightedSolutionCode }: Solut
       )}
     </div>
   );
-}
+};
+
+export default SolutionView;
 

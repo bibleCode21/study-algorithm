@@ -3,7 +3,7 @@ import { FeatureCardProps } from '@/features/home/types/components';
 import Card from '@/components/ui/Card';
 import FeatureCardHeader from './Header';
 
-export default function FeatureCard({
+const FeatureCard = ({
     icon,
     iconBgColor,
     iconTextColor,
@@ -11,7 +11,7 @@ export default function FeatureCard({
     description,
     items,
     href
-}: FeatureCardProps) {
+}: FeatureCardProps) => {
     return (
         <Link href={href}>
             <Card as="article" className="h-full">
@@ -30,5 +30,7 @@ export default function FeatureCard({
             </Card>
         </Link>
     );
-}
+};
+
+export default FeatureCard;
 

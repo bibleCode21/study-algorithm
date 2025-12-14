@@ -1,11 +1,11 @@
 import { FeatureCardHeaderProps } from '@/features/home/types/components';
 
-export default function FeatureCardHeader({
+const FeatureCardHeader = ({
     icon,
     iconBgColor,
     iconTextColor,
     title,
-}: FeatureCardHeaderProps) {
+}: FeatureCardHeaderProps) => {
     return (
         <header className="flex items-center gap-3 mb-4">
             <div className={`w-10 h-10 ${iconBgColor} rounded-lg flex items-center justify-center`}>
@@ -14,5 +14,7 @@ export default function FeatureCardHeader({
             <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
         </header>
     );
-}
+};
+
+export default FeatureCardHeader;
 

@@ -5,7 +5,7 @@ import PracticeListClient from '@/features/practice/components/PracticeListClien
 // 정적 페이지로 생성 (문제 목록은 자주 변경되지 않음)
 export const dynamic = 'force-static';
 
-export default function PracticePage() {
+const PracticePage = () => {
   // 문제와 관련 개념 정보를 결합
   const problemsWithConcept = problems.map((problem) => {
     const concept = concepts.find((c) => c.id === problem.conceptId);
@@ -16,5 +16,7 @@ export default function PracticePage() {
   });
 
   return <PracticeListClient problems={problemsWithConcept} />;
-}
+};
+
+export default PracticePage;
 

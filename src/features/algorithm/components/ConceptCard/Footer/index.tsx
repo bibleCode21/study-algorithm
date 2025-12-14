@@ -1,6 +1,6 @@
 import { ConceptCardFooterProps } from '@/features/algorithm/types/components';
 
-export default function ConceptCardFooter({ tags }: ConceptCardFooterProps) {
+const ConceptCardFooter = ({ tags }: ConceptCardFooterProps) => {
     return (
         <footer className="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-gray-100">
             {tags.slice(0, 3).map((tag) => (
@@ -16,5 +16,7 @@ export default function ConceptCardFooter({ tags }: ConceptCardFooterProps) {
             )}
         </footer>
     );
-}
+};
+
+export default ConceptCardFooter;
 

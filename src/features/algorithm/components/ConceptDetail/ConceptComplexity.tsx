@@ -1,9 +1,9 @@
 import { ConceptComplexityProps } from '@/features/algorithm/types/components';
 
-export default function ConceptComplexity({
+const ConceptComplexity = ({
     timeComplexity,
     spaceComplexity,
-}: ConceptComplexityProps) {
+}: ConceptComplexityProps) => {
     return (
         <section className="mb-8">
             <h2 className="text-xl font-semibold text-gray-900 mb-3">복잡도</h2>
@@ -44,5 +44,7 @@ export default function ConceptComplexity({
             </div>
         </section>
     );
-}
+};
+
+export default ConceptComplexity;
 

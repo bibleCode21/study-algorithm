@@ -27,5 +27,7 @@ export default function ConceptCardBody({ concept }: ConceptCardBodyProps) {
             )}
         </>
     );
-}
+};
+
+export default ConceptCardBody;
 

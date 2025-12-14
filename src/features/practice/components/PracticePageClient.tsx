@@ -20,11 +20,11 @@ const defaultCode = `function solution(input: any): any {
   return input;
 }`;
 
-export default function PracticePageClient({
+const PracticePageClient = ({
   concept,
   problem,
   highlightedSolutionCode,
-}: PracticePageClientProps) {
+}: PracticePageClientProps) => {
   const [code, setCode] = useState(defaultCode);
 
   return (
@@ -47,5 +47,7 @@ export default function PracticePageClient({
       </div>
     </main>
   );
-}
+};
+
+export default PracticePageClient;
 

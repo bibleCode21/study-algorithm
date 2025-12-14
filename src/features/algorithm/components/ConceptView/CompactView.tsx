@@ -1,6 +1,6 @@
 import { ConceptViewProps } from '@/features/algorithm/types/components';
 
-export default function CompactView({ concept }: ConceptViewProps) {
+const CompactView = ({ concept }: ConceptViewProps) => {
   // 설명을 요약 (첫 2-3 문장만)
   const summary = concept.description.split(/[.!?]\s+/).slice(0, 2).join('. ') + '.';
 
@@ -66,5 +66,7 @@ export default function CompactView({ concept }: ConceptViewProps) {
       )}
     </div>
   );
-}
+};
+
+export default CompactView;
 

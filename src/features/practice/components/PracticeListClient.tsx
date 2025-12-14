@@ -25,7 +25,7 @@ const difficultyLabels = {
   hard: '어려움',
 } as const;
 
-export default function PracticeListClient({ problems }: PracticeListClientProps) {
+const PracticeListClient = ({ problems }: PracticeListClientProps) => {
   return (
     <main className="bg-gray-50 min-h-screen">
       <div className="mx-auto max-w-7xl px-6 md:px-8 py-12">
@@ -84,5 +84,7 @@ export default function PracticeListClient({ problems }: PracticeListClientProps
       </div>
     </main>
   );
-}
+};
+
+export default PracticeListClient;
 

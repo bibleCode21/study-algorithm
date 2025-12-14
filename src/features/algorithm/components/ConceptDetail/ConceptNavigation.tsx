@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ConceptNavigationProps } from '@/features/algorithm/types/components';
 
-export default function ConceptNavigation({ conceptType, conceptId }: ConceptNavigationProps) {
+const ConceptNavigation = ({ conceptType, conceptId }: ConceptNavigationProps) => {
     const listPath = conceptType === 'data-structure' ? '/concepts/data-structures' : '/concepts/algorithms';
     const listLabel = conceptType === 'data-structure' ? '데이터 구조' : '알고리즘';
 
@@ -33,5 +33,7 @@ export default function ConceptNavigation({ conceptType, conceptId }: ConceptNav
             </div>
         </footer>
     );
-}
+};
+
+export default ConceptNavigation;
 

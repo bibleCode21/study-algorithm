@@ -3,7 +3,7 @@ import ConceptDescription from '@/features/algorithm/components/ConceptDetail/Co
 import ConceptComplexity from '@/features/algorithm/components/ConceptDetail/ConceptComplexity';
 import ConceptCodeExamples from '@/features/algorithm/components/ConceptDetail/ConceptCodeExamples';
 
-export default function DefaultView({ concept, codeExamples }: ConceptViewProps) {
+const DefaultView = ({ concept, codeExamples }: ConceptViewProps) => {
     return (
         <>
             <ConceptDescription description={concept.description} />
@@ -16,5 +16,7 @@ export default function DefaultView({ concept, codeExamples }: ConceptViewProps)
             <ConceptCodeExamples codeExamples={codeExamples} />
         </>
     );
-}
+};
+
+export default DefaultView;
 

@@ -4,7 +4,7 @@ import { concepts } from '@/data/concepts';
 // 정적 페이지로 생성 (데이터 구조 목록은 자주 변경되지 않음)
 export const dynamic = 'force-static';
 
-export default function DataStructuresPage() {
+const DataStructuresPage = () => {
   const dataStructures = concepts.filter((c) => c.type === 'data-structure');
 
   return (
@@ -25,5 +25,7 @@ export default function DataStructuresPage() {
       </section>
     </main>
   );
-}
+};
+
+export default DataStructuresPage;
 

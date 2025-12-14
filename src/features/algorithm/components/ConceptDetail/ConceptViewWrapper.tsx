@@ -14,7 +14,7 @@ interface ConceptViewWrapperProps {
 
 const STORAGE_KEY = 'concept-view-mode';
 
-export default function ConceptViewWrapper({ concept, codeExamples }: ConceptViewWrapperProps) {
+const ConceptViewWrapper = ({ concept, codeExamples }: ConceptViewWrapperProps) => {
     const [viewMode, setViewMode] = useState<ViewMode>('default');
 
   // 로컬 스토리지에서 저장된 뷰 모드 불러오기
@@ -39,5 +39,7 @@ export default function ConceptViewWrapper({ concept, codeExamples }: ConceptVie
             <ConceptView concept={concept} codeExamples={codeExamples} viewMode={viewMode} />
         </div>
     );
-}
+};
+
+export default ConceptViewWrapper;
 

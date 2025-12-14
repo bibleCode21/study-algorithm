@@ -7,7 +7,7 @@ interface ProblemDescriptionProps {
   problem: Problem;
 }
 
-export default function ProblemDescription({ problem }: ProblemDescriptionProps) {
+const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
   const [showHints, setShowHints] = useState(false);
 
   return (
@@ -79,5 +79,7 @@ export default function ProblemDescription({ problem }: ProblemDescriptionProps)
       )}
     </div>
   );
-}
+};
+
+export default ProblemDescription;
 

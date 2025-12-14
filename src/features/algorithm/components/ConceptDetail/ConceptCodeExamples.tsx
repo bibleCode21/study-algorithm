@@ -3,7 +3,7 @@
 import { ConceptCodeExamplesProps } from '@/features/algorithm/types/components';
 import CodeBlockClient from '@/components/CodeBlock/CodeBlockClient';
 
-export default function ConceptCodeExamples({ codeExamples }: ConceptCodeExamplesProps) {
+const ConceptCodeExamples = ({ codeExamples }: ConceptCodeExamplesProps) => {
     if (codeExamples.length === 0) {
         return null;
     }
@@ -24,5 +24,7 @@ export default function ConceptCodeExamples({ codeExamples }: ConceptCodeExample
             </div>
         </section>
     );
-}
+};
+
+export default ConceptCodeExamples;
 

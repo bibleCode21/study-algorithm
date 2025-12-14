@@ -11,7 +11,7 @@ const CACHE_SIZE_LIMIT = 100; // 최대 캐시 항목 수
  * @param language 언어 (typescript, javascript, python 등)
  * @returns 하이라이팅된 HTML 문자열
  */
-export async function highlightCode(code: string, language: string): Promise<string> {
+export const highlightCode = async (code: string, language: string): Promise<string> => {
   // 캐시 키 생성
   const cacheKey = `${language}:${code}`;
   
@@ -58,5 +58,5 @@ function escapeHtml(text: string): string {
     "'": '&#039;',
   };
   return text.replace(/[&<>"']/g, (m) => map[m]);
-}
+};
 

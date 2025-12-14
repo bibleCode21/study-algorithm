@@ -1,11 +1,11 @@
 import { CardProps } from '@/types/ui';
 
-export default function Card({
+const Card = ({
     children,
     className = '',
     as: Component = 'article',
     onClick
-}: CardProps) {
+}: CardProps) => {
     const baseClasses = 'bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow';
     const clickableClasses = onClick ? 'cursor-pointer' : '';
 
@@ -17,5 +17,7 @@ export default function Card({
             {children}
         </Component>
     );
-}
+};
+
+export default Card;
 

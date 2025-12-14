@@ -3,11 +3,11 @@
 import Badge from '@/components/ui/Badge';
 import { CategoryFilterProps } from '@/features/algorithm/types/components';
 
-export default function CategoryFilter({
+const CategoryFilter = ({
     categories,
     selectedCategories,
     onCategoryChange,
-}: CategoryFilterProps) {
+}: CategoryFilterProps) => {
     const handleCategoryToggle = (category: string) => {
         if (selectedCategories.includes(category)) {
             onCategoryChange(selectedCategories.filter((c) => c !== category));
@@ -39,5 +39,7 @@ export default function CategoryFilter({
             })}
         </div>
     );
-}
+};
+
+export default CategoryFilter;
 

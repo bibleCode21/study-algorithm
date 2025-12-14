@@ -102,15 +102,15 @@ const annotations: CodeAnnotationsMap = {
  * @param code 실제 코드 (라인 수 검증용)
  * @returns 코드 해석 배열
  */
-export function getCodeAnnotations(
+export const getCodeAnnotations = (
   conceptId: string,
   language: string,
   code: string
-): CodeAnnotation[] {
+): CodeAnnotation[] => {
   const codeLines = code.split('\n');
   const rawAnnotations = annotations[conceptId]?.[language] || [];
 
   // 실제 코드 라인 수에 맞춰 필터링
   return rawAnnotations.filter((ann) => ann.line <= codeLines.length);
-}
+};
 

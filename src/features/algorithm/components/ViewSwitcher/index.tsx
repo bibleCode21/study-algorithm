@@ -8,7 +8,7 @@ const viewOptions: { value: ViewSwitcherProps['currentView']; label: string; ico
     { value: 'codeFirst', label: '코드 중심', icon: '💻' },
 ];
 
-export default function ViewSwitcher({ currentView, onViewChange }: ViewSwitcherProps) {
+const ViewSwitcher = ({ currentView, onViewChange }: ViewSwitcherProps) => {
     return (
         <div className="flex items-center gap-2 p-1 bg-gray-100 rounded-lg">
             {viewOptions.map((option) => (
@@ -29,5 +29,7 @@ export default function ViewSwitcher({ currentView, onViewChange }: ViewSwitcher
             ))}
         </div>
     );
-}
+};
+
+export default ViewSwitcher;
 

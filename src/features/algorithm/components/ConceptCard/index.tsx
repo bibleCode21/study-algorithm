@@ -5,7 +5,7 @@ import ConceptCardHeader from './Header';
 import ConceptCardBody from './Body';
 import ConceptCardFooter from './Footer';
 
-export default function ConceptCard({ concept }: ConceptCardProps) {
+const ConceptCard = ({ concept }: ConceptCardProps) => {
   return (
     <Link href={`/concept/${concept.id}`}>
       <Card className="h-full">
@@ -15,5 +15,7 @@ export default function ConceptCard({ concept }: ConceptCardProps) {
       </Card>
     </Link>
   );
-}
+};
+
+export default ConceptCard;
 

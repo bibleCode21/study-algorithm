@@ -9,12 +9,12 @@ interface CodeBlockClientProps {
     className?: string;
 }
 
-export default function CodeBlockClient({
+const CodeBlockClient = ({
     language,
     code,
     highlightedHtml,
     className = '',
-}: CodeBlockClientProps) {
+}: CodeBlockClientProps) => {
     const [copied, setCopied] = useState(false);
 
     const handleCopy = async () => {
@@ -66,5 +66,7 @@ export default function CodeBlockClient({
             />
         </div>
     );
-}
+};
+
+export default CodeBlockClient;
 

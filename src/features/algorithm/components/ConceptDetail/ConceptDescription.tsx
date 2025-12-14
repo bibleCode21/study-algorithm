@@ -8,7 +8,7 @@ import { ConceptDescriptionProps } from '@/features/algorithm/types/components';
  * - **텍스트**: 볼드 처리
  * - - 리스트: 리스트 아이템으로 렌더링
  */
-function parseMarkdown(text: string): React.ReactNode[] {
+const parseMarkdown = (text: string): React.ReactNode[] => {
     const lines = text.split('\n');
     const result: React.ReactNode[] = [];
     let currentList: string[] = [];
@@ -96,5 +96,7 @@ export default function ConceptDescription({ description }: ConceptDescriptionPr
             </div>
         </section>
     );
-}
+};
+
+export default ConceptDescription;
 

@@ -20,7 +20,7 @@ const difficultyLabels = {
   hard: '어려움',
 } as const;
 
-export default function ProblemHeader({ concept, problem }: ProblemHeaderProps) {
+const ProblemHeader = ({ concept, problem }: ProblemHeaderProps) => {
   return (
     <header className="bg-white rounded-lg border border-gray-200 p-6">
       <div className="flex items-start justify-between gap-4 mb-4">
@@ -50,5 +50,7 @@ export default function ProblemHeader({ concept, problem }: ProblemHeaderProps) 
       </div>
     </header>
   );
-}
+};
+
+export default ProblemHeader;
 

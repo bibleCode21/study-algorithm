@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import { SearchBarProps } from '@/types/ui';
 
-export default function SearchBar({
+const SearchBar = ({
     placeholder = '검색...',
     onSearch,
     className = '',
-}: SearchBarProps) {
+}: SearchBarProps) => {
     const [query, setQuery] = useState('');
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,5 +40,7 @@ export default function SearchBar({
             </svg>
         </div>
     );
-}
+};
+
+export default SearchBar;
 

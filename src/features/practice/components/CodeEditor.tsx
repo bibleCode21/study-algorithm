@@ -28,7 +28,7 @@ const defaultCode = `function solution(input: any): any {
   return input;
 }`;
 
-export default function CodeEditor({ problem, code, onCodeChange }: CodeEditorProps) {
+const CodeEditor = ({ problem, code, onCodeChange }: CodeEditorProps) => {
     const editorRef = useRef<any>(null);
 
     const handleEditorDidMount = (editor: any) => {
@@ -76,5 +76,7 @@ export default function CodeEditor({ problem, code, onCodeChange }: CodeEditorPr
             </div>
         </div>
     );
-}
+};
+
+export default CodeEditor;
 
