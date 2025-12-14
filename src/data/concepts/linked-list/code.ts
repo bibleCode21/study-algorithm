@@ -21,7 +21,7 @@ const node2 = new Node(2);
 node1.next = node2;
 const head = node1;
 
-// head -> node1(1) -> node2(2) -> null`,
+// head (node1(1)) -> node2(2) -> null`,
   },
   {
     language: 'typescript',
@@ -59,7 +59,7 @@ for (let index = 1; index < 10; index++) {
   add(index);
 }
 
-// 결과: head -> 0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> null`,
+// 결과: head (0) -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> null`,
   },
   {
     language: 'typescript',
