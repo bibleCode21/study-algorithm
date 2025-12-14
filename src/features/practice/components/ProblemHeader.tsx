@@ -25,12 +25,21 @@ const ProblemHeader = ({ concept, problem }: ProblemHeaderProps) => {
     <header className="bg-white rounded-lg border border-gray-200 p-6">
       <div className="flex items-start justify-between gap-4 mb-4">
         <div className="flex-1">
-          <Link
-            href={`/concept/${concept.id}`}
-            className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-block"
-          >
-            ← {concept.title}로 돌아가기
-          </Link>
+          <div className="flex items-center gap-3 mb-2 flex-wrap">
+            <Link
+              href="/practice"
+              className="text-sm text-gray-500 hover:text-gray-700 inline-block"
+            >
+              ← 문제풀이 목록
+            </Link>
+            <span className="text-gray-300">|</span>
+            <Link
+              href={`/concept/${concept.id}`}
+              className="text-sm text-gray-500 hover:text-gray-700 inline-block"
+            >
+              {concept.title}로 돌아가기
+            </Link>
+          </div>
           <h1 className="text-2xl font-bold text-gray-900">{problem.title}</h1>
         </div>
         <Badge variant={difficultyColors[problem.difficulty]} size="md">
