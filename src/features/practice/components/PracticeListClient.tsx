@@ -4,7 +4,8 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Badge from '@/components/ui/Badge';
 import Pagination from '@/components/ui/Pagination';
-import { PracticeListClientProps, ProblemWithConcept } from '@/features/practice/types/components';
+import { PracticeListClientProps } from '@/features/practice/types/components';
+import { Concept } from '@/features/algorithm/types/algorithm';
 
 const ITEMS_PER_PAGE = 9;
 
@@ -20,7 +21,7 @@ const difficultyLabels = {
   hard: '어려움',
 } as const;
 
-const PracticeListClient = ({ problems, concepts }: PracticeListClientProps) => {
+const PracticeListClient = ({ problems }: PracticeListClientProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
   const [selectedConcept, setSelectedConcept] = useState<string>('전체');

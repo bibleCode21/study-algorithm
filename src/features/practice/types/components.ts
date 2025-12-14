@@ -25,7 +25,6 @@ export interface ProblemWithConcept extends Problem {
 // PracticeListClient 컴포넌트 Props
 export interface PracticeListClientProps {
     problems: ProblemWithConcept[];
-    concepts: Concept[];
 }
 
 // TestRunner 컴포넌트 Props
