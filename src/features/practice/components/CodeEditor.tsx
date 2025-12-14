@@ -41,7 +41,9 @@ const CodeEditor = ({
     onTemplateChange
 }: CodeEditorProps) => {
     const editorRef = useRef<any>(null);
-    const hasMultipleTemplates = Array.isArray(problem.templateCode) && problem.templateCode.length > 1;
+    const templateCodes = Array.isArray(problem.templateCode) && problem.templateCode.length > 1 
+        ? problem.templateCode 
+        : null;
 
     const handleEditorDidMount = (editor: any) => {
         editorRef.current = editor;
@@ -71,9 +73,9 @@ const CodeEditor = ({
             <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-gray-900">코드 작성</h2>
                 <div className="flex items-center gap-2">
-                    {hasMultipleTemplates && (
+                    {templateCodes && (
                         <div className="flex items-center gap-2 mr-2">
-                            {problem.templateCode!.map((_, index) => (
+                            {templateCodes.map((_, index) => (
                                 <button
                                     key={index}
                                     onClick={() => handleTemplateChange(index)}
