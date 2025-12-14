@@ -15,7 +15,7 @@ const PracticePage = () => {
     };
   });
 
-  return <PracticeListClient problems={problemsWithConcept} />;
+  return <PracticeListClient problems={problemsWithConcept} concepts={concepts} />;
 };
 
 export default PracticePage;
