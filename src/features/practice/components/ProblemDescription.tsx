@@ -1,11 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Problem } from '@/features/practice/types/problem';
-
-interface ProblemDescriptionProps {
-  problem: Problem;
-}
+import { ProblemDescriptionProps } from '@/features/practice/types/components';
 
 const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
   const [showHints, setShowHints] = useState(false);

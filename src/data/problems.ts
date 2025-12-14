@@ -1044,6 +1044,575 @@ function solution(input: { values: number[]; cycleIndex: number }): boolean {
     ],
     tags: ['링크드 리스트', '사이클', '투 포인터', '중급'],
   },
+  {
+    id: 'linked-list-node-mgmt',
+    conceptId: 'linked-list',
+    title: 'NodeMgmt 클래스 구현하기',
+    difficulty: 'medium',
+    description:
+      '링크드 리스트를 관리하는 NodeMgmt 클래스를 구현하세요. Node 클래스와 NodeMgmt 클래스를 작성하고, add, desc, delete, searchNode 메서드를 구현하세요.',
+    examples: [
+      {
+        input: '{ operations: ["add", "add", "add", "desc"], values: [1, 2, 3] }',
+        output: '[1, 2, 3]',
+        explanation: '1, 2, 3을 순서대로 추가한 후 desc()로 모든 데이터를 반환합니다.',
+      },
+    ],
+    constraints: [
+      'Node 클래스와 NodeMgmt 클래스를 모두 구현해야 합니다.',
+      'add 메서드는 링크드 리스트 끝에 데이터를 추가합니다.',
+      'desc 메서드는 링크드 리스트의 모든 데이터를 배열로 반환합니다.',
+      'delete 메서드는 특정 값을 가진 노드를 삭제합니다.',
+      'searchNode 메서드는 특정 값을 가진 노드를 반환합니다.',
+    ],
+    testCases: [
+      {
+        input: {
+          operations: ['add', 'add', 'add', 'desc'],
+          values: [1, 2, 3],
+        },
+        expectedOutput: [1, 2, 3],
+      },
+      {
+        input: {
+          operations: ['add', 'add', 'delete', 'desc'],
+          values: [1, 2, 1],
+        },
+        expectedOutput: [2],
+      },
+    ],
+    templateCode: [
+      `// Node 클래스와 NodeMgmt 클래스를 구현하세요
+class Node<T> {
+  // 여기에 Node 클래스를 작성하세요
+}
+
+class NodeMgmt<T> {
+  // 여기에 NodeMgmt 클래스를 작성하세요
+}
+
+const solution = (input: { operations: string[]; values: number[] }): any => {
+  // NodeMgmt 인스턴스를 생성하고 operations를 수행한 후 결과를 반환하세요
+  return [];
+};`,
+    ],
+    templateDescriptions: ['클래스 작성'],
+    solution: {
+      code: `class Node<T> {
+  data: T;
+  next: Node<T> | null = null;
+
+  constructor(data: T, next: Node<T> | null = null) {
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class NodeMgmt<T> {
+  private head: Node<T> | null = null;
+
+  constructor(data: T) {
+    this.head = new Node(data);
+  }
+
+  add(data: T): void {
+    if (this.head === null) {
+      this.head = new Node(data);
+      return;
+    }
+
+    let node = this.head;
+    while (node.next !== null) {
+      node = node.next;
+    }
+    node.next = new Node(data);
+  }
+
+  desc(): T[] {
+    const result: T[] = [];
+    let node = this.head;
+    
+    while (node !== null) {
+      result.push(node.data);
+      node = node.next;
+    }
+    
+    return result;
+  }
+
+  delete(data: T): boolean {
+    if (this.head === null) {
+      return false;
+    }
+
+    if (this.head.data === data) {
+      this.head = this.head.next;
+      return true;
+    }
+
+    let node = this.head;
+    while (node.next !== null) {
+      if (node.next.data === data) {
+        node.next = node.next.next;
+        return true;
+      }
+      node = node.next;
+    }
+
+    return false;
+  }
+
+  searchNode(data: T): Node<T> | null {
+    let node = this.head;
+    
+    while (node !== null) {
+      if (node.data === data) {
+        return node;
+      }
+      node = node.next;
+    }
+    
+    return null;
+  }
+}
+
+const solution = (input: { operations: string[]; values: number[] }): any => {
+  if (input.values.length === 0) {
+    return [];
+  }
+
+  const nodeMgmt = new NodeMgmt(input.values[0]);
+  let valueIndex = 1;
+
+  for (const op of input.operations) {
+    if (op === 'add' && valueIndex < input.values.length) {
+      nodeMgmt.add(input.values[valueIndex++]);
+    } else if (op === 'delete' && valueIndex < input.values.length) {
+      nodeMgmt.delete(input.values[valueIndex++]);
+    } else if (op === 'desc') {
+      return nodeMgmt.desc();
+    }
+  }
+
+  return nodeMgmt.desc();
+};`,
+      language: 'typescript',
+      explanation:
+        'Node 클래스는 데이터와 next 포인터를 가지고 있고, NodeMgmt 클래스는 head를 관리하며 add, desc, delete, searchNode 메서드를 제공합니다.',
+    },
+    hints: [
+      'Node 클래스는 data와 next 필드를 가져야 합니다.',
+      'NodeMgmt 클래스는 head를 private 필드로 관리합니다.',
+      'add 메서드는 링크드 리스트의 끝까지 순회한 후 새 노드를 추가합니다.',
+      'delete 메서드는 head 노드 삭제와 중간 노드 삭제를 구분하여 처리합니다.',
+    ],
+    tags: ['링크드 리스트', '클래스', 'NodeMgmt', '중급'],
+  },
+  {
+    id: 'linked-list-doubly',
+    conceptId: 'linked-list',
+    title: '더블 링크드 리스트 (Doubly Linked List) 구현하기',
+    difficulty: 'medium',
+    description:
+      '양방향으로 연결된 더블 링크드 리스트를 구현하세요. Node 클래스에 prev 포인터를 추가하고, NodeMgmt 클래스에 head와 tail을 관리하며, insert, desc, searchFromHead, searchFromTail 메서드를 구현하세요.',
+    examples: [
+      {
+        input: '{ operations: ["insert", "insert", "insert", "desc"], values: [1, 2, 3] }',
+        output: '[1, 2, 3]',
+        explanation: '1, 2, 3을 순서대로 삽입한 후 desc()로 모든 데이터를 반환합니다.',
+      },
+    ],
+    constraints: [
+      'Node 클래스는 prev와 next 포인터를 모두 가져야 합니다.',
+      'NodeMgmt 클래스는 head와 tail을 모두 관리해야 합니다.',
+      'insert 메서드는 링크드 리스트 끝에 데이터를 추가합니다.',
+      'searchFromHead는 head에서부터 검색합니다.',
+      'searchFromTail은 tail에서부터 검색합니다.',
+    ],
+    testCases: [
+      {
+        input: {
+          operations: ['insert', 'insert', 'insert', 'desc'],
+          values: [1, 2, 3],
+        },
+        expectedOutput: [1, 2, 3],
+      },
+      {
+        input: {
+          operations: ['insert', 'insert', 'searchFromHead', 'desc'],
+          values: [1, 2, 1],
+        },
+        expectedOutput: [1, 2],
+      },
+    ],
+    templateCode: [
+      `// 더블 링크드 리스트의 Node 클래스와 NodeMgmt 클래스를 구현하세요
+class Node<T> {
+  // prev, data, next 필드를 가진 Node 클래스를 작성하세요
+}
+
+class NodeMgmt<T> {
+  // head와 tail을 관리하는 NodeMgmt 클래스를 작성하세요
+  // insert, desc, searchFromHead, searchFromTail 메서드를 구현하세요
+}
+
+const solution = (input: { operations: string[]; values: number[] }): any => {
+  // NodeMgmt 인스턴스를 생성하고 operations를 수행한 후 결과를 반환하세요
+  return [];
+};`,
+    ],
+    templateDescriptions: ['더블 링크드 리스트 클래스 작성'],
+    solution: {
+      code: `class Node<T> {
+  prev: Node<T> | null = null;
+  data: T;
+  next: Node<T> | null = null;
+
+  constructor(data: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
+    this.prev = prev;
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class NodeMgmt<T> {
+  private head: Node<T> | null = null;
+  private tail: Node<T> | null = null;
+
+  constructor(data: T) {
+    this.head = new Node(data);
+    this.tail = this.head;
+  }
+
+  insert(data: T): void {
+    if (this.head === null) {
+      this.head = new Node(data);
+      this.tail = this.head;
+      return;
+    }
+
+    let node = this.head;
+    while (node.next !== null) {
+      node = node.next;
+    }
+    
+    const new_node = new Node(data);
+    node.next = new_node;
+    new_node.prev = node;
+    this.tail = new_node;
+  }
+
+  desc(): T[] {
+    const result: T[] = [];
+    let node = this.head;
+    
+    while (node !== null) {
+      result.push(node.data);
+      node = node.next;
+    }
+    
+    return result;
+  }
+
+  searchFromHead(data: T): Node<T> | null {
+    if (this.head === null) {
+      return null;
+    }
+
+    let node = this.head;
+    while (node !== null) {
+      if (node.data === data) {
+        return node;
+      }
+      node = node.next;
+    }
+    
+    return null;
+  }
+
+  searchFromTail(data: T): Node<T> | null {
+    if (this.tail === null) {
+      return null;
+    }
+
+    let node = this.tail;
+    while (node !== null) {
+      if (node.data === data) {
+        return node;
+      }
+      node = node.prev;
+    }
+    
+    return null;
+  }
+}
+
+const solution = (input: { operations: string[]; values: number[] }): any => {
+  if (input.values.length === 0) {
+    return [];
+  }
+
+  const nodeMgmt = new NodeMgmt(input.values[0]);
+  let valueIndex = 1;
+
+  for (const op of input.operations) {
+    if (op === 'insert' && valueIndex < input.values.length) {
+      nodeMgmt.insert(input.values[valueIndex++]);
+    } else if (op === 'desc') {
+      return nodeMgmt.desc();
+    } else if (op === 'searchFromHead' && valueIndex < input.values.length) {
+      const node = nodeMgmt.searchFromHead(input.values[valueIndex++]);
+      return node ? node.data : null;
+    } else if (op === 'searchFromTail' && valueIndex < input.values.length) {
+      const node = nodeMgmt.searchFromTail(input.values[valueIndex++]);
+      return node ? node.data : null;
+    }
+  }
+
+  return nodeMgmt.desc();
+};`,
+      language: 'typescript',
+      explanation:
+        '더블 링크드 리스트는 각 노드가 prev와 next 포인터를 모두 가지고 있어 양방향 탐색이 가능합니다. head와 tail을 모두 관리하여 양쪽 끝에서 검색할 수 있습니다.',
+    },
+    hints: [
+      'Node 클래스는 prev, data, next 세 개의 필드를 가져야 합니다.',
+      'insert 시 이전 노드의 next와 새 노드의 prev를 연결해야 합니다.',
+      'searchFromHead는 next 포인터를 따라가며 검색합니다.',
+      'searchFromTail은 prev 포인터를 따라가며 검색합니다.',
+    ],
+    tags: ['링크드 리스트', '더블 링크드 리스트', '양방향', '중급'],
+  },
+  {
+    id: 'linked-list-insert-before',
+    conceptId: 'linked-list',
+    title: '더블 링크드 리스트: 특정 노드 앞에 데이터 추가하기',
+    difficulty: 'hard',
+    description:
+      '더블 링크드 리스트에서 특정 노드 앞에 데이터를 추가하는 insertBefore 메서드를 구현하세요. tail에서부터 검색하여 특정 값을 가진 노드를 찾은 후, 그 노드 앞에 새 데이터를 삽입하세요.',
+    examples: [
+      {
+        input: '{ values: [1, 2, 3, 4], insertBefore: [{ data: 1.5, beforeData: 2 }] }',
+        output: '[1, 1.5, 2, 3, 4]',
+        explanation: '값이 2인 노드 앞에 1.5를 삽입합니다.',
+      },
+    ],
+    constraints: [
+      'tail에서부터 검색하여 특정 노드를 찾아야 합니다.',
+      'head 앞에 삽입하는 경우도 처리해야 합니다.',
+      '중간 노드 앞에 삽입하는 경우도 처리해야 합니다.',
+      '찾는 노드가 없으면 false를 반환합니다.',
+    ],
+    testCases: [
+      {
+        input: {
+          values: [1, 2, 3, 4],
+          insertBefore: [{ data: 1.5, beforeData: 2 }],
+        },
+        expectedOutput: [1, 1.5, 2, 3, 4],
+      },
+      {
+        input: {
+          values: [1, 2, 3],
+          insertBefore: [{ data: 0.5, beforeData: 1 }],
+        },
+        expectedOutput: [0.5, 1, 2, 3],
+      },
+    ],
+    templateCode: [
+      `// 더블 링크드 리스트의 insertBefore 메서드를 구현하세요
+class Node<T> {
+  prev: Node<T> | null = null;
+  data: T;
+  next: Node<T> | null = null;
+
+  constructor(data: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
+    this.prev = prev;
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class NodeMgmt<T> {
+  private head: Node<T> | null = null;
+  private tail: Node<T> | null = null;
+
+  constructor(data: T) {
+    this.head = new Node(data);
+    this.tail = this.head;
+  }
+
+  insert(data: T): void {
+    if (this.head === null) {
+      this.head = new Node(data);
+      this.tail = this.head;
+      return;
+    }
+
+    let node = this.head;
+    while (node.next !== null) {
+      node = node.next;
+    }
+    
+    const new_node = new Node(data);
+    node.next = new_node;
+    new_node.prev = node;
+    this.tail = new_node;
+  }
+
+  desc(): T[] {
+    const result: T[] = [];
+    let node = this.head;
+    
+    while (node !== null) {
+      result.push(node.data);
+      node = node.next;
+    }
+    
+    return result;
+  }
+
+  // insertBefore 메서드를 구현하세요
+  insertBefore(data: T, beforeData: T): boolean {
+    // tail에서부터 검색하여 beforeData를 가진 노드를 찾고, 그 앞에 data를 삽입하세요
+    return false;
+  }
+}
+
+const solution = (input: { values: number[]; insertBefore: Array<{ data: number; beforeData: number }> }): number[] => {
+  if (input.values.length === 0) {
+    return [];
+  }
+
+  const nodeMgmt = new NodeMgmt(input.values[0]);
+  for (let i = 1; i < input.values.length; i++) {
+    nodeMgmt.insert(input.values[i]);
+  }
+
+  for (const { data, beforeData } of input.insertBefore) {
+    nodeMgmt.insertBefore(data, beforeData);
+  }
+
+  return nodeMgmt.desc();
+};`,
+    ],
+    templateDescriptions: ['insertBefore 메서드 작성'],
+    solution: {
+      code: `class Node<T> {
+  prev: Node<T> | null = null;
+  data: T;
+  next: Node<T> | null = null;
+
+  constructor(data: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
+    this.prev = prev;
+    this.data = data;
+    this.next = next;
+  }
+}
+
+class NodeMgmt<T> {
+  private head: Node<T> | null = null;
+  private tail: Node<T> | null = null;
+
+  constructor(data: T) {
+    this.head = new Node(data);
+    this.tail = this.head;
+  }
+
+  insert(data: T): void {
+    if (this.head === null) {
+      this.head = new Node(data);
+      this.tail = this.head;
+      return;
+    }
+
+    let node = this.head;
+    while (node.next !== null) {
+      node = node.next;
+    }
+    
+    const new_node = new Node(data);
+    node.next = new_node;
+    new_node.prev = node;
+    this.tail = new_node;
+  }
+
+  desc(): T[] {
+    const result: T[] = [];
+    let node = this.head;
+    
+    while (node !== null) {
+      result.push(node.data);
+      node = node.next;
+    }
+    
+    return result;
+  }
+
+  insertBefore(data: T, beforeData: T): boolean {
+    if (this.head === null) {
+      this.head = new Node(data);
+      this.tail = this.head;
+      return true;
+    }
+
+    let node = this.tail;
+    while (node !== null && node.data !== beforeData) {
+      node = node.prev;
+    }
+
+    if (node === null) {
+      return false;
+    }
+
+    // head 앞에 삽입하는 경우
+    if (node.prev === null) {
+      const new_node = new Node(data);
+      new_node.next = node;
+      node.prev = new_node;
+      this.head = new_node;
+      return true;
+    }
+
+    // 중간에 삽입
+    const new_node = new Node(data);
+    const before_new = node.prev;
+    before_new.next = new_node;
+    new_node.prev = before_new;
+    new_node.next = node;
+    node.prev = new_node;
+    
+    return true;
+  }
+}
+
+const solution = (input: { values: number[]; insertBefore: Array<{ data: number; beforeData: number }> }): number[] => {
+  if (input.values.length === 0) {
+    return [];
+  }
+
+  const nodeMgmt = new NodeMgmt(input.values[0]);
+  for (let i = 1; i < input.values.length; i++) {
+    nodeMgmt.insert(input.values[i]);
+  }
+
+  for (const { data, beforeData } of input.insertBefore) {
+    nodeMgmt.insertBefore(data, beforeData);
+  }
+
+  return nodeMgmt.desc();
+};`,
+      language: 'typescript',
+      explanation:
+        'tail에서부터 검색하여 특정 노드를 찾은 후, 그 노드 앞에 새 노드를 삽입합니다. head 앞에 삽입하는 경우와 중간에 삽입하는 경우를 구분하여 처리합니다.',
+    },
+    hints: [
+      'tail에서부터 prev 포인터를 따라가며 beforeData를 가진 노드를 찾습니다.',
+      'head 앞에 삽입하는 경우 head를 새 노드로 변경해야 합니다.',
+      '중간에 삽입할 때는 이전 노드, 새 노드, 현재 노드의 포인터를 모두 연결해야 합니다.',
+    ],
+    tags: ['링크드 리스트', '더블 링크드 리스트', '삽입', '고급'],
+  },
 ];
 
 /**

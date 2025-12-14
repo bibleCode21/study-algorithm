@@ -23,5 +23,10 @@ export interface Problem {
     };
     hints?: string[];
     tags: string[];
+    // 문제별 코드 템플릿 (선택적)
+    // 여러 템플릿이 있는 경우 배열로 제공 (예: 함수 작성, 클래스 작성 등)
+    templateCode?: string | string[];
+    // 템플릿 설명 (여러 템플릿이 있는 경우)
+    templateDescriptions?: string[];
 }
 

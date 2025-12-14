@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { Problem } from '@/features/practice/types/problem';
+import { CodeEditorProps } from '@/features/practice/types/components';
 
 // Monaco Editor를 동적으로 로딩하여 초기 번들 크기 감소
 const Editor = dynamic(() => import('@monaco-editor/react'), {
@@ -17,28 +18,51 @@ const Editor = dynamic(() => import('@monaco-editor/react'), {
     ),
 });
 
-interface CodeEditorProps {
-    problem: Problem;
-    code: string;
-    onCodeChange: (code: string) => void;
-}
-
-const defaultCode = `function solution(input: any): any {
+const getDefaultCode = (problem: Problem, templateIndex: number = 0): string => {
+    if (problem.templateCode) {
+        if (Array.isArray(problem.templateCode)) {
+            return problem.templateCode[templateIndex] || problem.templateCode[0];
+        }
+        return problem.templateCode;
+    }
+    
+    // 기본 템플릿 (arrow function)
+    return `const solution = (data: any): any => {
   // 여기에 코드를 작성하세요
-  return input;
-}`;
+  return data;
+};`;
+};
 
-const CodeEditor = ({ problem, code, onCodeChange }: CodeEditorProps) => {
+const CodeEditor = ({ 
+    problem, 
+    code, 
+    onCodeChange,
+    selectedTemplateIndex = 0,
+    onTemplateChange
+}: CodeEditorProps) => {
     const editorRef = useRef<any>(null);
+    const hasMultipleTemplates = Array.isArray(problem.templateCode) && problem.templateCode.length > 1;
 
     const handleEditorDidMount = (editor: any) => {
         editorRef.current = editor;
     };
 
     const handleReset = () => {
+        const defaultCode = getDefaultCode(problem, selectedTemplateIndex);
         onCodeChange(defaultCode);
         if (editorRef.current) {
             editorRef.current.setValue(defaultCode);
+        }
+    };
+
+    const handleTemplateChange = (index: number) => {
+        if (onTemplateChange) {
+            onTemplateChange(index);
+            const newTemplate = getDefaultCode(problem, index);
+            onCodeChange(newTemplate);
+            if (editorRef.current) {
+                editorRef.current.setValue(newTemplate);
+            }
         }
     };
 
@@ -46,12 +70,32 @@ const CodeEditor = ({ problem, code, onCodeChange }: CodeEditorProps) => {
         <div className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg font-semibold text-gray-900">코드 작성</h2>
-                <button
-                    onClick={handleReset}
-                    className="text-sm text-gray-600 hover:text-gray-900 px-3 py-1.5 rounded-md hover:bg-gray-100 transition-colors"
-                >
-                    초기화
-                </button>
+                <div className="flex items-center gap-2">
+                    {hasMultipleTemplates && (
+                        <div className="flex items-center gap-2 mr-2">
+                            {problem.templateCode!.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => handleTemplateChange(index)}
+                                    className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                                        selectedTemplateIndex === index
+                                            ? 'bg-blue-600 text-white'
+                                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                    }`}
+                                    title={problem.templateDescriptions?.[index]}
+                                >
+                                    {problem.templateDescriptions?.[index] || `템플릿 ${index + 1}`}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                    <button
+                        onClick={handleReset}
+                        className="text-sm text-gray-600 hover:text-gray-900 px-3 py-1.5 rounded-md hover:bg-gray-100 transition-colors"
+                    >
+                        초기화
+                    </button>
+                </div>
             </div>
             <div className="border border-gray-300 rounded-lg overflow-hidden">
                 <Editor

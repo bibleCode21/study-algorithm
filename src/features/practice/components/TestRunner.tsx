@@ -1,21 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Problem } from '@/features/practice/types/problem';
 import { compileTypeScript, executeCode, deepEqual } from '@/features/practice/utils/codeExecutor';
-
-interface TestRunnerProps {
-    problem: Problem;
-    code: string;
-}
-
-interface TestResult {
-    passed: boolean;
-    input: any;
-    expected: any;
-    actual: any;
-    error?: string;
-}
+import { TestRunnerProps, TestResult } from '@/features/practice/types/components';
 
 const TestRunner = ({ problem, code }: TestRunnerProps) => {
     const [results, setResults] = useState<TestResult[] | null>(null);

@@ -1,13 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Problem } from '@/features/practice/types/problem';
 import CodeBlockClient from '@/components/CodeBlock/CodeBlockClient';
-
-interface SolutionViewProps {
-  problem: Problem;
-  highlightedSolutionCode: string;
-}
+import { SolutionViewProps } from '@/features/practice/types/components';
 
 const SolutionView = ({ problem, highlightedSolutionCode }: SolutionViewProps) => {
   const [showSolution, setShowSolution] = useState(false);

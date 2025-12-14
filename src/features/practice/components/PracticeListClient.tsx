@@ -2,19 +2,9 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { Problem } from '@/features/practice/types/problem';
-import { Concept } from '@/features/algorithm/types/algorithm';
 import Badge from '@/components/ui/Badge';
 import Pagination from '@/components/ui/Pagination';
-
-interface ProblemWithConcept extends Problem {
-  concept: Concept | null;
-}
-
-interface PracticeListClientProps {
-  problems: ProblemWithConcept[];
-  concepts: Concept[];
-}
+import { PracticeListClientProps, ProblemWithConcept } from '@/features/practice/types/components';
 
 const ITEMS_PER_PAGE = 9;
 

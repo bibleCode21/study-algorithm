@@ -71,13 +71,16 @@ export const executeCode = (
     const clonedInput = deepClone(input);
 
     // Function 생성자를 사용하여 안전하게 코드 실행
-    // solution 함수를 추출하여 실행
+    // solution 함수 또는 변수를 추출하여 실행 (arrow function 지원)
     const wrappedCode = `
       ${jsCode}
       
-      // solution 함수가 있는지 확인
+      // solution 함수 또는 변수가 있는지 확인
       if (typeof solution === 'function') {
         return solution(input);
+      } else if (typeof solution !== 'undefined') {
+        // solution이 함수가 아닌 경우 (예: 클래스 인스턴스)
+        throw new Error('solution은 함수여야 합니다. solution 함수를 정의해주세요.');
       } else {
         throw new Error('solution 함수를 찾을 수 없습니다. solution 함수를 정의해주세요.');
       }

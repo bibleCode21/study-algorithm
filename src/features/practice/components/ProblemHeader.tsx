@@ -1,12 +1,6 @@
-import { Concept } from '@/features/algorithm/types/algorithm';
-import { Problem } from '@/features/practice/types/problem';
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
-
-interface ProblemHeaderProps {
-  concept: Concept;
-  problem: Problem;
-}
+import { ProblemHeaderProps } from '@/features/practice/types/components';
 
 const difficultyColors = {
   easy: 'success',
