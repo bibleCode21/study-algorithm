@@ -1076,7 +1076,7 @@ function solution(input: { values: number[]; cycleIndex: number }): boolean {
       {
         input: {
           operations: ['add', 'add', 'delete', 'desc'],
-          values: [1, 2, 1, 1],
+          values: [1, 2, 1],
         },
         expectedOutput: [2],
       },
