@@ -608,11 +608,11 @@ export const problems: Problem[] = [
       },
     ],
     solution: {
-      code: `class Node<T> {
+      code: `class ListNode<T> {
   data: T;
-  next: Node<T> | null = null;
+  next: ListNode<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
+  constructor(data: T, next: ListNode<T> | null = null) {
     this.data = data;
     this.next = next;
   }
@@ -623,12 +623,12 @@ function solution(arr: number[]): number[] {
     return [];
   }
 
-  let head: Node<number> | null = new Node(arr[0]);
+  let head: ListNode<number> | null = new ListNode(arr[0]);
   let current = head;
 
   // 나머지 요소들을 링크드 리스트에 추가
   for (let i = 1; i < arr.length; i++) {
-    current.next = new Node(arr[i]);
+    current.next = new ListNode(arr[i]);
     current = current.next;
   }
 
@@ -696,11 +696,11 @@ function solution(arr: number[]): number[] {
       },
     ],
     solution: {
-      code: `class Node<T> {
+      code: `class ListNode<T> {
   data: T;
-  next: Node<T> | null = null;
+  next: ListNode<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
+  constructor(data: T, next: ListNode<T> | null = null) {
     this.data = data;
     this.next = next;
   }
@@ -712,10 +712,10 @@ function solution(input: { values: number[]; deleteValue: number }): number[] {
   }
 
   // 링크드 리스트 생성
-  let head: Node<number> | null = new Node(input.values[0]);
+  let head: ListNode<number> | null = new ListNode(input.values[0]);
   let current = head;
   for (let i = 1; i < input.values.length; i++) {
-    current.next = new Node(input.values[i]);
+    current.next = new ListNode(input.values[i]);
     current = current.next;
   }
 
@@ -798,11 +798,11 @@ function solution(input: { values: number[]; deleteValue: number }): number[] {
       },
     ],
     solution: {
-      code: `class Node<T> {
+      code: `class ListNode<T> {
   data: T;
-  next: Node<T> | null = null;
+  next: ListNode<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
+  constructor(data: T, next: ListNode<T> | null = null) {
     this.data = data;
     this.next = next;
   }
@@ -897,11 +897,11 @@ function solution(arr: number[]): number[] {
       },
     ],
     solution: {
-      code: `class Node<T> {
+      code: `class ListNode<T> {
   data: T;
-  next: Node<T> | null = null;
+  next: ListNode<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
+  constructor(data: T, next: ListNode<T> | null = null) {
     this.data = data;
     this.next = next;
   }
@@ -917,8 +917,8 @@ function solution(arr: number[]): number {
   }
 
   // 두 개의 포인터를 사용: slow는 한 칸씩, fast는 두 칸씩 이동
-  let slow: Node<number> | null = head;
-  let fast: Node<number> | null = head;
+  let slow: ListNode<number> | null = head;
+  let fast: ListNode<number> | null = head;
 
   while (fast !== null && fast.next !== null) {
     slow = slow!.next;
@@ -986,11 +986,11 @@ function solution(arr: number[]): number {
       },
     ],
     solution: {
-      code: `class Node<T> {
+      code: `class ListNode<T> {
   data: T;
-  next: Node<T> | null = null;
+  next: ListNode<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
+  constructor(data: T, next: ListNode<T> | null = null) {
     this.data = data;
     this.next = next;
   }
@@ -1019,8 +1019,8 @@ function solution(input: { values: number[]; cycleIndex: number }): boolean {
   }
 
   // Floyd's Cycle Detection Algorithm (토끼와 거북이 알고리즘)
-  let slow: Node<number> | null = head;
-  let fast: Node<number> | null = head;
+  let slow: ListNode<number> | null = head;
+  let fast: ListNode<number> | null = head;
 
   while (fast !== null && fast.next !== null) {
     slow = slow!.next;
@@ -1076,15 +1076,15 @@ function solution(input: { values: number[]; cycleIndex: number }): boolean {
       {
         input: {
           operations: ['add', 'add', 'delete', 'desc'],
-          values: [1, 2, 1],
+          values: [1, 2, 1, 1],
         },
         expectedOutput: [2],
       },
     ],
     templateCode: [
-      `// Node 클래스와 NodeMgmt 클래스를 구현하세요
-class Node<T> {
-  // 여기에 Node 클래스를 작성하세요
+      `// ListNode 클래스와 NodeMgmt 클래스를 구현하세요
+class ListNode<T> {
+  // 여기에 ListNode 클래스를 작성하세요
 }
 
 class NodeMgmt<T> {
@@ -1093,31 +1093,32 @@ class NodeMgmt<T> {
 
 const solution = (input: { operations: string[]; values: number[] }): any => {
   // NodeMgmt 인스턴스를 생성하고 operations를 수행한 후 결과를 반환하세요
+  // delete 연산의 경우, values 배열에서 다음 값을 가져와서 삭제합니다
   return [];
 };`,
     ],
     templateDescriptions: ['클래스 작성'],
     solution: {
-      code: `class Node<T> {
+      code: `class ListNode<T> {
   data: T;
-  next: Node<T> | null = null;
+  next: ListNode<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
+  constructor(data: T, next: ListNode<T> | null = null) {
     this.data = data;
     this.next = next;
   }
 }
 
 class NodeMgmt<T> {
-  private head: Node<T> | null = null;
+  private head: ListNode<T> | null = null;
 
   constructor(data: T) {
-    this.head = new Node(data);
+    this.head = new ListNode(data);
   }
 
   add(data: T): void {
     if (this.head === null) {
-      this.head = new Node(data);
+      this.head = new ListNode(data);
       return;
     }
 
@@ -1125,7 +1126,7 @@ class NodeMgmt<T> {
     while (node.next !== null) {
       node = node.next;
     }
-    node.next = new Node(data);
+    node.next = new ListNode(data);
   }
 
   desc(): T[] {
@@ -1162,7 +1163,7 @@ class NodeMgmt<T> {
     return false;
   }
 
-  searchNode(data: T): Node<T> | null {
+  searchNode(data: T): ListNode<T> | null {
     let node = this.head;
     
     while (node !== null) {
@@ -1188,6 +1189,7 @@ const solution = (input: { operations: string[]; values: number[] }): any => {
     if (op === 'add' && valueIndex < input.values.length) {
       nodeMgmt.add(input.values[valueIndex++]);
     } else if (op === 'delete' && valueIndex < input.values.length) {
+      // delete 연산: values 배열에서 다음 값을 가져와서 삭제
       nodeMgmt.delete(input.values[valueIndex++]);
     } else if (op === 'desc') {
       return nodeMgmt.desc();
@@ -1263,12 +1265,12 @@ const solution = (input: { operations: string[]; values: number[] }): any => {
     ],
     templateDescriptions: ['더블 링크드 리스트 클래스 작성'],
     solution: {
-      code: `class Node<T> {
-  prev: Node<T> | null = null;
+      code: `class ListNode<T> {
+  prev: ListNode<T> | null = null;
   data: T;
-  next: Node<T> | null = null;
+  next: ListNode<T> | null = null;
 
-  constructor(data: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
+  constructor(data: T, prev: ListNode<T> | null = null, next: ListNode<T> | null = null) {
     this.prev = prev;
     this.data = data;
     this.next = next;
@@ -1314,7 +1316,7 @@ class NodeMgmt<T> {
     return result;
   }
 
-  searchFromHead(data: T): Node<T> | null {
+  searchFromHead(data: T): ListNode<T> | null {
     if (this.head === null) {
       return null;
     }
@@ -1330,7 +1332,7 @@ class NodeMgmt<T> {
     return null;
   }
 
-  searchFromTail(data: T): Node<T> | null {
+  searchFromTail(data: T): ListNode<T> | null {
     if (this.tail === null) {
       return null;
     }
@@ -1421,12 +1423,12 @@ const solution = (input: { operations: string[]; values: number[] }): any => {
     ],
     templateCode: [
       `// 더블 링크드 리스트의 insertBefore 메서드를 구현하세요
-class Node<T> {
-  prev: Node<T> | null = null;
+class ListNode<T> {
+  prev: ListNode<T> | null = null;
   data: T;
-  next: Node<T> | null = null;
+  next: ListNode<T> | null = null;
 
-  constructor(data: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
+  constructor(data: T, prev: ListNode<T> | null = null, next: ListNode<T> | null = null) {
     this.prev = prev;
     this.data = data;
     this.next = next;
@@ -1434,17 +1436,17 @@ class Node<T> {
 }
 
 class NodeMgmt<T> {
-  private head: Node<T> | null = null;
-  private tail: Node<T> | null = null;
+  private head: ListNode<T> | null = null;
+  private tail: ListNode<T> | null = null;
 
   constructor(data: T) {
-    this.head = new Node(data);
+    this.head = new ListNode(data);
     this.tail = this.head;
   }
 
   insert(data: T): void {
     if (this.head === null) {
-      this.head = new Node(data);
+      this.head = new ListNode(data);
       this.tail = this.head;
       return;
     }
@@ -1454,7 +1456,7 @@ class NodeMgmt<T> {
       node = node.next;
     }
     
-    const new_node = new Node(data);
+    const new_node = new ListNode(data);
     node.next = new_node;
     new_node.prev = node;
     this.tail = new_node;
@@ -1498,12 +1500,12 @@ const solution = (input: { values: number[]; insertBefore: Array<{ data: number;
     ],
     templateDescriptions: ['insertBefore 메서드 작성'],
     solution: {
-      code: `class Node<T> {
-  prev: Node<T> | null = null;
+      code: `class ListNode<T> {
+  prev: ListNode<T> | null = null;
   data: T;
-  next: Node<T> | null = null;
+  next: ListNode<T> | null = null;
 
-  constructor(data: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
+  constructor(data: T, prev: ListNode<T> | null = null, next: ListNode<T> | null = null) {
     this.prev = prev;
     this.data = data;
     this.next = next;
@@ -1567,7 +1569,7 @@ class NodeMgmt<T> {
 
     // head 앞에 삽입하는 경우
     if (node.prev === null) {
-      const new_node = new Node(data);
+      const new_node = new ListNode(data);
       new_node.next = node;
       node.prev = new_node;
       this.head = new_node;
@@ -1575,7 +1577,7 @@ class NodeMgmt<T> {
     }
 
     // 중간에 삽입
-    const new_node = new Node(data);
+    const new_node = new ListNode(data);
     const before_new = node.prev;
     before_new.next = new_node;
     new_node.prev = before_new;
