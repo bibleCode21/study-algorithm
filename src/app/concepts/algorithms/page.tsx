@@ -1,6 +1,9 @@
 import ConceptsList from '@/features/algorithm/components/ConceptsList';
 import { concepts } from '@/data/concepts';
 
+// 정적 페이지로 생성 (알고리즘 목록은 자주 변경되지 않음)
+export const dynamic = 'force-static';
+
 export default function AlgorithmsPage() {
   const algorithms = concepts.filter((c) => c.type === 'algorithm');
 

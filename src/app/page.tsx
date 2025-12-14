@@ -1,5 +1,8 @@
 import FeatureCard from '@/features/home/components/FeatureCard';
 
+// 정적 페이지로 생성 (메인 페이지는 자주 변경되지 않음)
+export const dynamic = 'force-static';
+
 export default function Home() {
     const features = [
         {
