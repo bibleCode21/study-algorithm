@@ -1050,20 +1050,26 @@ function solution(input: { values: number[]; cycleIndex: number }): boolean {
     title: 'NodeMgmt 클래스 구현하기',
     difficulty: 'medium',
     description:
-      '링크드 리스트를 관리하는 NodeMgmt 클래스를 구현하세요. Node 클래스와 NodeMgmt 클래스를 작성하고, add, desc, delete, searchNode 메서드를 구현하세요.',
+      '링크드 리스트를 관리하는 NodeMgmt 클래스를 구현하세요. ListNode 클래스와 NodeMgmt 클래스를 작성하고, add, desc, delete, searchNode 메서드를 구현하세요. delete 메서드는 특정 값을 가진 노드 중 첫 번째로 나타나는 노드만 삭제합니다. 각 노드는 별도의 객체이므로, 같은 값을 가진 노드가 여러 개 있어도 각각은 독립적인 노드입니다.',
     examples: [
       {
         input: '{ operations: ["add", "add", "add", "desc"], values: [1, 2, 3] }',
         output: '[1, 2, 3]',
         explanation: '1, 2, 3을 순서대로 추가한 후 desc()로 모든 데이터를 반환합니다.',
       },
+      {
+        input: '{ operations: ["add", "delete", "desc"], values: [1, 2] }',
+        output: '[2]',
+        explanation: '1을 초기값으로 생성하고, 2를 추가한 후, 1을 삭제하면 [2]가 됩니다.',
+      },
     ],
     constraints: [
-      'Node 클래스와 NodeMgmt 클래스를 모두 구현해야 합니다.',
+      'ListNode 클래스와 NodeMgmt 클래스를 모두 구현해야 합니다.',
       'add 메서드는 링크드 리스트 끝에 데이터를 추가합니다.',
       'desc 메서드는 링크드 리스트의 모든 데이터를 배열로 반환합니다.',
-      'delete 메서드는 특정 값을 가진 노드를 삭제합니다.',
-      'searchNode 메서드는 특정 값을 가진 노드를 반환합니다.',
+      'delete 메서드는 특정 값을 가진 노드 중 첫 번째로 나타나는 노드만 삭제합니다.',
+      'searchNode 메서드는 특정 값을 가진 노드 중 첫 번째로 나타나는 노드를 반환합니다.',
+      '같은 값을 가진 노드가 여러 개 있어도 각각은 독립적인 노드입니다.',
     ],
     testCases: [
       {
@@ -1075,10 +1081,17 @@ function solution(input: { values: number[]; cycleIndex: number }): boolean {
       },
       {
         input: {
+          operations: ['add', 'delete', 'desc'],
+          values: [1, 2],
+        },
+        expectedOutput: [2],
+      },
+      {
+        input: {
           operations: ['add', 'add', 'delete', 'desc'],
           values: [1, 2, 1],
         },
-        expectedOutput: [2],
+        expectedOutput: [2, 1],
       },
     ],
     templateCode: [
@@ -1146,6 +1159,7 @@ class NodeMgmt<T> {
       return false;
     }
 
+    // 첫 번째로 나타나는 노드만 삭제
     if (this.head.data === data) {
       this.head = this.head.next;
       return true;
@@ -1188,9 +1202,18 @@ const solution = (input: { operations: string[]; values: number[] }): any => {
   for (const op of input.operations) {
     if (op === 'add' && valueIndex < input.values.length) {
       nodeMgmt.add(input.values[valueIndex++]);
-    } else if (op === 'delete' && valueIndex < input.values.length) {
+    } else if (op === 'delete') {
       // delete 연산: values 배열에서 다음 값을 가져와서 삭제
-      nodeMgmt.delete(input.values[valueIndex++]);
+      // values 배열이 끝났다면 이미 링크드 리스트에 있는 첫 번째 값을 삭제
+      // 첫 번째로 나타나는 노드만 삭제
+      if (valueIndex < input.values.length) {
+        nodeMgmt.delete(input.values[valueIndex++]);
+      } else {
+        const current = nodeMgmt.desc();
+        if (current.length > 0) {
+          nodeMgmt.delete(current[0]);
+        }
+      }
     } else if (op === 'desc') {
       return nodeMgmt.desc();
     }
