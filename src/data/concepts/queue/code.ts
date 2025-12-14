@@ -33,7 +33,7 @@ const queue = new Queue<number>();
 queue.enqueue(1);
 queue.enqueue(2);
 queue.enqueue(3);
-console.log(queue.dequeue()); // 1 (가장 먼저 추가된 요소)`,
+const first = queue.dequeue(); // 1 (가장 먼저 추가된 요소)`,
   },
 ];
 

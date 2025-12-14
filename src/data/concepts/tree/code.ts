@@ -168,9 +168,9 @@ bst.insert(4);
 bst.insert(6);
 bst.insert(8);
 
-console.log(bst.search(4)); // true
-console.log(bst.findMin()); // 2
-console.log(bst.findMax()); // 8`,
+const found = bst.search(4); // true
+const min = bst.findMin(); // 2
+const max = bst.findMax(); // 8`,
   },
 ];
 

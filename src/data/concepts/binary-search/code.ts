@@ -45,7 +45,7 @@ function binarySearchRecursive(
 
 // 사용 예제
 const sortedArr = [1, 3, 5, 7, 9, 11, 13, 15];
-console.log(binarySearch(sortedArr, 7)); // 3`,
+const index = binarySearch(sortedArr, 7); // 3`,
   },
 ];
 

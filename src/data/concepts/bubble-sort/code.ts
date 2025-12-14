@@ -29,7 +29,7 @@ export const code: CodeExample[] = [
 // 사용 예제
 const arr = [64, 34, 25, 12, 22, 11, 90];
 const sorted = bubbleSort(arr);
-console.log(sorted); // [11, 12, 22, 25, 34, 64, 90]`,
+// sorted는 [11, 12, 22, 25, 34, 64, 90]`,
   },
 ];
 

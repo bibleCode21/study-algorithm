@@ -30,7 +30,9 @@ export async function highlightCode(code: string, language: string): Promise<str
     if (highlightCache.size >= CACHE_SIZE_LIMIT) {
       // 가장 오래된 항목 제거 (FIFO)
       const firstKey = highlightCache.keys().next().value;
-      highlightCache.delete(firstKey);
+      if (firstKey) {
+        highlightCache.delete(firstKey);
+      }
     }
     highlightCache.set(cacheKey, html);
     

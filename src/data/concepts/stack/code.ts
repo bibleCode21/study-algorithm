@@ -33,7 +33,7 @@ const stack = new Stack<number>();
 stack.push(1);
 stack.push(2);
 stack.push(3);
-console.log(stack.pop()); // 3 (가장 나중에 추가된 요소)`,
+const last = stack.pop(); // 3 (가장 나중에 추가된 요소)`,
   },
 ];
 

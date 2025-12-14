@@ -110,10 +110,10 @@ const hashTable = new HashTable<string, number>();
 hashTable.set('apple', 5);
 hashTable.set('banana', 3);
 hashTable.set('cherry', 8);
-console.log(hashTable.get('apple')); // 5
-console.log(hashTable.has('banana')); // true
+const appleValue = hashTable.get('apple'); // 5
+const hasBanana = hashTable.has('banana'); // true
 hashTable.delete('cherry');
-console.log(hashTable.getSize()); // 2`,
+const size = hashTable.getSize(); // 2`,
   },
 ];
 

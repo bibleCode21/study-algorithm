@@ -115,7 +115,7 @@ list.append(1);
 list.append(2);
 list.append(3);
 list.prepend(0);
-console.log(list.getAt(0)); // 0`,
+const value = list.getAt(0); // 0`,
   },
 ];
 

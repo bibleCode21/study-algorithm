@@ -94,8 +94,8 @@ minHeap.insert(5);
 minHeap.insert(3);
 minHeap.insert(8);
 minHeap.insert(1);
-console.log(minHeap.peek()); // 1 (최소값)
-console.log(minHeap.extractMin()); // 1`,
+const min = minHeap.peek(); // 1 (최소값)
+const extracted = minHeap.extractMin(); // 1`,
   },
 ];
 

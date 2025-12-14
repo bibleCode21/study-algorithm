@@ -74,6 +74,38 @@ export default function TestRunner({ problem, code }: TestRunnerProps) {
     const passedCount = results?.filter((r) => r.passed).length || 0;
     const totalCount = problem.testCases.length;
 
+    // 값을 간결하게 포맷팅하는 함수
+    const formatValue = (value: any): string => {
+        if (value === null) return 'null';
+        if (value === undefined) return 'undefined';
+        
+        // 2차원 배열은 각 행을 한 줄로 표시
+        if (Array.isArray(value) && value.length > 0 && Array.isArray(value[0])) {
+            const rows = value.map((row: any) => 
+                Array.isArray(row) ? '[' + row.join(', ') + ']' : JSON.stringify(row)
+            );
+            return '[\n  ' + rows.join(',\n  ') + '\n]';
+        }
+        
+        // 1차원 배열은 한 줄로 (길면 포맷팅)
+        if (Array.isArray(value)) {
+            const jsonString = JSON.stringify(value);
+            if (jsonString.length <= 100) {
+                return jsonString;
+            }
+            // 긴 배열은 각 요소를 한 줄씩
+            return '[\n  ' + value.map((item: any) => JSON.stringify(item)).join(',\n  ') + '\n]';
+        }
+        
+        // 객체나 복잡한 값은 기본 포맷팅
+        const jsonString = JSON.stringify(value);
+        if (jsonString.length <= 80 && !jsonString.includes('\n')) {
+            return jsonString;
+        }
+        
+        return JSON.stringify(value, null, 2);
+    };
+
     return (
         <div className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="flex items-center justify-between mb-4">
@@ -132,20 +164,20 @@ export default function TestRunner({ problem, code }: TestRunnerProps) {
                                     <div className="text-xs space-y-1">
                                         <div>
                                             <span className="text-gray-600">입력:</span>
-                                            <pre className="mt-1 bg-white p-2 rounded overflow-x-auto">
-                                                {JSON.stringify(result.input, null, 2)}
+                                            <pre className="mt-1 bg-white p-2 rounded overflow-x-auto font-mono">
+                                                {formatValue(result.input)}
                                             </pre>
                                         </div>
                                         <div>
                                             <span className="text-gray-600">예상:</span>
-                                            <pre className="mt-1 bg-white p-2 rounded overflow-x-auto">
-                                                {JSON.stringify(result.expected, null, 2)}
+                                            <pre className="mt-1 bg-white p-2 rounded overflow-x-auto font-mono">
+                                                {formatValue(result.expected)}
                                             </pre>
                                         </div>
                                         <div>
                                             <span className="text-gray-600">실제:</span>
-                                            <pre className="mt-1 bg-white p-2 rounded overflow-x-auto">
-                                                {JSON.stringify(result.actual, null, 2)}
+                                            <pre className="mt-1 bg-white p-2 rounded overflow-x-auto font-mono">
+                                                {formatValue(result.actual)}
                                             </pre>
                                         </div>
                                     </div>
