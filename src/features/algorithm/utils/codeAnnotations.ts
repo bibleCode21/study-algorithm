@@ -40,6 +40,30 @@ const annotations: CodeAnnotationsMap = {
       },
     ],
   },
+  queue: {
+    typescript: [
+      {
+        line: 4,
+        comment:
+          '큐 구현: 제네릭 타입 T를 사용하여 다양한 타입의 데이터를 저장할 수 있습니다. 내부적으로 배열을 사용하여 구현합니다.',
+      },
+      {
+        line: 7,
+        comment:
+          'Enqueue: 큐의 끝에 데이터를 추가합니다. push 메서드를 사용하여 O(1) 시간에 추가할 수 있습니다.',
+      },
+      {
+        line: 11,
+        comment:
+          'Dequeue: 큐의 앞에서 데이터를 제거하고 반환합니다. shift 메서드를 사용하지만, 이는 O(n) 시간이 소요됩니다. (실제 프로덕션에서는 더 효율적인 구현 사용)',
+      },
+      {
+        line: 15,
+        comment:
+          'front: 가장 앞에 있는 데이터를 확인합니다. 데이터를 제거하지 않고 단순히 확인만 합니다.',
+      },
+    ],
+  },
   'bubble-sort': {
     typescript: [
       {

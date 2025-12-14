@@ -31,8 +31,22 @@ export const concepts: Concept[] = [
         title: 'Queue (큐)',
         type: 'data-structure',
         category: ['데이터 구조'],
-        description: '큐는 FIFO(First In First Out) 원칙을 따르는 선형 자료구조입니다. 가장 먼저 추가된 요소가 가장 먼저 제거됩니다. 주로 BFS 알고리즘, 작업 스케줄링, 프린터 대기열 등에 사용됩니다.',
-        tags: ['큐', 'FIFO', '선형 자료구조'],
+        description: `큐는 줄을 서는 행위와 유사한 자료구조로, 가장 먼저 넣은 데이터를 가장 먼저 꺼낼 수 있는 구조입니다. 음식점에서 가장 먼저 줄을 선 사람이 제일 먼저 음식점에 입장하는 것과 동일한 원리입니다.
+
+**큐의 특징:**
+- FIFO(First-In, First-Out) 또는 LILO(Last-In, Last-Out) 방식으로 스택과 꺼내는 순서가 반대
+- Enqueue: 큐에 데이터를 넣는 기능
+- Dequeue: 큐에서 데이터를 꺼내는 기능
+
+**큐의 활용:**
+- 멀티 태스킹을 위한 프로세스 스케줄링 방식 구현 (운영체제)
+- BFS 알고리즘
+- 작업 스케줄링
+- 프린터 대기열
+- 메시지 큐
+
+큐의 경우 특별히 언급되는 장단점보다는, 큐의 활용 예로 프로세스 스케줄링 방식을 함께 이해해두는 것이 좋습니다.`,
+        tags: ['큐', 'FIFO', '선형 자료구조', 'Enqueue', 'Dequeue'],
     },
     {
         id: 'linked-list',

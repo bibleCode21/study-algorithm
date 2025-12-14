@@ -203,6 +203,94 @@ export const problems: Problem[] = [
     tags: ['배열', '문자열', '빈도수', '순회'],
   },
   {
+    id: 'queue-enqueue-dequeue',
+    conceptId: 'queue',
+    title: '큐의 Enqueue와 Dequeue 구현하기',
+    difficulty: 'easy',
+    description:
+      '리스트를 사용하여 큐의 enqueue와 dequeue 기능을 구현하세요. 주어진 숫자 배열을 큐에 enqueue한 후, 순서대로 dequeue하여 반환하는 함수를 작성하세요.',
+    examples: [
+      {
+        input: '[1, 2, 3, 4, 5]',
+        output: '[1, 2, 3, 4, 5]',
+        explanation: '1, 2, 3, 4, 5를 순서대로 enqueue한 후, dequeue를 호출하면 1, 2, 3, 4, 5가 순서대로 반환됩니다 (FIFO).',
+      },
+      {
+        input: '[10, 20, 30]',
+        output: '[10, 20, 30]',
+        explanation: 'FIFO 원칙에 따라 입력 순서대로 반환됩니다.',
+      },
+    ],
+    constraints: [
+      '입력 배열의 길이는 0 이상 100 이하입니다.',
+      '배열의 각 요소는 정수입니다.',
+      'FIFO(First-In, First-Out) 원칙을 따라야 합니다.',
+    ],
+    testCases: [
+      {
+        input: [1, 2, 3, 4, 5],
+        expectedOutput: [1, 2, 3, 4, 5],
+      },
+      {
+        input: [10, 20, 30],
+        expectedOutput: [10, 20, 30],
+      },
+      {
+        input: [1],
+        expectedOutput: [1],
+      },
+      {
+        input: [],
+        expectedOutput: [],
+      },
+    ],
+    solution: {
+      code: `function solution(input: number[]): number[] {
+  const queue: number[] = [];
+  const results: number[] = [];
+
+  // Enqueue: 큐에 데이터 추가
+  function enqueue(data: number): void {
+    queue.push(data);
+  }
+
+  // Dequeue: 큐에서 데이터 제거 및 반환
+  function dequeue(): number | undefined {
+    if (queue.length === 0) {
+      return undefined;
+    }
+    const data = queue[0];
+    queue.shift();
+    return data;
+  }
+
+  // 모든 요소를 enqueue
+  for (const item of input) {
+    enqueue(item);
+  }
+
+  // 모든 요소를 dequeue
+  while (queue.length > 0) {
+    const item = dequeue();
+    if (item !== undefined) {
+      results.push(item);
+    }
+  }
+
+  return results;
+}`,
+      language: 'typescript',
+      explanation:
+        '리스트를 사용하여 큐를 구현합니다. enqueue는 push를 사용하여 끝에 추가하고, dequeue는 shift를 사용하여 앞에서 제거합니다. FIFO 원칙에 따라 가장 먼저 추가된 요소가 가장 먼저 제거됩니다.',
+    },
+    hints: [
+      '리스트의 push 메서드를 사용하여 enqueue를 구현합니다.',
+      '리스트의 shift 메서드를 사용하여 dequeue를 구현합니다.',
+      '모든 요소를 enqueue한 후, 순서대로 dequeue하여 결과 배열에 추가합니다.',
+    ],
+    tags: ['큐', 'FIFO', 'Enqueue', 'Dequeue'],
+  },
+  {
     id: 'bubble-sort-practice',
     conceptId: 'bubble-sort',
     title: '버블 정렬 구현하기',
