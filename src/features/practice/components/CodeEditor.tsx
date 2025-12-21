@@ -84,9 +84,9 @@ const CodeEditor = ({
                                             ? 'bg-blue-600 text-white'
                                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                     }`}
-                                    title={problem.templateDescriptions?.[index]}
+                                    title={exercise.templateDescriptions?.[index]}
                                 >
-                                    {problem.templateDescriptions?.[index] || `템플릿 ${index + 1}`}
+                                    {exercise.templateDescriptions?.[index] || `템플릿 ${index + 1}`}
                                 </button>
                             ))}
                         </div>

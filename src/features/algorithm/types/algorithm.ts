@@ -17,7 +17,7 @@ export interface Concept {
         worst: string;
     };
     spaceComplexity?: string;
-    problems?: string[]; // 관련 문제 ID 목록 (알고리즘인 경우)
+    exerciseIds?: string[]; // 관련 연습 문제 ID 목록 (알고리즘인 경우)
     tags: string[];
 }
 
