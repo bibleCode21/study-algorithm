@@ -1,6 +1,6 @@
 import Badge from '@/components/ui/Badge';
 import Link from 'next/link';
-import { ProblemHeaderProps } from '@/features/practice/types/components';
+import { ExerciseHeaderProps } from '@/features/practice/types/components';
 
 const difficultyColors = {
   easy: 'success',
@@ -14,7 +14,7 @@ const difficultyLabels = {
   hard: '어려움',
 } as const;
 
-const ProblemHeader = ({ concept, problem }: ProblemHeaderProps) => {
+const ExerciseHeader = ({ concept, exercise }: ExerciseHeaderProps) => {
   return (
     <header className="bg-white rounded-lg border border-gray-200 p-6">
       <div className="flex items-start justify-between gap-4 mb-4">
@@ -34,15 +34,15 @@ const ProblemHeader = ({ concept, problem }: ProblemHeaderProps) => {
               {concept.title}로 돌아가기
             </Link>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">{problem.title}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">{exercise.title}</h1>
         </div>
-        <Badge variant={difficultyColors[problem.difficulty]} size="md">
-          {difficultyLabels[problem.difficulty]}
+        <Badge variant={difficultyColors[exercise.difficulty]} size="md">
+          {difficultyLabels[exercise.difficulty]}
         </Badge>
       </div>
 
       <div className="flex flex-wrap gap-2">
-        {problem.tags.map((tag) => (
+        {exercise.tags.map((tag) => (
           <span
             key={tag}
             className="text-xs text-gray-600 bg-gray-100 px-2.5 py-1 rounded-full"
@@ -55,5 +55,5 @@ const ProblemHeader = ({ concept, problem }: ProblemHeaderProps) => {
   );
 };
 
-export default ProblemHeader;
+export default ExerciseHeader;
 

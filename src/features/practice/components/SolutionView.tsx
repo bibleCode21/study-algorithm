@@ -4,10 +4,10 @@ import { useState } from 'react';
 import CodeBlockClient from '@/components/CodeBlock/CodeBlockClient';
 import { SolutionViewProps } from '@/features/practice/types/components';
 
-const SolutionView = ({ problem, highlightedSolutionCode }: SolutionViewProps) => {
+const SolutionView = ({ exercise, highlightedSolutionCode }: SolutionViewProps) => {
   const [showSolution, setShowSolution] = useState(false);
 
-  if (!problem.solution) {
+  if (!exercise.solution) {
     return null;
   }
 
@@ -26,15 +26,15 @@ const SolutionView = ({ problem, highlightedSolutionCode }: SolutionViewProps) =
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">해설</h3>
             <p className="text-sm text-gray-700 leading-relaxed whitespace-pre-line">
-              {problem.solution.explanation}
+              {exercise.solution.explanation}
             </p>
           </div>
 
           <div>
             <h3 className="text-sm font-medium text-gray-700 mb-2">정답 코드</h3>
             <CodeBlockClient
-              language={problem.solution.language}
-              code={problem.solution.code}
+              language={exercise.solution.language}
+              code={exercise.solution.code}
               highlightedHtml={highlightedSolutionCode}
             />
           </div>

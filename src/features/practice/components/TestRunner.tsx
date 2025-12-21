@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { compileTypeScript, executeCode, deepEqual } from '@/features/practice/utils/codeExecutor';
 import { TestRunnerProps, TestResult } from '@/features/practice/types/components';
 
-const TestRunner = ({ problem, code }: TestRunnerProps) => {
+const TestRunner = ({ exercise, code }: TestRunnerProps) => {
     const [results, setResults] = useState<TestResult[] | null>(null);
     const [isRunning, setIsRunning] = useState(false);
     const [compileError, setCompileError] = useState<string | null>(null);
@@ -28,7 +28,7 @@ const TestRunner = ({ problem, code }: TestRunnerProps) => {
             // 각 테스트 케이스 실행
             const testResults: TestResult[] = [];
 
-            for (const testCase of problem.testCases) {
+            for (const testCase of exercise.testCases) {
                 const executeResult = executeCode(compileResult.jsCode, testCase.input);
 
                 if (!executeResult.success) {
@@ -59,7 +59,7 @@ const TestRunner = ({ problem, code }: TestRunnerProps) => {
     };
 
     const passedCount = results?.filter((r) => r.passed).length || 0;
-    const totalCount = problem.testCases.length;
+    const totalCount = exercise.testCases.length;
 
     // 값을 간결하게 포맷팅하는 함수
     const formatValue = (value: any): string => {

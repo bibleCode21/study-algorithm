@@ -21,7 +21,7 @@ const difficultyLabels = {
   hard: '어려움',
 } as const;
 
-const PracticeListClient = ({ problems }: PracticeListClientProps) => {
+const PracticeListClient = ({ exercises }: PracticeListClientProps) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('전체');
   const [selectedConcept, setSelectedConcept] = useState<string>('전체');
@@ -31,60 +31,60 @@ const PracticeListClient = ({ problems }: PracticeListClientProps) => {
   // 모든 카테고리 추출
   const categories = useMemo(() => {
     const categorySet = new Set<string>();
-    problems.forEach((problem) => {
-      if (problem.concept?.category) {
-        problem.concept.category.forEach((cat) => categorySet.add(cat));
+    exercises.forEach((exercise) => {
+      if (exercise.concept?.category) {
+        exercise.concept.category.forEach((cat) => categorySet.add(cat));
       }
     });
     return ['전체', ...Array.from(categorySet).sort()];
-  }, [problems]);
+  }, [exercises]);
 
   // 모든 개념 추출 (문제가 있는 개념만)
   const availableConcepts = useMemo(() => {
     const conceptMap = new Map<string, Concept>();
-    problems.forEach((problem) => {
-      if (problem.concept) {
-        conceptMap.set(problem.concept.id, problem.concept);
+    exercises.forEach((exercise) => {
+      if (exercise.concept) {
+        conceptMap.set(exercise.concept.id, exercise.concept);
       }
     });
     return Array.from(conceptMap.values()).sort((a, b) => a.title.localeCompare(b.title));
-  }, [problems]);
+  }, [exercises]);
 
   // 필터링된 문제들
-  const filteredProblems = useMemo(() => {
-    return problems.filter((problem) => {
+  const filteredExercises = useMemo(() => {
+    return exercises.filter((exercise) => {
       // 검색어 필터
       const matchesSearch =
         searchQuery === '' ||
-        problem.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        problem.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        problem.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        problem.concept?.title.toLowerCase().includes(searchQuery.toLowerCase());
+        exercise.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        exercise.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        exercise.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        exercise.concept?.title.toLowerCase().includes(searchQuery.toLowerCase());
 
       // 카테고리 필터
       const matchesCategory =
         selectedCategory === '전체' ||
-        problem.concept?.category.includes(selectedCategory);
+        exercise.concept?.category.includes(selectedCategory);
 
       // 개념 필터
       const matchesConcept =
-        selectedConcept === '전체' || problem.conceptId === selectedConcept;
+        selectedConcept === '전체' || exercise.conceptId === selectedConcept;
 
       // 난이도 필터
       const matchesDifficulty =
-        selectedDifficulty === '전체' || problem.difficulty === selectedDifficulty;
+        selectedDifficulty === '전체' || exercise.difficulty === selectedDifficulty;
 
       return matchesSearch && matchesCategory && matchesConcept && matchesDifficulty;
     });
-  }, [problems, searchQuery, selectedCategory, selectedConcept, selectedDifficulty]);
+  }, [exercises, searchQuery, selectedCategory, selectedConcept, selectedDifficulty]);
 
   // 페이지네이션 계산
-  const totalPages = Math.ceil(filteredProblems.length / ITEMS_PER_PAGE);
-  const paginatedProblems = useMemo(() => {
+  const totalPages = Math.ceil(filteredExercises.length / ITEMS_PER_PAGE);
+  const paginatedExercises = useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
-    return filteredProblems.slice(startIndex, endIndex);
-  }, [filteredProblems, currentPage]);
+    return filteredExercises.slice(startIndex, endIndex);
+  }, [filteredExercises, currentPage]);
 
   // 필터 변경 시 첫 페이지로 이동
   const handleFilterChange = () => {
@@ -227,13 +227,13 @@ const PracticeListClient = ({ problems }: PracticeListClientProps) => {
 
           {/* 결과 개수 표시 */}
           <div className="text-sm text-gray-600">
-            총 <span className="font-semibold text-gray-900">{filteredProblems.length}</span>개의 문제가
+            총 <span className="font-semibold text-gray-900">{filteredExercises.length}</span>개의 문제가
             있습니다
           </div>
         </div>
 
         {/* 문제 목록 */}
-        {filteredProblems.length === 0 ? (
+        {filteredExercises.length === 0 ? (
           <div className="bg-white rounded-lg border border-gray-200 p-12 text-center">
             <p className="text-gray-500">검색 조건에 맞는 문제가 없습니다.</p>
             {(searchQuery || selectedCategory !== '전체' || selectedConcept !== '전체' || selectedDifficulty !== '전체') && (
@@ -248,32 +248,32 @@ const PracticeListClient = ({ problems }: PracticeListClientProps) => {
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {paginatedProblems.map((problem) => (
+              {paginatedExercises.map((exercise) => (
                 <Link
-                  key={problem.id}
-                  href={`/concept/${problem.conceptId}/practice?problemId=${problem.id}`}
+                  key={exercise.id}
+                  href={`/concept/${exercise.conceptId}/practice?exerciseId=${exercise.id}`}
                   className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow"
                 >
                   <div className="flex items-start justify-between mb-3">
-                    <h2 className="text-lg font-semibold text-gray-900 flex-1">{problem.title}</h2>
-                    <Badge variant={difficultyColors[problem.difficulty]} size="sm">
-                      {difficultyLabels[problem.difficulty]}
+                    <h2 className="text-lg font-semibold text-gray-900 flex-1">{exercise.title}</h2>
+                    <Badge variant={difficultyColors[exercise.difficulty]} size="sm">
+                      {difficultyLabels[exercise.difficulty]}
                     </Badge>
                   </div>
 
-                  {problem.concept && (
+                  {exercise.concept && (
                     <div className="mb-3">
                       <span className="text-xs text-gray-500">관련 개념:</span>
                       <span className="ml-2 text-sm font-medium text-gray-700">
-                        {problem.concept.title}
+                        {exercise.concept.title}
                       </span>
                     </div>
                   )}
 
-                  <p className="text-sm text-gray-600 line-clamp-2 mb-4">{problem.description}</p>
+                  <p className="text-sm text-gray-600 line-clamp-2 mb-4">{exercise.description}</p>
 
                   <div className="flex flex-wrap gap-2">
-                    {problem.tags.slice(0, 3).map((tag) => (
+                    {exercise.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
                         className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full"
@@ -281,8 +281,8 @@ const PracticeListClient = ({ problems }: PracticeListClientProps) => {
                         #{tag}
                       </span>
                     ))}
-                    {problem.tags.length > 3 && (
-                      <span className="text-xs text-gray-400">+{problem.tags.length - 3}</span>
+                    {exercise.tags.length > 3 && (
+                      <span className="text-xs text-gray-400">+{exercise.tags.length - 3}</span>
                     )}
                   </div>
                 </Link>
@@ -290,7 +290,7 @@ const PracticeListClient = ({ problems }: PracticeListClientProps) => {
             </div>
 
             {/* 페이지네이션 */}
-            {filteredProblems.length > ITEMS_PER_PAGE && (
+            {filteredExercises.length > ITEMS_PER_PAGE && (
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}

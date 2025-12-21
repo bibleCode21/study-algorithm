@@ -1,6 +1,6 @@
-// 문제 풀이 관련 타입
+// 연습 문제 관련 타입
 
-export interface Problem {
+export interface Exercise {
     id: string;
     conceptId: string; // 관련 개념 ID (데이터 구조 또는 알고리즘)
     title: string;

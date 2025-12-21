@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { ProblemDescriptionProps } from '@/features/practice/types/components';
+import { ExerciseDescriptionProps } from '@/features/practice/types/components';
 
-const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
+const ExerciseDescription = ({ exercise }: ExerciseDescriptionProps) => {
   const [showHints, setShowHints] = useState(false);
 
   return (
@@ -11,15 +11,15 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
       <section>
         <h2 className="text-lg font-semibold text-gray-900 mb-3">문제 설명</h2>
         <p className="text-gray-700 leading-relaxed whitespace-pre-line">
-          {problem.description}
+          {exercise.description}
         </p>
       </section>
 
-      {problem.examples && problem.examples.length > 0 && (
+      {exercise.examples && exercise.examples.length > 0 && (
         <section>
           <h2 className="text-lg font-semibold text-gray-900 mb-3">예제</h2>
           <div className="space-y-4">
-            {problem.examples.map((example, index) => (
+            {exercise.examples.map((example, index) => (
               <div key={index} className="bg-gray-50 rounded-lg p-4 space-y-2">
                 <div>
                   <span className="text-sm font-medium text-gray-600">입력:</span>
@@ -45,18 +45,18 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
         </section>
       )}
 
-      {problem.constraints && problem.constraints.length > 0 && (
+      {exercise.constraints && exercise.constraints.length > 0 && (
         <section>
           <h2 className="text-lg font-semibold text-gray-900 mb-3">제약 조건</h2>
           <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
-            {problem.constraints.map((constraint, index) => (
+            {exercise.constraints.map((constraint, index) => (
               <li key={index}>{constraint}</li>
             ))}
           </ul>
         </section>
       )}
 
-      {problem.hints && problem.hints.length > 0 && (
+      {exercise.hints && exercise.hints.length > 0 && (
         <section>
           <button
             onClick={() => setShowHints(!showHints)}
@@ -66,7 +66,7 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
           </button>
           {showHints && (
             <ul className="list-disc list-inside space-y-2 text-sm text-gray-700 bg-blue-50 p-4 rounded-lg">
-              {problem.hints.map((hint, index) => (
+              {exercise.hints.map((hint, index) => (
                 <li key={index}>{hint}</li>
               ))}
             </ul>
@@ -77,5 +77,5 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
   );
 };
 
-export default ProblemDescription;
+export default ExerciseDescription;
 

@@ -1,4 +1,4 @@
-import { problems } from '@/data/problems';
+import { exercises } from '@/data/exercises';
 import { concepts } from '@/data/concepts';
 import PracticeListClient from '@/features/practice/components/PracticeListClient';
 
@@ -7,15 +7,15 @@ export const dynamic = 'force-static';
 
 const PracticePage = () => {
   // 문제와 관련 개념 정보를 결합
-  const problemsWithConcept = problems.map((problem) => {
-    const concept = concepts.find((c) => c.id === problem.conceptId);
+  const exercisesWithConcept = exercises.map((exercise) => {
+    const concept = concepts.find((c) => c.id === exercise.conceptId);
     return {
-      ...problem,
+      ...exercise,
       concept: concept || null,
     };
   });
 
-  return <PracticeListClient problems={problemsWithConcept} />;
+  return <PracticeListClient exercises={exercisesWithConcept} />;
 };
 
 export default PracticePage;

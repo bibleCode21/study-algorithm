@@ -1,9 +1,9 @@
-import { Problem } from './problem';
+import { Exercise } from './exercise';
 import { Concept } from '@/features/algorithm/types/algorithm';
 
 // CodeEditor 컴포넌트 Props
 export interface CodeEditorProps {
-    problem: Problem;
+    exercise: Exercise;
     code: string;
     onCodeChange: (code: string) => void;
     selectedTemplateIndex?: number;
@@ -13,23 +13,23 @@ export interface CodeEditorProps {
 // PracticePageClient 컴포넌트 Props
 export interface PracticePageClientProps {
     concept: Concept;
-    problem: Problem;
+    exercise: Exercise;
     highlightedSolutionCode: string;
 }
 
-// ProblemWithConcept 타입
-export interface ProblemWithConcept extends Problem {
+// ExerciseWithConcept 타입
+export interface ExerciseWithConcept extends Exercise {
     concept: Concept | null;
 }
 
 // PracticeListClient 컴포넌트 Props
 export interface PracticeListClientProps {
-    problems: ProblemWithConcept[];
+    exercises: ExerciseWithConcept[];
 }
 
 // TestRunner 컴포넌트 Props
 export interface TestRunnerProps {
-    problem: Problem;
+    exercise: Exercise;
     code: string;
 }
 
@@ -42,19 +42,19 @@ export interface TestResult {
     error?: string;
 }
 
-// ProblemHeader 컴포넌트 Props
-export interface ProblemHeaderProps {
+// ExerciseHeader 컴포넌트 Props
+export interface ExerciseHeaderProps {
     concept: Concept;
-    problem: Problem;
+    exercise: Exercise;
 }
 
-// ProblemDescription 컴포넌트 Props
-export interface ProblemDescriptionProps {
-    problem: Problem;
+// ExerciseDescription 컴포넌트 Props
+export interface ExerciseDescriptionProps {
+    exercise: Exercise;
 }
 
 // SolutionView 컴포넌트 Props
 export interface SolutionViewProps {
-    problem: Problem;
+    exercise: Exercise;
     highlightedSolutionCode: string;
 }

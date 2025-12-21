@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { Problem } from '@/features/practice/types/problem';
+import { Exercise } from '@/features/practice/types/exercise';
 import { CodeEditorProps } from '@/features/practice/types/components';
 
 // Monaco Editor를 동적으로 로딩하여 초기 번들 크기 감소
@@ -18,12 +18,12 @@ const Editor = dynamic(() => import('@monaco-editor/react'), {
     ),
 });
 
-const getDefaultCode = (problem: Problem, templateIndex: number = 0): string => {
-    if (problem.templateCode) {
-        if (Array.isArray(problem.templateCode)) {
-            return problem.templateCode[templateIndex] || problem.templateCode[0];
+const getDefaultCode = (exercise: Exercise, templateIndex: number = 0): string => {
+    if (exercise.templateCode) {
+        if (Array.isArray(exercise.templateCode)) {
+            return exercise.templateCode[templateIndex] || exercise.templateCode[0];
         }
-        return problem.templateCode;
+        return exercise.templateCode;
     }
     
     // 기본 템플릿 (arrow function)
@@ -34,15 +34,15 @@ const getDefaultCode = (problem: Problem, templateIndex: number = 0): string => 
 };
 
 const CodeEditor = ({ 
-    problem, 
+    exercise, 
     code, 
     onCodeChange,
     selectedTemplateIndex = 0,
     onTemplateChange
 }: CodeEditorProps) => {
     const editorRef = useRef<any>(null);
-    const templateCodes = Array.isArray(problem.templateCode) && problem.templateCode.length > 1 
-        ? problem.templateCode 
+    const templateCodes = Array.isArray(exercise.templateCode) && exercise.templateCode.length > 1 
+        ? exercise.templateCode 
         : null;
 
     const handleEditorDidMount = (editor: any) => {
@@ -50,7 +50,7 @@ const CodeEditor = ({
     };
 
     const handleReset = () => {
-        const defaultCode = getDefaultCode(problem, selectedTemplateIndex);
+        const defaultCode = getDefaultCode(exercise, selectedTemplateIndex);
         onCodeChange(defaultCode);
         if (editorRef.current) {
             editorRef.current.setValue(defaultCode);
@@ -60,7 +60,7 @@ const CodeEditor = ({
     const handleTemplateChange = (index: number) => {
         if (onTemplateChange) {
             onTemplateChange(index);
-            const newTemplate = getDefaultCode(problem, index);
+            const newTemplate = getDefaultCode(exercise, index);
             onCodeChange(newTemplate);
             if (editorRef.current) {
                 editorRef.current.setValue(newTemplate);
