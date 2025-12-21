@@ -40,7 +40,7 @@ class Node<T> {
 let head: Node<number> | null = null;
 
 // 링크드 리스트 끝에 데이터 추가
-function add(data: number): void {
+const add = (data: number): void => {
   if (head === null) {
     head = new Node(data);
     return;
@@ -51,7 +51,7 @@ function add(data: number): void {
     node = node.next;
   }
   node.next = new Node(data);
-}
+};
 
 // 사용 예제: 1부터 9까지 추가
 head = new Node(0);
@@ -75,7 +75,7 @@ class Node<T> {
 }
 
 // 링크드 리스트를 배열로 변환하여 반환
-function getAllData<T>(head: Node<T> | null): T[] {
+const getAllData = <T>(head: Node<T> | null): T[] => {
   const result: T[] = [];
   let node = head;
   
@@ -85,7 +85,7 @@ function getAllData<T>(head: Node<T> | null): T[] {
   }
   
   return result;
-}
+};
 
 // 사용 예제
 let head: Node<number> | null = new Node(1);
@@ -108,7 +108,7 @@ class Node<T> {
 }
 
 // 특정 값 앞에 새 노드 삽입
-function insertBefore<T>(head: Node<T> | null, targetData: T, newData: T): Node<T> | null {
+const insertBefore = <T>(head: Node<T> | null, targetData: T, newData: T): Node<T> | null => {
   if (head === null) {
     return new Node(newData);
   }
@@ -133,7 +133,7 @@ function insertBefore<T>(head: Node<T> | null, targetData: T, newData: T): Node<
   }
 
   return head;
-}
+};
 
 // 사용 예제: 1과 2 사이에 1.5 삽입
 let head: Node<number> | null = new Node(1);
@@ -411,10 +411,10 @@ class NodeMgmt<T> {
       node = node.next;
     }
     
-    const new_node = new Node(data);
-    node.next = new_node;
-    new_node.prev = node;
-    this.tail = new_node;
+    const newNode = new Node(data);
+    node.next = newNode;
+    newNode.prev = node;
+    this.tail = newNode;
   }
 
   // 링크드 리스트의 모든 데이터를 배열로 반환
@@ -476,10 +476,10 @@ class NodeMgmt<T> {
       node = node.next;
     }
     
-    const new_node = new Node(data);
-    node.next = new_node;
-    new_node.prev = node;
-    this.tail = new_node;
+    const newNode = new Node(data);
+    node.next = newNode;
+    newNode.prev = node;
+    this.tail = newNode;
   }
 
   desc(): T[] {
@@ -577,10 +577,10 @@ class NodeMgmt<T> {
       node = node.next;
     }
     
-    const new_node = new Node(data);
-    node.next = new_node;
-    new_node.prev = node;
-    this.tail = new_node;
+    const newNode = new Node(data);
+    node.next = newNode;
+    newNode.prev = node;
+    this.tail = newNode;
   }
 
   desc(): T[] {
@@ -630,20 +630,20 @@ class NodeMgmt<T> {
 
     // head 앞에 삽입하는 경우
     if (node.prev === null) {
-      const new_node = new Node(data);
-      new_node.next = node;
-      node.prev = new_node;
-      this.head = new_node;
+    const newNode = new Node(data);
+    newNode.next = node;
+    node.prev = newNode;
+    this.head = newNode;
       return true;
     }
 
     // 중간에 삽입
-    const new_node = new Node(data);
-    const before_new = node.prev;
-    before_new.next = new_node;
-    new_node.prev = before_new;
-    new_node.next = node;
-    node.prev = new_node;
+    const newNode = new Node(data);
+    const beforeNew = node.prev;
+    beforeNew.next = newNode;
+    newNode.prev = beforeNew;
+    newNode.next = node;
+    node.prev = newNode;
     
     return true;
   }
@@ -696,10 +696,10 @@ class NodeMgmt<T> {
       node = node.next;
     }
     
-    const new_node = new Node(data);
-    node.next = new_node;
-    new_node.prev = node;
-    this.tail = new_node;
+    const newNode = new Node(data);
+    node.next = newNode;
+    newNode.prev = node;
+    this.tail = newNode;
   }
 
   desc(): T[] {
@@ -749,21 +749,21 @@ class NodeMgmt<T> {
 
     // tail 뒤에 삽입하는 경우
     if (node.next === null) {
-      const new_node = new Node(data);
-      node.next = new_node;
-      new_node.prev = node;
-      this.tail = new_node;
+      const newNode = new Node(data);
+      node.next = newNode;
+      newNode.prev = node;
+      this.tail = newNode;
       return true;
     }
 
     // 중간에 삽입
-    const new_node = new Node(data);
-    const after_new = node.next;
-    new_node.next = after_new;
-    new_node.prev = node;
-    node.next = new_node;
-    if (after_new !== null) {
-      after_new.prev = new_node;
+    const newNode = new Node(data);
+    const afterNew = node.next;
+    newNode.next = afterNew;
+    newNode.prev = node;
+    node.next = newNode;
+    if (afterNew !== null) {
+      afterNew.prev = newNode;
     }
     
     return true;

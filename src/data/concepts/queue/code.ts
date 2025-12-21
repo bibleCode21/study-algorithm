@@ -122,19 +122,19 @@ const third = priorityQueue.dequeue(); // 'china' (우선순위 15)`,
 const queueList: number[] = [];
 
 // Enqueue 함수
-function enqueue(data: number): void {
+const enqueue = (data: number): void => {
   queueList.push(data);
-}
+};
 
 // Dequeue 함수
-function dequeue(): number | undefined {
+const dequeue = (): number | undefined => {
   if (queueList.length === 0) {
     return undefined;
   }
   const data = queueList[0];
   queueList.shift(); // 첫 번째 요소 제거
   return data;
-}
+};
 
 // 사용 예제
 for (let index = 0; index < 10; index++) {

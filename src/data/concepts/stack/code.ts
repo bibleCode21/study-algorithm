@@ -44,7 +44,7 @@ const second = stack.pop(); // 2`,
     code: `// 재귀 함수와 프로세스 스택 이해
 // 함수 호출이 스택 구조로 관리됨을 보여주는 예제
 
-function recursive(data: number): void {
+const recursive = (data: number): void => {
   if (data < 0) {
     console.log("ended");
   } else {
@@ -52,7 +52,7 @@ function recursive(data: number): void {
     recursive(data - 1);
     console.log("returned", data);
   }
-}
+};
 
 // recursive(4) 호출 시 출력:
 // 4
@@ -78,14 +78,14 @@ recursive(4);`,
 const stackList: number[] = [];
 
 // Push 함수
-function push(data: number): void {
+const push = (data: number): void => {
   stackList.push(data);
-}
+};
 
 // Pop 함수
-function pop(): number | undefined {
+const pop = (): number | undefined => {
   return stackList.pop();
-}
+};
 
 // 사용 예제
 for (let index = 0; index < 10; index++) {
@@ -106,20 +106,20 @@ const third = pop(); // 7`,
 const stackList: number[] = [];
 
 // Push 함수 직접 구현
-function push(data: number): void {
+const push = (data: number): void => {
   stackList[stackList.length] = data; // 배열 끝에 추가
   // 또는 stackList.push(data) 대신 사용
-}
+};
 
 // Pop 함수 직접 구현
-function pop(): number | undefined {
+const pop = (): number | undefined => {
   if (stackList.length === 0) {
     return undefined;
   }
   const data = stackList[stackList.length - 1]; // 마지막 요소 가져오기
   stackList.length = stackList.length - 1; // 배열 길이 줄이기 (마지막 요소 제거)
   return data;
-}
+};
 
 // 사용 예제
 for (let index = 0; index < 10; index++) {

@@ -4,7 +4,7 @@ export const code: CodeExample[] = [
   {
     language: 'typescript',
     code: `// 반복문을 사용한 이진 탐색
-function binarySearch(arr: number[], target: number): number {
+const binarySearch = (arr: number[], target: number): number => {
   let left = 0;
   let right = arr.length - 1;
 
@@ -21,15 +21,15 @@ function binarySearch(arr: number[], target: number): number {
   }
 
   return -1; // 찾지 못한 경우
-}
+};
 
 // 재귀를 사용한 이진 탐색
-function binarySearchRecursive(
+const binarySearchRecursive = (
   arr: number[],
   target: number,
   left: number = 0,
   right: number = arr.length - 1
-): number {
+): number => {
   if (left > right) return -1;
 
   const mid = Math.floor((left + right) / 2);
@@ -41,7 +41,7 @@ function binarySearchRecursive(
   } else {
     return binarySearchRecursive(arr, target, left, mid - 1);
   }
-}
+};
 
 // 사용 예제
 const sortedArr = [1, 3, 5, 7, 9, 11, 13, 15];
