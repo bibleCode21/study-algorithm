@@ -3,13 +3,275 @@ import { CodeExample } from '@/features/algorithm/types/algorithm';
 export const code: CodeExample[] = [
   {
     language: 'typescript',
+    code: `// 해시 테이블 기본 구조 만들기
+// 배열을 사용하여 해시 테이블의 저장 공간 생성
+
+const hashTable: number[] = Array.from({ length: 10 }, () => 0);
+// [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+// 또는 간단하게
+const hashTable2: number[] = new Array(10).fill(0);
+// [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]`,
+  },
+  {
+    language: 'typescript',
+    code: `// 간단한 해시 함수 구현
+// Division 법: 나누기를 통한 나머지 값을 사용하는 기법
+
+const hashFunction = (key: number): number => {
+  return key % 5;
+};
+
+// 사용 예제
+const key1 = 10;
+const key2 = 23;
+const key3 = 7;
+
+const hash1 = hashFunction(key1); // 0
+const hash2 = hashFunction(key2); // 3
+const hash3 = hashFunction(key3); // 2`,
+  },
+  {
+    language: 'typescript',
+    code: `// 해시 테이블에 데이터 저장하고 읽기
+// 문자열의 첫 번째 문자의 ASCII 코드를 키로 사용
+
+const hashTable: string[] = new Array(10).fill('');
+
+// 해시 함수
+const hashFunction = (key: number): number => {
+  return key % 5;
+};
+
+// 데이터 저장 함수
+const saveData = (data: string, value: string): void => {
+  const key = data.charCodeAt(0); // 첫 번째 문자의 ASCII 코드
+  const hashAddress = hashFunction(key);
+  hashTable[hashAddress] = value;
+};
+
+// 데이터 읽기 함수
+const readData = (data: string): string => {
+  const key = data.charCodeAt(0);
+  const hashAddress = hashFunction(key);
+  return hashTable[hashAddress];
+};
+
+// 사용 예제
+saveData('Andy', '01055553333');
+saveData('Dave', '01044443333');
+saveData('Trump', '01022223333');
+
+const andyPhone = readData('Andy'); // '01055553333'
+const davePhone = readData('Dave'); // '01044443333'`,
+  },
+  {
+    language: 'typescript',
+    code: `// 해시 테이블 구현 (리스트 변수 활용)
+// hash() 함수를 사용하여 키 생성
+
+const hashTable: (string | number)[] = new Array(8).fill(0);
+
+// 해시 키 생성 함수
+const getKey = (data: string): number => {
+  // TypeScript/JavaScript의 문자열 해시는 직접 지원하지 않으므로
+  // 간단한 해시 함수 구현
+  let hash = 0;
+  for (let i = 0; i < data.length; i++) {
+    // hash << 5: 비트 왼쪽 시프트 연산 (hash를 왼쪽으로 5비트 이동 = hash * 32)
+    // (hash << 5) - hash = hash * 32 - hash = hash * 31
+    // 31은 소수이므로 해시 분산이 좋아짐
+    hash = ((hash << 5) - hash) + data.charCodeAt(i);
+    hash = hash & hash; // 32비트 정수로 변환 (오버플로우 방지)
+  }
+  return Math.abs(hash);
+};
+
+// 해시 함수
+const hashFunction = (key: number): number => {
+  return key % 8;
+};
+
+// 데이터 저장 함수
+const saveData = (data: string, value: string): void => {
+  const hashAddress = hashFunction(getKey(data));
+  hashTable[hashAddress] = value;
+};
+
+// 데이터 읽기 함수
+const readData = (data: string): string | number => {
+  const hashAddress = hashFunction(getKey(data));
+  return hashTable[hashAddress];
+};
+
+// 사용 예제
+saveData('Dave', '0102030200');
+saveData('Andy', '01033232200');
+
+const davePhone = readData('Dave'); // '0102030200'
+const andyPhone = readData('Andy'); // '01033232200'`,
+  },
+  {
+    language: 'typescript',
+    code: `// Chaining 기법으로 충돌 해결
+// 개방 해싱(Open Hashing): 해시 테이블 저장공간 외의 공간을 활용
+// 충돌이 발생하면 링크드 리스트로 데이터를 추가로 연결
+
+const hashTable: (number | Array<[number, string]>)[][] = new Array(8).fill(0).map(() => []);
+
+// 해시 키 생성 함수
+const getKey = (data: string): number => {
+  let hash = 0;
+  for (let i = 0; i < data.length; i++) {
+    // hash << 5: 비트 왼쪽 시프트 연산 (hash를 왼쪽으로 5비트 이동 = hash * 32)
+    // (hash << 5) - hash = hash * 32 - hash = hash * 31
+    // 31은 소수이므로 해시 분산이 좋아짐
+    hash = ((hash << 5) - hash) + data.charCodeAt(i);
+    hash = hash & hash; // 32비트 정수로 변환 (오버플로우 방지)
+  }
+  return Math.abs(hash);
+};
+
+// 해시 함수
+const hashFunction = (key: number): number => {
+  return key % 8;
+};
+
+// 데이터 저장 함수 (Chaining 기법)
+const saveData = (data: string, value: string): void => {
+  const indexKey = getKey(data);
+  const hashAddress = hashFunction(indexKey);
+  
+  if (hashTable[hashAddress].length > 0) {
+    // 이미 데이터가 있는 경우 (충돌 발생)
+    for (let i = 0; i < hashTable[hashAddress].length; i++) {
+      if (hashTable[hashAddress][i][0] === indexKey) {
+        // 같은 키가 있으면 값 업데이트
+        hashTable[hashAddress][i][1] = value;
+        return;
+      }
+    }
+    // 같은 키가 없으면 새로 추가
+    hashTable[hashAddress].push([indexKey, value]);
+  } else {
+    // 빈 공간이면 새로 생성
+    hashTable[hashAddress] = [[indexKey, value]];
+  }
+};
+
+// 데이터 읽기 함수 (Chaining 기법)
+const readData = (data: string): string | null => {
+  const indexKey = getKey(data);
+  const hashAddress = hashFunction(indexKey);
+  
+  if (hashTable[hashAddress].length > 0) {
+    for (let i = 0; i < hashTable[hashAddress].length; i++) {
+      if (hashTable[hashAddress][i][0] === indexKey) {
+        return hashTable[hashAddress][i][1];
+      }
+    }
+  }
+  
+  return null;
+};
+
+// 사용 예제
+saveData('Dd', '1201023010');
+saveData('Data', '3301023010');
+
+const ddPhone = readData('Dd'); // '1201023010'
+const dataPhone = readData('Data'); // '3301023010'`,
+  },
+  {
+    language: 'typescript',
+    code: `// Linear Probing 기법으로 충돌 해결
+// 폐쇄 해싱(Close Hashing): 해시 테이블 저장공간 안에서 충돌 해결
+// 충돌이 발생하면 해당 해시 주소의 다음 주소부터 빈 공간을 찾아 저장
+
+const hashTable: (number | [number, string])[] = new Array(8).fill(0);
+
+// 해시 키 생성 함수
+const getKey = (data: string): number => {
+  let hash = 0;
+  for (let i = 0; i < data.length; i++) {
+    // hash << 5: 비트 왼쪽 시프트 연산 (hash를 왼쪽으로 5비트 이동 = hash * 32)
+    // (hash << 5) - hash = hash * 32 - hash = hash * 31
+    // 31은 소수이므로 해시 분산이 좋아짐
+    hash = ((hash << 5) - hash) + data.charCodeAt(i);
+    hash = hash & hash; // 32비트 정수로 변환 (오버플로우 방지)
+  }
+  return Math.abs(hash);
+};
+
+// 해시 함수
+const hashFunction = (key: number): number => {
+  return key % 8;
+};
+
+// 데이터 저장 함수 (Linear Probing 기법)
+const saveData = (data: string, value: string): void => {
+  const indexKey = getKey(data);
+  const hashAddress = hashFunction(indexKey);
+  
+  if (hashTable[hashAddress] !== 0) {
+    // 충돌 발생: 다음 주소부터 빈 공간 찾기
+    for (let index = hashAddress; index < hashTable.length; index++) {
+      if (hashTable[index] === 0) {
+        // 빈 공간을 찾으면 저장
+        hashTable[index] = [indexKey, value];
+        return;
+      } else if (Array.isArray(hashTable[index]) && hashTable[index][0] === indexKey) {
+        // 같은 키가 있으면 값 업데이트
+        hashTable[index][1] = value;
+        return;
+      }
+    }
+  } else {
+    // 빈 공간이면 바로 저장
+    hashTable[hashAddress] = [indexKey, value];
+  }
+};
+
+// 데이터 읽기 함수 (Linear Probing 기법)
+const readData = (data: string): string | null => {
+  const indexKey = getKey(data);
+  const hashAddress = hashFunction(indexKey);
+  
+  if (hashTable[hashAddress] !== 0) {
+    for (let index = hashAddress; index < hashTable.length; index++) {
+      if (hashTable[index] === 0) {
+        // 빈 공간을 만나면 데이터가 없음
+        return null;
+      } else if (Array.isArray(hashTable[index]) && hashTable[index][0] === indexKey) {
+        // 같은 키를 찾으면 값 반환
+        return hashTable[index][1];
+      }
+    }
+  }
+  
+  return null;
+};
+
+// 사용 예제
+saveData('dk', '01200123123');
+saveData('da', '3333333333');
+
+const dkPhone = readData('dk'); // '01200123123'
+const daPhone = readData('da'); // '3333333333'`,
+  },
+  {
+    language: 'typescript',
     code: `// 해시 테이블 구현 (체이닝 방식으로 충돌 해결)
+// 완전한 해시 테이블 클래스 구현
+
 class HashTable<K, V> {
   private buckets: Array<Array<[K, V]>>;
   private size: number;
   private capacity: number;
+  private static readonly DEFAULT_CAPACITY = 16;
+  private static readonly LOAD_FACTOR = 0.75;
 
-  constructor(capacity: number = 16) {
+  constructor(capacity: number = HashTable.DEFAULT_CAPACITY) {
     this.capacity = capacity;
     this.size = 0;
     this.buckets = new Array(capacity).fill(null).map(() => []);
@@ -20,8 +282,11 @@ class HashTable<K, V> {
     const keyString = String(key);
     let hash = 0;
     for (let i = 0; i < keyString.length; i++) {
+      // hash << 5: 비트 왼쪽 시프트 연산 (hash를 왼쪽으로 5비트 이동 = hash * 32)
+      // (hash << 5) - hash = hash * 32 - hash = hash * 31
+      // 31은 소수이므로 해시 분산이 좋아짐
       hash = (hash << 5) - hash + keyString.charCodeAt(i);
-      hash = hash & hash; // 32비트 정수로 변환
+      hash = hash & hash; // 32비트 정수로 변환 (오버플로우 방지)
     }
     return Math.abs(hash) % this.capacity;
   }
@@ -44,7 +309,7 @@ class HashTable<K, V> {
     this.size++;
 
     // 로드 팩터가 너무 높으면 리사이징
-    if (this.size / this.capacity > 0.75) {
+    if (this.size / this.capacity > HashTable.LOAD_FACTOR) {
       this.resize();
     }
   }
@@ -116,4 +381,3 @@ hashTable.delete('cherry');
 const size = hashTable.getSize(); // 2`,
   },
 ];
-
