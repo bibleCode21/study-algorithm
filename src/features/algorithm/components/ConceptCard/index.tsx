@@ -7,7 +7,7 @@ import ConceptCardFooter from './Footer';
 
 const ConceptCard = ({ concept }: ConceptCardProps) => {
   return (
-    <Link href={`/concept/${concept.id}`}>
+    <Link href={`/concept/${concept.id}`} className="cursor-pointer">
       <Card className="h-full">
         <ConceptCardHeader concept={concept} />
         <ConceptCardBody concept={concept} />

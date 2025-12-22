@@ -16,7 +16,7 @@ const ViewSwitcher = ({ currentView, onViewChange }: ViewSwitcherProps) => {
                     key={option.value}
                     onClick={() => onViewChange(option.value)}
                     type="button"
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors ${currentView === option.value
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer ${currentView === option.value
                         ? 'bg-white text-gray-900 shadow-sm'
                         : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                         }`}

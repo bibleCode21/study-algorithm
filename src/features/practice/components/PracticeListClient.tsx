@@ -152,7 +152,7 @@ const PracticeListClient = ({ exercises }: PracticeListClientProps) => {
                         setSelectedCategory(category);
                         handleFilterChange();
                       }}
-                      className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
+                      className={`px-3 py-1.5 text-sm rounded-full transition-colors cursor-pointer ${
                         selectedCategory === category
                           ? 'bg-blue-600 text-white'
                           : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
@@ -175,7 +175,7 @@ const PracticeListClient = ({ exercises }: PracticeListClientProps) => {
                         setSelectedDifficulty(difficulty);
                         handleFilterChange();
                       }}
-                      className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
+                      className={`px-3 py-1.5 text-sm rounded-full transition-colors cursor-pointer ${
                         selectedDifficulty === difficulty
                           ? 'bg-blue-600 text-white'
                           : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
@@ -197,7 +197,7 @@ const PracticeListClient = ({ exercises }: PracticeListClientProps) => {
                     setSelectedConcept('전체');
                     handleFilterChange();
                   }}
-                  className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
+                  className={`px-3 py-1.5 text-sm rounded-full transition-colors cursor-pointer ${
                     selectedConcept === '전체'
                       ? 'bg-blue-600 text-white'
                       : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
@@ -212,7 +212,7 @@ const PracticeListClient = ({ exercises }: PracticeListClientProps) => {
                       setSelectedConcept(concept.id);
                       handleFilterChange();
                     }}
-                    className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
+                    className={`px-3 py-1.5 text-sm rounded-full transition-colors cursor-pointer ${
                       selectedConcept === concept.id
                         ? 'bg-blue-600 text-white'
                         : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
@@ -239,7 +239,7 @@ const PracticeListClient = ({ exercises }: PracticeListClientProps) => {
             {(searchQuery || selectedCategory !== '전체' || selectedConcept !== '전체' || selectedDifficulty !== '전체') && (
               <button
                 onClick={handleResetFilters}
-                className="mt-4 text-blue-600 hover:text-blue-700 text-sm font-medium"
+                className="mt-4 text-blue-600 hover:text-blue-700 text-sm font-medium cursor-pointer"
               >
                 필터 초기화
               </button>
@@ -252,7 +252,7 @@ const PracticeListClient = ({ exercises }: PracticeListClientProps) => {
                 <Link
                   key={exercise.id}
                   href={`/concept/${exercise.conceptId}/practice?exerciseId=${exercise.id}`}
-                  className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow"
+                  className="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow cursor-pointer"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <h2 className="text-lg font-semibold text-gray-900 flex-1">{exercise.title}</h2>

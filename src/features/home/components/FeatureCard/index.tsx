@@ -13,7 +13,7 @@ const FeatureCard = ({
     href
 }: FeatureCardProps) => {
     return (
-        <Link href={href}>
+        <Link href={href} className="cursor-pointer">
             <Card as="article" className="h-full">
                 <FeatureCardHeader
                     icon={icon}

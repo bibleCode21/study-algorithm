@@ -15,7 +15,7 @@ const SolutionView = ({ exercise, highlightedSolutionCode }: SolutionViewProps) 
     <div className="bg-white rounded-lg border border-gray-200 p-6">
       <button
         onClick={() => setShowSolution(!showSolution)}
-        className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900 mb-4"
+        className="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-gray-900 mb-4 cursor-pointer"
       >
         <span>{showSolution ? '▼' : '▶'}</span>
         <span>정답 보기</span>

@@ -79,7 +79,7 @@ const CodeEditor = ({
                                 <button
                                     key={index}
                                     onClick={() => handleTemplateChange(index)}
-                                    className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                                    className={`px-3 py-1.5 text-sm rounded-md transition-colors cursor-pointer ${
                                         selectedTemplateIndex === index
                                             ? 'bg-blue-600 text-white'
                                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -93,7 +93,7 @@ const CodeEditor = ({
                     )}
                     <button
                         onClick={handleReset}
-                        className="text-sm text-gray-600 hover:text-gray-900 px-3 py-1.5 rounded-md hover:bg-gray-100 transition-colors"
+                        className="text-sm text-gray-600 hover:text-gray-900 px-3 py-1.5 rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
                     >
                         초기화
                     </button>

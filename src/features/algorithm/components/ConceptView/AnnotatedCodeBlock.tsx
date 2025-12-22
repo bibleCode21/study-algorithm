@@ -48,7 +48,7 @@ const AnnotatedCodeBlock = ({
                             <div key={index} className="border-l-4 border-blue-400 pl-3">
                                 <button
                                     onClick={() => toggleLine(annotation.line)}
-                                    className="flex items-center gap-2 text-sm font-medium text-blue-900 hover:text-blue-700 transition-colors"
+                                    className="flex items-center gap-2 text-sm font-medium text-blue-900 hover:text-blue-700 transition-colors cursor-pointer"
                                 >
                                     <span className="font-mono text-xs bg-blue-200 px-2 py-0.5 rounded">
                                         {annotation.line}번째 줄

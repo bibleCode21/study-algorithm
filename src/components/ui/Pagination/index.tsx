@@ -60,7 +60,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
                 disabled={currentPage === 1}
                 className={`px-3 py-2 rounded-lg border transition-colors ${currentPage === 1
                         ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
-                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 cursor-pointer'
                     }`}
                 aria-label="이전 페이지"
             >
@@ -97,7 +97,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
                     <button
                         key={pageNum}
                         onClick={() => onPageChange(pageNum)}
-                        className={`px-4 py-2 rounded-lg border transition-colors ${currentPage === pageNum
+                        className={`px-4 py-2 rounded-lg border transition-colors cursor-pointer ${currentPage === pageNum
                                 ? 'bg-blue-600 text-white border-blue-600'
                                 : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                             }`}
@@ -115,7 +115,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
                 disabled={currentPage === totalPages}
                 className={`px-3 py-2 rounded-lg border transition-colors ${currentPage === totalPages
                         ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
-                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                        : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 cursor-pointer'
                     }`}
                 aria-label="다음 페이지"
             >

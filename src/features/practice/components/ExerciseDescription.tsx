@@ -60,7 +60,7 @@ const ExerciseDescription = ({ exercise }: ExerciseDescriptionProps) => {
         <section>
           <button
             onClick={() => setShowHints(!showHints)}
-            className="flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 mb-3"
+            className="flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 mb-3 cursor-pointer"
           >
             <span>💡 힌트 {showHints ? '숨기기' : '보기'}</span>
           </button>

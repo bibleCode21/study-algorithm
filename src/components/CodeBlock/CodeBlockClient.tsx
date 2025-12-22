@@ -54,7 +54,7 @@ const CodeBlockClient = ({
                 <span className="text-xs font-medium text-gray-400 uppercase">{language}</span>
                 <button
                     onClick={handleCopy}
-                    className="text-xs text-gray-400 hover:text-gray-200 transition-colors px-2 py-1 rounded hover:bg-gray-700"
+                    className="text-xs text-gray-400 hover:text-gray-200 transition-colors px-2 py-1 rounded hover:bg-gray-700 cursor-pointer"
                     aria-label="코드 복사"
                 >
                     {copied ? '복사됨!' : '복사'}

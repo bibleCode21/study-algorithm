@@ -10,7 +10,7 @@ const ConceptNavigation = ({ conceptType, conceptId }: ConceptNavigationProps) =
             <div className="flex justify-between items-center">
                 <Link
                     href={listPath}
-                    className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                    className="text-blue-600 hover:text-blue-700 font-medium transition-colors cursor-pointer"
                 >
                     ← {listLabel} 목록
                 </Link>
@@ -18,14 +18,14 @@ const ConceptNavigation = ({ conceptType, conceptId }: ConceptNavigationProps) =
                     {conceptId && (
                         <Link
                             href={`/concept/${conceptId}/practice`}
-                            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium transition-colors"
+                            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium transition-colors cursor-pointer"
                         >
                             문제 풀기
                         </Link>
                     )}
                     <Link
                         href="/"
-                        className="text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                        className="text-gray-600 hover:text-gray-900 font-medium transition-colors cursor-pointer"
                     >
                         홈으로
                     </Link>

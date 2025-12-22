@@ -22,14 +22,14 @@ const ExerciseHeader = ({ concept, exercise }: ExerciseHeaderProps) => {
           <div className="flex items-center gap-3 mb-2 flex-wrap">
             <Link
               href="/practice"
-              className="text-sm text-gray-500 hover:text-gray-700 inline-block"
+              className="text-sm text-gray-500 hover:text-gray-700 inline-block cursor-pointer"
             >
               ← 문제풀이 목록
             </Link>
             <span className="text-gray-300">|</span>
             <Link
               href={`/concept/${concept.id}`}
-              className="text-sm text-gray-500 hover:text-gray-700 inline-block"
+              className="text-sm text-gray-500 hover:text-gray-700 inline-block cursor-pointer"
             >
               {concept.title}로 돌아가기
             </Link>

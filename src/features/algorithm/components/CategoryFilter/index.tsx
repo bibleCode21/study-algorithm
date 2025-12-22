@@ -25,7 +25,7 @@ const CategoryFilter = ({
                         key={category}
                         onClick={() => handleCategoryToggle(category)}
                         type="button"
-                        className="transition-transform hover:scale-105"
+                        className="transition-transform hover:scale-105 cursor-pointer"
                     >
                         <Badge
                             variant={isSelected ? 'primary' : 'default'}
