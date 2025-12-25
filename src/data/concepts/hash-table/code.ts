@@ -117,7 +117,7 @@ const andyPhone = readData('Andy'); // '01033232200'`,
 // 개방 해싱(Open Hashing): 해시 테이블 저장공간 외의 공간을 활용
 // 충돌이 발생하면 링크드 리스트로 데이터를 추가로 연결
 
-const hashTable: (number | Array<[number, string]>)[][] = new Array(8).fill(0).map(() => []);
+const hashTable: Array<Array<[number, string]>> = new Array(8).fill(0).map(() => []);
 
 // 해시 키 생성 함수
 const getKey = (data: string): number => {
@@ -187,8 +187,9 @@ const dataPhone = readData('Data'); // '3301023010'`,
     code: `// Linear Probing 기법으로 충돌 해결
 // 폐쇄 해싱(Close Hashing): 해시 테이블 저장공간 안에서 충돌 해결
 // 충돌이 발생하면 해당 해시 주소의 다음 주소부터 빈 공간을 찾아 저장
+// 배열 끝에 도달하면 처음으로 돌아가서 순환 탐색
 
-const hashTable: (number | [number, string])[] = new Array(8).fill(0);
+const hashTable: ([number, string] | null)[] = new Array(8).fill(null);
 
 // 해시 키 생성 함수
 const getKey = (data: string): number => {
@@ -213,19 +214,26 @@ const saveData = (data: string, value: string): void => {
   const indexKey = getKey(data);
   const hashAddress = hashFunction(indexKey);
   
-  if (hashTable[hashAddress] !== 0) {
-    // 충돌 발생: 다음 주소부터 빈 공간 찾기
-    for (let index = hashAddress; index < hashTable.length; index++) {
-      if (hashTable[index] === 0) {
+  if (hashTable[hashAddress] !== null) {
+    // 충돌 발생: 다음 주소부터 빈 공간 찾기 (순환 탐색)
+    let index = hashAddress;
+    let checked = 0;
+    while (checked < hashTable.length) {
+      if (hashTable[index] === null) {
         // 빈 공간을 찾으면 저장
         hashTable[index] = [indexKey, value];
         return;
-      } else if (Array.isArray(hashTable[index]) && hashTable[index][0] === indexKey) {
+      } else if (hashTable[index]![0] === indexKey) {
         // 같은 키가 있으면 값 업데이트
-        hashTable[index][1] = value;
+        hashTable[index]![1] = value;
         return;
       }
+      // 다음 인덱스로 이동 (순환)
+      index = (index + 1) % hashTable.length;
+      checked++;
     }
+    // 테이블이 가득 찬 경우
+    throw new Error('Hash table is full');
   } else {
     // 빈 공간이면 바로 저장
     hashTable[hashAddress] = [indexKey, value];
@@ -237,15 +245,21 @@ const readData = (data: string): string | null => {
   const indexKey = getKey(data);
   const hashAddress = hashFunction(indexKey);
   
-  if (hashTable[hashAddress] !== 0) {
-    for (let index = hashAddress; index < hashTable.length; index++) {
-      if (hashTable[index] === 0) {
+  if (hashTable[hashAddress] !== null) {
+    // 순환 탐색으로 키 찾기
+    let index = hashAddress;
+    let checked = 0;
+    while (checked < hashTable.length) {
+      if (hashTable[index] === null) {
         // 빈 공간을 만나면 데이터가 없음
         return null;
-      } else if (Array.isArray(hashTable[index]) && hashTable[index][0] === indexKey) {
+      } else if (hashTable[index]![0] === indexKey) {
         // 같은 키를 찾으면 값 반환
-        return hashTable[index][1];
+        return hashTable[index]![1];
       }
+      // 다음 인덱스로 이동 (순환)
+      index = (index + 1) % hashTable.length;
+      checked++;
     }
   }
   
