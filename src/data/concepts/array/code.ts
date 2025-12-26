@@ -58,7 +58,7 @@ for (let i = dataList.length - 1; i >= 0; i--) {
     {
         language: 'typescript',
         code: `// range 함수 활용 (배열 생성)
-// Python의 range()와 유사한 기능
+// 연속된 숫자 배열을 생성하는 기능 (Python의 range()와 유사)
 
 // 0부터 9까지 배열 생성
 const range1: number[] = Array.from({ length: 10 }, (_, i) => i);

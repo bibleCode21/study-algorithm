@@ -145,7 +145,8 @@ head = insertBefore(head, 2, 1.5);
   },
   {
     language: 'typescript',
-    code: `// 파이썬 객체지향 프로그래밍으로 링크드 리스트 구현하기
+    code: `// 객체지향 프로그래밍으로 링크드 리스트 구현하기
+// TypeScript 클래스를 사용하여 링크드 리스트 구현
 class Node<T> {
   data: T;
   next: Node<T> | null = null;
