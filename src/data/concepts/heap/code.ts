@@ -8,52 +8,52 @@ export const code: CodeExample[] = [
 // 완전 이진 트리: 노드를 삽입할 때 최하단 왼쪽 노드부터 차례대로 삽입하는 트리
 
 // 힙과 배열의 관계
-// 배열 인덱스 0부터 시작하는 경우:
+// 배열 인덱스 0부터 시작하는 경우 (표준):
 // - 부모 인덱스 = Math.floor((자식 인덱스 - 1) / 2)
 // - 왼쪽 자식 인덱스 = 부모 인덱스 * 2 + 1
 // - 오른쪽 자식 인덱스 = 부모 인덱스 * 2 + 2
 
-// 배열 인덱스 1부터 시작하는 경우 (구현 편의):
-// - 부모 인덱스 = Math.floor(자식 인덱스 / 2) 또는 자식 인덱스 >> 1 (비트 시프트)
-// - 왼쪽 자식 인덱스 = 부모 인덱스 * 2
-// - 오른쪽 자식 인덱스 = 부모 인덱스 * 2 + 1
-
-// 예제: 인덱스 1부터 시작하는 경우
+// 예제: 인덱스 0부터 시작하는 경우
 const parentIndex = (childIndex: number): number => {
-  return Math.floor(childIndex / 2);
+  return Math.floor((childIndex - 1) / 2);
 };
 
 const leftChildIndex = (parentIndex: number): number => {
-  return parentIndex * 2;
-};
-
-const rightChildIndex = (parentIndex: number): number => {
   return parentIndex * 2 + 1;
 };
 
+const rightChildIndex = (parentIndex: number): number => {
+  return parentIndex * 2 + 2;
+};
+
 // 사용 예제
-const childIdx = 10;
-const parentIdx = parentIndex(childIdx); // 5
-const leftIdx = leftChildIndex(1); // 2
-const rightIdx = rightChildIndex(2); // 5`,
+const childIdx = 5;
+const parentIdx = parentIndex(childIdx); // 2
+const leftIdx = leftChildIndex(0); // 1
+const rightIdx = rightChildIndex(0); // 2`,
   },
   {
     language: 'typescript',
     code: `// 최대 힙 구현 (Max Heap)
-// 배열 인덱스 1부터 시작하는 방식 (구현 편의)
+// 배열 인덱스 0부터 시작하는 방식 (표준)
 // 각 노드의 값은 자식 노드의 값보다 크거나 같아야 함
 
 class MaxHeap {
-  private heapArray: (number | null)[] = [null];
+  private heapArray: number[] = [];
+
+  // 부모 인덱스
+  private parentIndex(childIndex: number): number {
+    return Math.floor((childIndex - 1) / 2);
+  }
 
   // 삽입한 노드가 부모 노드보다 클 경우 위치 교환 여부 확인
   private moveUp(insertedIdx: number): boolean {
-    if (insertedIdx <= 1) {
+    if (insertedIdx <= 0) {
       return false;
     }
 
-    const parentIdx = Math.floor(insertedIdx / 2);
-    if (this.heapArray[insertedIdx]! > this.heapArray[parentIdx]!) {
+    const parentIdx = this.parentIndex(insertedIdx);
+    if (this.heapArray[insertedIdx] > this.heapArray[parentIdx]) {
       return true;
     } else {
       return false;
@@ -62,17 +62,12 @@ class MaxHeap {
 
   // 데이터 삽입
   insert(data: number): boolean {
-    if (this.heapArray.length === 1) {
-      this.heapArray.push(data);
-      return true;
-    }
-
     this.heapArray.push(data);
     let insertedIdx = this.heapArray.length - 1;
 
     // 부모 노드보다 클 경우 위치 교환 반복
     while (this.moveUp(insertedIdx)) {
-      const parentIdx = Math.floor(insertedIdx / 2);
+      const parentIdx = this.parentIndex(insertedIdx);
       [this.heapArray[insertedIdx], this.heapArray[parentIdx]] = [
         this.heapArray[parentIdx],
         this.heapArray[insertedIdx],
@@ -92,7 +87,7 @@ class MaxHeap {
 // heap.insert(5);
 // heap.insert(4);
 // heap.insert(20);
-// heapArray: [null, 20, 10, 15, 5, 4, 8]`,
+// heapArray: [20, 15, 10, 5, 4, 8]`,
   },
   {
     language: 'typescript',
@@ -101,7 +96,7 @@ class MaxHeap {
 // 힙의 용도는 최대값 또는 최소값을 root 노드에 놓아서 바로 꺼내 쓸 수 있도록 하는 것
 
 class MaxHeap {
-  private heapArray: (number | null)[] = [null];
+  private heapArray: number[] = [];
 
   // insert 메서드는 이전 예제 참고
   insert(data: number): boolean {
@@ -109,10 +104,20 @@ class MaxHeap {
     return true;
   }
 
+  // 왼쪽 자식 인덱스
+  private leftChildIndex(parentIndex: number): number {
+    return parentIndex * 2 + 1;
+  }
+
+  // 오른쪽 자식 인덱스
+  private rightChildIndex(parentIndex: number): number {
+    return parentIndex * 2 + 2;
+  }
+
   // root 노드가 자식 노드보다 작을 경우 위치 교환 여부 확인
   private moveDown(poppedIdx: number): boolean {
-    const leftChildPoppedIdx = poppedIdx * 2;
-    const rightChildPoppedIdx = poppedIdx * 2 + 1;
+    const leftChildPoppedIdx = this.leftChildIndex(poppedIdx);
+    const rightChildPoppedIdx = this.rightChildIndex(poppedIdx);
 
     // case1: 왼쪽 자식 노드도 없을 때
     if (leftChildPoppedIdx >= this.heapArray.length) {
@@ -120,7 +125,7 @@ class MaxHeap {
     }
     // case2: 오른쪽 자식 노드만 없을 때
     else if (rightChildPoppedIdx >= this.heapArray.length) {
-      if (this.heapArray[poppedIdx]! < this.heapArray[leftChildPoppedIdx]!) {
+      if (this.heapArray[poppedIdx] < this.heapArray[leftChildPoppedIdx]) {
         return true;
       } else {
         return false;
@@ -129,20 +134,16 @@ class MaxHeap {
     // case3: 왼쪽, 오른쪽 자식 노드 모두 있을 때
     else {
       if (
-        this.heapArray[leftChildPoppedIdx]! >
-        this.heapArray[rightChildPoppedIdx]!
+        this.heapArray[leftChildPoppedIdx] >
+        this.heapArray[rightChildPoppedIdx]
       ) {
-        if (
-          this.heapArray[poppedIdx]! < this.heapArray[leftChildPoppedIdx]!
-        ) {
+        if (this.heapArray[poppedIdx] < this.heapArray[leftChildPoppedIdx]) {
           return true;
         } else {
           return false;
         }
       } else {
-        if (
-          this.heapArray[poppedIdx]! < this.heapArray[rightChildPoppedIdx]!
-        ) {
+        if (this.heapArray[poppedIdx] < this.heapArray[rightChildPoppedIdx]) {
           return true;
         } else {
           return false;
@@ -153,25 +154,27 @@ class MaxHeap {
 
   // 최대값 제거 및 반환
   pop(): number | null {
-    if (this.heapArray.length <= 1) {
+    if (this.heapArray.length === 0) {
       return null;
     }
 
-    const returnedData = this.heapArray[1]!;
-    this.heapArray[1] = this.heapArray[this.heapArray.length - 1]!;
+    if (this.heapArray.length === 1) {
+      return this.heapArray.pop()!;
+    }
+
+    const returnedData = this.heapArray[0];
+    this.heapArray[0] = this.heapArray[this.heapArray.length - 1];
     this.heapArray.pop();
-    let poppedIdx = 1;
+    let poppedIdx = 0;
 
     // 자식 노드보다 작을 경우 위치 교환 반복
     while (this.moveDown(poppedIdx)) {
-      const leftChildPoppedIdx = poppedIdx * 2;
-      const rightChildPoppedIdx = poppedIdx * 2 + 1;
+      const leftChildPoppedIdx = this.leftChildIndex(poppedIdx);
+      const rightChildPoppedIdx = this.rightChildIndex(poppedIdx);
 
       // case2: 오른쪽 자식 노드만 없을 때
       if (rightChildPoppedIdx >= this.heapArray.length) {
-        if (
-          this.heapArray[poppedIdx]! < this.heapArray[leftChildPoppedIdx]!
-        ) {
+        if (this.heapArray[poppedIdx] < this.heapArray[leftChildPoppedIdx]) {
           [this.heapArray[poppedIdx], this.heapArray[leftChildPoppedIdx]] = [
             this.heapArray[leftChildPoppedIdx],
             this.heapArray[poppedIdx],
@@ -182,12 +185,10 @@ class MaxHeap {
       // case3: 왼쪽, 오른쪽 자식 노드 모두 있을 때
       else {
         if (
-          this.heapArray[leftChildPoppedIdx]! >
-          this.heapArray[rightChildPoppedIdx]!
+          this.heapArray[leftChildPoppedIdx] >
+          this.heapArray[rightChildPoppedIdx]
         ) {
-          if (
-            this.heapArray[poppedIdx]! < this.heapArray[leftChildPoppedIdx]!
-          ) {
+          if (this.heapArray[poppedIdx] < this.heapArray[leftChildPoppedIdx]) {
             [this.heapArray[poppedIdx], this.heapArray[leftChildPoppedIdx]] = [
               this.heapArray[leftChildPoppedIdx],
               this.heapArray[poppedIdx],
@@ -195,9 +196,7 @@ class MaxHeap {
             poppedIdx = leftChildPoppedIdx;
           }
         } else {
-          if (
-            this.heapArray[poppedIdx]! < this.heapArray[rightChildPoppedIdx]!
-          ) {
+          if (this.heapArray[poppedIdx] < this.heapArray[rightChildPoppedIdx]) {
             [this.heapArray[poppedIdx], this.heapArray[rightChildPoppedIdx]] = [
               this.heapArray[rightChildPoppedIdx],
               this.heapArray[poppedIdx],
@@ -220,17 +219,17 @@ class MaxHeap {
 // heap.insert(5);
 // heap.insert(4);
 // heap.insert(20);
-// heapArray: [null, 20, 10, 15, 5, 4, 8]
+// heapArray: [20, 15, 10, 5, 4, 8]
 // const max = heap.pop(); // 20 (최대값)
-// heapArray: [null, 15, 10, 8, 5, 4]`,
+// heapArray: [15, 10, 8, 5, 4]`,
   },
   {
     language: 'typescript',
     code: `// 최대 힙 완전 구현 (Max Heap)
-// 배열 인덱스 1부터 시작하는 방식
+// 배열 인덱스 0부터 시작하는 방식 (표준)
 
 class MaxHeap {
-  private heapArray: (number | null)[] = [null];
+  private heapArray: number[] = [];
 
   constructor(data?: number) {
     if (data !== undefined) {
@@ -238,13 +237,28 @@ class MaxHeap {
     }
   }
 
+  // 부모 인덱스
+  private parentIndex(childIndex: number): number {
+    return Math.floor((childIndex - 1) / 2);
+  }
+
+  // 왼쪽 자식 인덱스
+  private leftChildIndex(parentIndex: number): number {
+    return parentIndex * 2 + 1;
+  }
+
+  // 오른쪽 자식 인덱스
+  private rightChildIndex(parentIndex: number): number {
+    return parentIndex * 2 + 2;
+  }
+
   private moveUp(insertedIdx: number): boolean {
-    if (insertedIdx <= 1) {
+    if (insertedIdx <= 0) {
       return false;
     }
 
-    const parentIdx = Math.floor(insertedIdx / 2);
-    if (this.heapArray[insertedIdx]! > this.heapArray[parentIdx]!) {
+    const parentIdx = this.parentIndex(insertedIdx);
+    if (this.heapArray[insertedIdx] > this.heapArray[parentIdx]) {
       return true;
     } else {
       return false;
@@ -252,16 +266,11 @@ class MaxHeap {
   }
 
   insert(data: number): boolean {
-    if (this.heapArray.length === 1) {
-      this.heapArray.push(data);
-      return true;
-    }
-
     this.heapArray.push(data);
     let insertedIdx = this.heapArray.length - 1;
 
     while (this.moveUp(insertedIdx)) {
-      const parentIdx = Math.floor(insertedIdx / 2);
+      const parentIdx = this.parentIndex(insertedIdx);
       [this.heapArray[insertedIdx], this.heapArray[parentIdx]] = [
         this.heapArray[parentIdx],
         this.heapArray[insertedIdx],
@@ -273,33 +282,29 @@ class MaxHeap {
   }
 
   private moveDown(poppedIdx: number): boolean {
-    const leftChildPoppedIdx = poppedIdx * 2;
-    const rightChildPoppedIdx = poppedIdx * 2 + 1;
+    const leftChildPoppedIdx = this.leftChildIndex(poppedIdx);
+    const rightChildPoppedIdx = this.rightChildIndex(poppedIdx);
 
     if (leftChildPoppedIdx >= this.heapArray.length) {
       return false;
     } else if (rightChildPoppedIdx >= this.heapArray.length) {
-      if (this.heapArray[poppedIdx]! < this.heapArray[leftChildPoppedIdx]!) {
+      if (this.heapArray[poppedIdx] < this.heapArray[leftChildPoppedIdx]) {
         return true;
       } else {
         return false;
       }
     } else {
       if (
-        this.heapArray[leftChildPoppedIdx]! >
-        this.heapArray[rightChildPoppedIdx]!
+        this.heapArray[leftChildPoppedIdx] >
+        this.heapArray[rightChildPoppedIdx]
       ) {
-        if (
-          this.heapArray[poppedIdx]! < this.heapArray[leftChildPoppedIdx]!
-        ) {
+        if (this.heapArray[poppedIdx] < this.heapArray[leftChildPoppedIdx]) {
           return true;
         } else {
           return false;
         }
       } else {
-        if (
-          this.heapArray[poppedIdx]! < this.heapArray[rightChildPoppedIdx]!
-        ) {
+        if (this.heapArray[poppedIdx] < this.heapArray[rightChildPoppedIdx]) {
           return true;
         } else {
           return false;
@@ -309,23 +314,25 @@ class MaxHeap {
   }
 
   pop(): number | null {
-    if (this.heapArray.length <= 1) {
+    if (this.heapArray.length === 0) {
       return null;
     }
 
-    const returnedData = this.heapArray[1]!;
-    this.heapArray[1] = this.heapArray[this.heapArray.length - 1]!;
+    if (this.heapArray.length === 1) {
+      return this.heapArray.pop()!;
+    }
+
+    const returnedData = this.heapArray[0];
+    this.heapArray[0] = this.heapArray[this.heapArray.length - 1];
     this.heapArray.pop();
-    let poppedIdx = 1;
+    let poppedIdx = 0;
 
     while (this.moveDown(poppedIdx)) {
-      const leftChildPoppedIdx = poppedIdx * 2;
-      const rightChildPoppedIdx = poppedIdx * 2 + 1;
+      const leftChildPoppedIdx = this.leftChildIndex(poppedIdx);
+      const rightChildPoppedIdx = this.rightChildIndex(poppedIdx);
 
       if (rightChildPoppedIdx >= this.heapArray.length) {
-        if (
-          this.heapArray[poppedIdx]! < this.heapArray[leftChildPoppedIdx]!
-        ) {
+        if (this.heapArray[poppedIdx] < this.heapArray[leftChildPoppedIdx]) {
           [this.heapArray[poppedIdx], this.heapArray[leftChildPoppedIdx]] = [
             this.heapArray[leftChildPoppedIdx],
             this.heapArray[poppedIdx],
@@ -334,12 +341,10 @@ class MaxHeap {
         }
       } else {
         if (
-          this.heapArray[leftChildPoppedIdx]! >
-          this.heapArray[rightChildPoppedIdx]!
+          this.heapArray[leftChildPoppedIdx] >
+          this.heapArray[rightChildPoppedIdx]
         ) {
-          if (
-            this.heapArray[poppedIdx]! < this.heapArray[leftChildPoppedIdx]!
-          ) {
+          if (this.heapArray[poppedIdx] < this.heapArray[leftChildPoppedIdx]) {
             [this.heapArray[poppedIdx], this.heapArray[leftChildPoppedIdx]] = [
               this.heapArray[leftChildPoppedIdx],
               this.heapArray[poppedIdx],
@@ -347,9 +352,7 @@ class MaxHeap {
             poppedIdx = leftChildPoppedIdx;
           }
         } else {
-          if (
-            this.heapArray[poppedIdx]! < this.heapArray[rightChildPoppedIdx]!
-          ) {
+          if (this.heapArray[poppedIdx] < this.heapArray[rightChildPoppedIdx]) {
             [this.heapArray[poppedIdx], this.heapArray[rightChildPoppedIdx]] = [
               this.heapArray[rightChildPoppedIdx],
               this.heapArray[poppedIdx],
