@@ -72,12 +72,20 @@ export const executeCode = (
 
     // Function 생성자를 사용하여 안전하게 코드 실행
     // solution 함수 또는 변수를 추출하여 실행 (arrow function 지원)
+    // input이 배열인 경우 spread로 전달 (다중 파라미터 지원)
     const wrappedCode = `
       ${jsCode}
       
       // solution 함수 또는 변수가 있는지 확인
       if (typeof solution === 'function') {
-        return solution(input);
+        // input이 배열인 경우:
+        // - 첫 번째 요소가 배열인 경우: spread로 전달 (다중 파라미터: [items, count] 형태)
+        // - 첫 번째 요소가 배열이 아닌 경우: 단일 배열 파라미터로 전달 (기존 호환성)
+        if (Array.isArray(input) && input.length > 0 && Array.isArray(input[0])) {
+          return solution(...input);
+        } else {
+          return solution(input);
+        }
       } else if (typeof solution !== 'undefined') {
         // solution이 함수가 아닌 경우 (예: 클래스 인스턴스)
         throw new Error('solution은 함수여야 합니다. solution 함수를 정의해주세요.');

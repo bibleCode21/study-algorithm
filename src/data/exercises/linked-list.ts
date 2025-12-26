@@ -39,8 +39,8 @@ export const linkedListExercises: Exercise[] = [
         expectedOutput: [5],
       },
       {
-        input: [],
-        expectedOutput: [],
+        input: [100, 200, 300],
+        expectedOutput: [100, 200, 300],
       },
     ],
     solution: {
@@ -127,8 +127,8 @@ function solution(arr: number[]): number[] {
         expectedOutput: [1, 3],
       },
       {
-        input: { values: [5], deleteValue: 5 },
-        expectedOutput: [],
+        input: { values: [10, 20, 30, 40], deleteValue: 20 },
+        expectedOutput: [10, 30, 40],
       },
     ],
     solution: {

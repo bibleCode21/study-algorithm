@@ -7,65 +7,65 @@ export const stackExercises: Exercise[] = [
     title: '스택의 Push와 Pop 구현하기',
     difficulty: 'easy',
     description:
-      '리스트를 사용하여 스택의 push와 pop 기능을 구현하세요. 주어진 객체는 push할 숫자 배열과 pop할 횟수를 포함합니다. 모든 숫자를 순서대로 push한 후, 지정된 횟수만큼 pop하여 반환하는 함수를 작성하세요.',
+      '리스트를 사용하여 스택의 push와 pop 기능을 구현하세요. 주어진 배열의 모든 요소를 순서대로 스택에 push한 후, 지정된 개수만큼 pop하여 반환하는 함수를 작성하세요.',
     examples: [
       {
-        input: '{ push: [1, 2, 3], popCount: 2 }',
+        input: 'items = [1, 2, 3], count = 2',
         output: '[3, 2]',
-        explanation: '1, 2, 3을 순서대로 push한 후, 2번 pop하면 3, 2가 반환됩니다 (LIFO).',
+        explanation: '1, 2, 3을 순서대로 push한 후, 2개를 pop하면 3, 2가 반환됩니다 (LIFO).',
       },
       {
-        input: '{ push: [10, 20, 30], popCount: 3 }',
+        input: 'items = [10, 20, 30], count = 3',
         output: '[30, 20, 10]',
         explanation: '모든 요소를 push한 후 모두 pop하면 역순으로 반환됩니다 (LIFO).',
       },
     ],
     constraints: [
-      'push 배열의 길이는 0 이상 100 이하입니다.',
-      'popCount는 0 이상 push 배열의 길이 이하입니다.',
+      'items 배열의 길이는 0 이상 100 이하입니다.',
+      'count는 0 이상 items 배열의 길이 이하입니다.',
       '배열의 각 요소는 정수입니다.',
       'LIFO(Last-In, First-Out) 원칙을 따라야 합니다.',
     ],
     testCases: [
       {
-        input: { push: [1, 2, 3], popCount: 2 },
+        input: [[1, 2, 3], 2],
         expectedOutput: [3, 2],
       },
       {
-        input: { push: [10, 20, 30, 40, 50], popCount: 3 },
+        input: [[10, 20, 30, 40, 50], 3],
         expectedOutput: [50, 40, 30],
       },
       {
-        input: { push: [5, 15, 25], popCount: 1 },
+        input: [[5, 15, 25], 1],
         expectedOutput: [25],
       },
       {
-        input: { push: [1, 2, 3], popCount: 3 },
+        input: [[1, 2, 3], 3],
         expectedOutput: [3, 2, 1],
       },
       {
-        input: { push: [3], popCount: 1 },
+        input: [[3], 1],
         expectedOutput: [3],
       },
       {
-        input: { push: [3], popCount: 2 },
+        input: [[3], 2],
         expectedOutput: [3],
       },
       {
-        input: { push: [7, 8, 9], popCount: 1 },
+        input: [[7, 8, 9], 1],
         expectedOutput: [9],
       },
       {
-        input: { push: [1, 2], popCount: 1 },
+        input: [[1, 2], 1],
         expectedOutput: [2],
       },
       {
-        input: { push: [], popCount: 0 },
-        expectedOutput: [],
+        input: [[100, 200, 300, 400], 2],
+        expectedOutput: [400, 300],
       },
     ],
     solution: {
-      code: `function solution(input: { push: number[]; popCount: number }): number[] {
+      code: `const solution = (items: number[], count: number): number[] => {
   const stack: number[] = [];
   const results: number[] = [];
 
@@ -80,12 +80,12 @@ export const stackExercises: Exercise[] = [
   }
 
   // 모든 요소를 push
-  for (const item of input.push) {
+  for (const item of items) {
     push(item);
   }
 
-  // 지정된 횟수만큼 pop
-  for (let i = 0; i < input.popCount; i++) {
+  // 지정된 개수만큼 pop
+  for (let i = 0; i < count; i++) {
     const item = pop();
     if (item !== undefined) {
       results.push(item);
@@ -93,7 +93,7 @@ export const stackExercises: Exercise[] = [
   }
 
   return results;
-}`,
+};`,
       language: 'typescript',
       explanation:
         '리스트를 사용하여 스택을 구현합니다. push는 배열의 push 메서드를 사용하여 끝에 추가하고, pop은 배열의 pop 메서드를 사용하여 마지막 요소를 제거합니다. LIFO 원칙에 따라 가장 나중에 추가된 요소가 가장 먼저 제거됩니다.',
@@ -101,9 +101,13 @@ export const stackExercises: Exercise[] = [
     hints: [
       '리스트의 push 메서드를 사용하여 스택에 데이터를 추가합니다.',
       '리스트의 pop 메서드를 사용하여 스택에서 데이터를 제거합니다.',
-      '모든 요소를 push한 후, pop하여 결과 배열에 추가합니다. LIFO 원칙에 따라 역순으로 반환됩니다.',
+      '모든 요소를 push한 후, 지정된 개수만큼 pop하여 결과 배열에 추가합니다. LIFO 원칙에 따라 역순으로 반환됩니다.',
     ],
     tags: ['스택', 'LIFO', 'Push', 'Pop'],
+    templateCode: `const solution = (items: number[], count: number): number[] => {
+  // 여기에 코드를 작성하세요
+  return [];
+};`,
   },
   {
     id: 'stack-reverse-string',
@@ -147,8 +151,8 @@ export const stackExercises: Exercise[] = [
         expectedOutput: 'cba',
       },
       {
-        input: '',
-        expectedOutput: '',
+        input: 'xyz',
+        expectedOutput: 'zyx',
       },
       {
         input: 'algorithm',
@@ -156,7 +160,7 @@ export const stackExercises: Exercise[] = [
       },
     ],
     solution: {
-      code: `function solution(str: string): string {
+      code: `const solution = (str: string): string => {
   const stack: string[] = [];
   let result = '';
 
@@ -171,12 +175,12 @@ export const stackExercises: Exercise[] = [
   }
 
   return result;
-}
+};
 
 // 더 간단한 방법 (배열 메서드 활용)
-// function solution(str: string): string {
+// const solution = (str: string): string => {
 //   return str.split('').reverse().join('');
-// }`,
+// };`,
       language: 'typescript',
       explanation:
         '문자열의 각 문자를 스택에 push한 후, 모두 pop하여 역순 문자열을 만듭니다. 스택의 LIFO 특성 덕분에 마지막에 push한 문자가 가장 먼저 pop되어 역순이 됩니다.',
@@ -187,6 +191,10 @@ export const stackExercises: Exercise[] = [
       '스택의 LIFO 특성 덕분에 자동으로 역순이 됩니다.',
     ],
     tags: ['스택', 'LIFO', '문자열', '역순'],
+    templateCode: `const solution = (str: string): string => {
+  // 여기에 코드를 작성하세요
+  return '';
+};`,
   },
 ];
 
