@@ -38,8 +38,8 @@ const rightIdx = rightChildIndex(0); // 2`,
 // 배열 인덱스 0부터 시작하는 방식 (표준)
 // 각 노드의 값은 자식 노드의 값보다 크거나 같아야 함
 
-class MaxHeap {
-  private heapArray: number[] = [];
+class MaxHeap<T> {
+  private heapArray: T[] = [];
 
   // 부모 인덱스
   private parentIndex(childIndex: number): number {
@@ -61,7 +61,7 @@ class MaxHeap {
   }
 
   // 데이터 삽입
-  insert(data: number): boolean {
+  insert(data: T): boolean {
     this.heapArray.push(data);
     let insertedIdx = this.heapArray.length - 1;
 
@@ -80,7 +80,7 @@ class MaxHeap {
 }
 
 // 사용 예제
-// const heap = new MaxHeap();
+// const heap = new MaxHeap<number>();
 // heap.insert(15);
 // heap.insert(10);
 // heap.insert(8);
@@ -95,11 +95,11 @@ class MaxHeap {
 // 보통 최상단 노드(root 노드)를 삭제하는 것이 일반적
 // 힙의 용도는 최대값 또는 최소값을 root 노드에 놓아서 바로 꺼내 쓸 수 있도록 하는 것
 
-class MaxHeap {
-  private heapArray: number[] = [];
+class MaxHeap<T> {
+  private heapArray: T[] = [];
 
   // insert 메서드는 이전 예제 참고
-  insert(data: number): boolean {
+  insert(data: T): boolean {
     // 이전 예제의 insert 구현
     return true;
   }
@@ -153,7 +153,7 @@ class MaxHeap {
   }
 
   // 최대값 제거 및 반환
-  pop(): number | null {
+  pop(): T | null {
     if (this.heapArray.length === 0) {
       return null;
     }
@@ -212,7 +212,7 @@ class MaxHeap {
 }
 
 // 사용 예제
-// const heap = new MaxHeap();
+// const heap = new MaxHeap<number>();
 // heap.insert(15);
 // heap.insert(10);
 // heap.insert(8);
@@ -228,10 +228,10 @@ class MaxHeap {
     code: `// 최대 힙 완전 구현 (Max Heap)
 // 배열 인덱스 0부터 시작하는 방식 (표준)
 
-class MaxHeap {
-  private heapArray: number[] = [];
+class MaxHeap<T> {
+  private heapArray: T[] = [];
 
-  constructor(data?: number) {
+  constructor(data?: T) {
     if (data !== undefined) {
       this.heapArray.push(data);
     }
@@ -265,7 +265,7 @@ class MaxHeap {
     }
   }
 
-  insert(data: number): boolean {
+  insert(data: T): boolean {
     this.heapArray.push(data);
     let insertedIdx = this.heapArray.length - 1;
 
@@ -313,7 +313,7 @@ class MaxHeap {
     }
   }
 
-  pop(): number | null {
+  pop(): T | null {
     if (this.heapArray.length === 0) {
       return null;
     }
@@ -368,7 +368,7 @@ class MaxHeap {
 }
 
 // 사용 예제
-const heap = new MaxHeap(15);
+const heap = new MaxHeap<number>(15);
 heap.insert(10);
 heap.insert(8);
 heap.insert(5);
