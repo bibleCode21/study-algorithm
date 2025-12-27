@@ -18,7 +18,7 @@ const hashTable2: number[] = new Array(10).fill(0);
     code: `// 간단한 해시 함수 구현
 // Division 법: 나누기를 통한 나머지 값을 사용하는 기법
 
-const hashFunction = (key: number): number => {
+const hash = (key: number): number => {
   return key % 5;
 };
 
@@ -27,9 +27,9 @@ const key1 = 10;
 const key2 = 23;
 const key3 = 7;
 
-const hash1 = hashFunction(key1); // 0
-const hash2 = hashFunction(key2); // 3
-const hash3 = hashFunction(key3); // 2`,
+const hash1 = hash(key1); // 0
+const hash2 = hash(key2); // 3
+const hash3 = hash(key3); // 2`,
   },
   {
     language: 'typescript',
@@ -39,21 +39,21 @@ const hash3 = hashFunction(key3); // 2`,
 const hashTable: string[] = new Array(10).fill('');
 
 // 해시 함수
-const hashFunction = (key: number): number => {
+const hash = (key: number): number => {
   return key % 5;
 };
 
 // 데이터 저장 함수
 const saveData = (data: string, value: string): void => {
   const key = data.charCodeAt(0); // 첫 번째 문자의 ASCII 코드
-  const hashAddress = hashFunction(key);
+  const hashAddress = hash(key);
   hashTable[hashAddress] = value;
 };
 
 // 데이터 읽기 함수
 const readData = (data: string): string => {
   const key = data.charCodeAt(0);
-  const hashAddress = hashFunction(key);
+  const hashAddress = hash(key);
   return hashTable[hashAddress];
 };
 
@@ -73,7 +73,7 @@ const davePhone = readData('Dave'); // '01044443333'`,
 const hashTable: (string | number)[] = new Array(8).fill(0);
 
 // 해시 키 생성 함수
-const getKey = (data: string): number => {
+const hashKey = (data: string): number => {
   // TypeScript/JavaScript의 문자열 해시는 직접 지원하지 않으므로
   // 간단한 해시 함수 구현
   let hash = 0;
@@ -88,19 +88,19 @@ const getKey = (data: string): number => {
 };
 
 // 해시 함수
-const hashFunction = (key: number): number => {
+const hash = (key: number): number => {
   return key % 8;
 };
 
 // 데이터 저장 함수
 const saveData = (data: string, value: string): void => {
-  const hashAddress = hashFunction(getKey(data));
+  const hashAddress = hash(hashKey(data));
   hashTable[hashAddress] = value;
 };
 
 // 데이터 읽기 함수
 const readData = (data: string): string | number => {
-  const hashAddress = hashFunction(getKey(data));
+  const hashAddress = hash(hashKey(data));
   return hashTable[hashAddress];
 };
 
@@ -120,7 +120,7 @@ const andyPhone = readData('Andy'); // '01033232200'`,
 const hashTable: Array<Array<[number, string]>> = new Array(8).fill(0).map(() => []);
 
 // 해시 키 생성 함수
-const getKey = (data: string): number => {
+const hashKey = (data: string): number => {
   let hash = 0;
   for (let i = 0; i < data.length; i++) {
     // hash << 5: 비트 왼쪽 시프트 연산 (hash를 왼쪽으로 5비트 이동 = hash * 32)
@@ -133,14 +133,14 @@ const getKey = (data: string): number => {
 };
 
 // 해시 함수
-const hashFunction = (key: number): number => {
+const hash = (key: number): number => {
   return key % 8;
 };
 
 // 데이터 저장 함수 (Chaining 기법)
 const saveData = (data: string, value: string): void => {
-  const indexKey = getKey(data);
-  const hashAddress = hashFunction(indexKey);
+  const indexKey = hashKey(data);
+  const hashAddress = hash(indexKey);
   
   if (hashTable[hashAddress].length > 0) {
     // 이미 데이터가 있는 경우 (충돌 발생)
@@ -161,8 +161,8 @@ const saveData = (data: string, value: string): void => {
 
 // 데이터 읽기 함수 (Chaining 기법)
 const readData = (data: string): string | null => {
-  const indexKey = getKey(data);
-  const hashAddress = hashFunction(indexKey);
+  const indexKey = hashKey(data);
+  const hashAddress = hash(indexKey);
   
   if (hashTable[hashAddress].length > 0) {
     for (let i = 0; i < hashTable[hashAddress].length; i++) {
@@ -192,7 +192,7 @@ const dataPhone = readData('Data'); // '3301023010'`,
 const hashTable: ([number, string] | null)[] = new Array(8).fill(null);
 
 // 해시 키 생성 함수
-const getKey = (data: string): number => {
+const hashKey = (data: string): number => {
   let hash = 0;
   for (let i = 0; i < data.length; i++) {
     // hash << 5: 비트 왼쪽 시프트 연산 (hash를 왼쪽으로 5비트 이동 = hash * 32)
@@ -205,14 +205,14 @@ const getKey = (data: string): number => {
 };
 
 // 해시 함수
-const hashFunction = (key: number): number => {
+const hash = (key: number): number => {
   return key % 8;
 };
 
 // 데이터 저장 함수 (Linear Probing 기법)
 const saveData = (data: string, value: string): void => {
-  const indexKey = getKey(data);
-  const hashAddress = hashFunction(indexKey);
+  const indexKey = hashKey(data);
+  const hashAddress = hash(indexKey);
   
   if (hashTable[hashAddress] !== null) {
     // 충돌 발생: 다음 주소부터 빈 공간 찾기 (순환 탐색)
@@ -242,8 +242,8 @@ const saveData = (data: string, value: string): void => {
 
 // 데이터 읽기 함수 (Linear Probing 기법)
 const readData = (data: string): string | null => {
-  const indexKey = getKey(data);
-  const hashAddress = hashFunction(indexKey);
+  const indexKey = hashKey(data);
+  const hashAddress = hash(indexKey);
   
   if (hashTable[hashAddress] !== null) {
     // 순환 탐색으로 키 찾기

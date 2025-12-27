@@ -14,23 +14,23 @@ export const code: CodeExample[] = [
 // - 오른쪽 자식 인덱스 = 부모 인덱스 * 2 + 2
 
 // 예제: 인덱스 0부터 시작하는 경우
-const parentIndex = (childIndex: number): number => {
-  return Math.floor((childIndex - 1) / 2);
+const parent = (index: number): number => {
+  return Math.floor((index - 1) / 2);
 };
 
-const leftChildIndex = (parentIndex: number): number => {
-  return parentIndex * 2 + 1;
+const leftChild = (index: number): number => {
+  return index * 2 + 1;
 };
 
-const rightChildIndex = (parentIndex: number): number => {
-  return parentIndex * 2 + 2;
+const rightChild = (index: number): number => {
+  return index * 2 + 2;
 };
 
 // 사용 예제
 const childIdx = 5;
-const parentIdx = parentIndex(childIdx); // 2
-const leftIdx = leftChildIndex(0); // 1
-const rightIdx = rightChildIndex(0); // 2`,
+const parentIdx = parent(childIdx); // 2
+const leftIdx = leftChild(0); // 1
+const rightIdx = rightChild(0); // 2`,
   },
   {
     language: 'typescript',
@@ -42,8 +42,8 @@ class MaxHeap<T> {
   private heapArray: T[] = [];
 
   // 부모 인덱스
-  private parentIndex(childIndex: number): number {
-    return Math.floor((childIndex - 1) / 2);
+  private parent(index: number): number {
+    return Math.floor((index - 1) / 2);
   }
 
   // 삽입한 노드가 부모 노드보다 클 경우 위치 교환 여부 확인
@@ -52,7 +52,7 @@ class MaxHeap<T> {
       return false;
     }
 
-    const parentIdx = this.parentIndex(insertedIdx);
+    const parentIdx = this.parent(insertedIdx);
     if (this.heapArray[insertedIdx] > this.heapArray[parentIdx]) {
       return true;
     } else {
@@ -67,7 +67,7 @@ class MaxHeap<T> {
 
     // 부모 노드보다 클 경우 위치 교환 반복
     while (this.moveUp(insertedIdx)) {
-      const parentIdx = this.parentIndex(insertedIdx);
+      const parentIdx = this.parent(insertedIdx);
       [this.heapArray[insertedIdx], this.heapArray[parentIdx]] = [
         this.heapArray[parentIdx],
         this.heapArray[insertedIdx],
@@ -105,19 +105,19 @@ class MaxHeap<T> {
   }
 
   // 왼쪽 자식 인덱스
-  private leftChildIndex(parentIndex: number): number {
-    return parentIndex * 2 + 1;
+  private leftChild(index: number): number {
+    return index * 2 + 1;
   }
 
   // 오른쪽 자식 인덱스
-  private rightChildIndex(parentIndex: number): number {
-    return parentIndex * 2 + 2;
+  private rightChild(index: number): number {
+    return index * 2 + 2;
   }
 
   // root 노드가 자식 노드보다 작을 경우 위치 교환 여부 확인
   private moveDown(poppedIdx: number): boolean {
-    const leftChildPoppedIdx = this.leftChildIndex(poppedIdx);
-    const rightChildPoppedIdx = this.rightChildIndex(poppedIdx);
+    const leftChildPoppedIdx = this.leftChild(poppedIdx);
+    const rightChildPoppedIdx = this.rightChild(poppedIdx);
 
     // case1: 왼쪽 자식 노드도 없을 때
     if (leftChildPoppedIdx >= this.heapArray.length) {
@@ -169,8 +169,8 @@ class MaxHeap<T> {
 
     // 자식 노드보다 작을 경우 위치 교환 반복
     while (this.moveDown(poppedIdx)) {
-      const leftChildPoppedIdx = this.leftChildIndex(poppedIdx);
-      const rightChildPoppedIdx = this.rightChildIndex(poppedIdx);
+      const leftChildPoppedIdx = this.leftChild(poppedIdx);
+      const rightChildPoppedIdx = this.rightChild(poppedIdx);
 
       // case2: 오른쪽 자식 노드만 없을 때
       if (rightChildPoppedIdx >= this.heapArray.length) {
@@ -238,18 +238,18 @@ class MaxHeap<T> {
   }
 
   // 부모 인덱스
-  private parentIndex(childIndex: number): number {
-    return Math.floor((childIndex - 1) / 2);
+  private parent(index: number): number {
+    return Math.floor((index - 1) / 2);
   }
 
   // 왼쪽 자식 인덱스
-  private leftChildIndex(parentIndex: number): number {
-    return parentIndex * 2 + 1;
+  private leftChild(index: number): number {
+    return index * 2 + 1;
   }
 
   // 오른쪽 자식 인덱스
-  private rightChildIndex(parentIndex: number): number {
-    return parentIndex * 2 + 2;
+  private rightChild(index: number): number {
+    return index * 2 + 2;
   }
 
   private moveUp(insertedIdx: number): boolean {
@@ -257,7 +257,7 @@ class MaxHeap<T> {
       return false;
     }
 
-    const parentIdx = this.parentIndex(insertedIdx);
+    const parentIdx = this.parent(insertedIdx);
     if (this.heapArray[insertedIdx] > this.heapArray[parentIdx]) {
       return true;
     } else {
@@ -270,7 +270,7 @@ class MaxHeap<T> {
     let insertedIdx = this.heapArray.length - 1;
 
     while (this.moveUp(insertedIdx)) {
-      const parentIdx = this.parentIndex(insertedIdx);
+      const parentIdx = this.parent(insertedIdx);
       [this.heapArray[insertedIdx], this.heapArray[parentIdx]] = [
         this.heapArray[parentIdx],
         this.heapArray[insertedIdx],
@@ -282,8 +282,8 @@ class MaxHeap<T> {
   }
 
   private moveDown(poppedIdx: number): boolean {
-    const leftChildPoppedIdx = this.leftChildIndex(poppedIdx);
-    const rightChildPoppedIdx = this.rightChildIndex(poppedIdx);
+    const leftChildPoppedIdx = this.leftChild(poppedIdx);
+    const rightChildPoppedIdx = this.rightChild(poppedIdx);
 
     if (leftChildPoppedIdx >= this.heapArray.length) {
       return false;
@@ -328,8 +328,8 @@ class MaxHeap<T> {
     let poppedIdx = 0;
 
     while (this.moveDown(poppedIdx)) {
-      const leftChildPoppedIdx = this.leftChildIndex(poppedIdx);
-      const rightChildPoppedIdx = this.rightChildIndex(poppedIdx);
+      const leftChildPoppedIdx = this.leftChild(poppedIdx);
+      const rightChildPoppedIdx = this.rightChild(poppedIdx);
 
       if (rightChildPoppedIdx >= this.heapArray.length) {
         if (this.heapArray[poppedIdx] < this.heapArray[leftChildPoppedIdx]) {

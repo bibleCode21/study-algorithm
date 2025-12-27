@@ -157,7 +157,7 @@ class Node<T> {
   }
 }
 
-class NodeMgmt<T> {
+class LinkedList<T> {
   private head: Node<T> | null = null;
 
   constructor(data: T) {
@@ -179,7 +179,7 @@ class NodeMgmt<T> {
   }
 
   // 링크드 리스트의 모든 데이터를 배열로 반환
-  desc(): T[] {
+  toArray(): T[] {
     const result: T[] = [];
     let node = this.head;
     
@@ -193,12 +193,12 @@ class NodeMgmt<T> {
 }
 
 // 사용 예제
-const linkedList1 = new NodeMgmt(0);
+const linkedList1 = new LinkedList(0);
 for (let data = 1; data < 10; data++) {
   linkedList1.add(data);
 }
 
-const allData = linkedList1.desc(); 
+const allData = linkedList1.toArray(); 
 // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`,
   },
   {
@@ -214,7 +214,7 @@ class Node<T> {
   }
 }
 
-class NodeMgmt<T> {
+class LinkedList<T> {
   private head: Node<T> | null = null;
 
   constructor(data: T) {
@@ -234,7 +234,7 @@ class NodeMgmt<T> {
     node.next = new Node(data);
   }
 
-  desc(): T[] {
+  toArray(): T[] {
     const result: T[] = [];
     let node = this.head;
     
@@ -273,13 +273,13 @@ class NodeMgmt<T> {
 }
 
 // 사용 예제
-const linkedList1 = new NodeMgmt(0);
+const linkedList1 = new LinkedList(0);
 for (let data = 1; data < 10; data++) {
   linkedList1.add(data);
 }
 
 linkedList1.delete(4); // 4 삭제
-const afterDelete = linkedList1.desc(); 
+const afterDelete = linkedList1.toArray(); 
 // [0, 1, 2, 3, 5, 6, 7, 8, 9]`,
   },
   {
@@ -295,7 +295,7 @@ class Node<T> {
   }
 }
 
-class NodeMgmt<T> {
+class LinkedList<T> {
   private head: Node<T> | null = null;
 
   constructor(data: T) {
@@ -315,7 +315,7 @@ class NodeMgmt<T> {
     node.next = new Node(data);
   }
 
-  desc(): T[] {
+  toArray(): T[] {
     const result: T[] = [];
     let node = this.head;
     
@@ -365,12 +365,12 @@ class NodeMgmt<T> {
 }
 
 // 사용 예제
-const nodeMgmt = new NodeMgmt(0);
+const linkedList = new LinkedList(0);
 for (let data = 1; data < 10; data++) {
-  nodeMgmt.add(data);
+  linkedList.add(data);
 }
 
-const node = nodeMgmt.searchNode(4);
+const node = linkedList.searchNode(4);
 const foundData = node?.data; // 4`,
   },
   {
@@ -390,7 +390,7 @@ class Node<T> {
   }
 }
 
-class NodeMgmt<T> {
+class DoublyLinkedList<T> {
   private head: Node<T> | null = null;
   private tail: Node<T> | null = null;
 
@@ -419,7 +419,7 @@ class NodeMgmt<T> {
   }
 
   // 링크드 리스트의 모든 데이터를 배열로 반환
-  desc(): T[] {
+  toArray(): T[] {
     const result: T[] = [];
     let node = this.head;
     
@@ -433,12 +433,12 @@ class NodeMgmt<T> {
 }
 
 // 사용 예제
-const doubleLinkedList = new NodeMgmt(0);
+const doubleLinkedList = new DoublyLinkedList(0);
 for (let data = 1; data < 10; data++) {
   doubleLinkedList.insert(data);
 }
 
-const allData = doubleLinkedList.desc(); 
+const allData = doubleLinkedList.toArray(); 
 // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`,
   },
   {
@@ -456,7 +456,7 @@ class Node<T> {
   }
 }
 
-class NodeMgmt<T> {
+class DoublyLinkedList<T> {
   private head: Node<T> | null = null;
   private tail: Node<T> | null = null;
 
@@ -483,7 +483,7 @@ class NodeMgmt<T> {
     this.tail = newNode;
   }
 
-  desc(): T[] {
+  toArray(): T[] {
     const result: T[] = [];
     let node = this.head;
     
@@ -531,7 +531,7 @@ class NodeMgmt<T> {
 }
 
 // 사용 예제
-const doubleLinkedList = new NodeMgmt(0);
+const doubleLinkedList = new DoublyLinkedList(0);
 for (let data = 1; data < 10; data++) {
   doubleLinkedList.insert(data);
 }
@@ -557,7 +557,7 @@ class Node<T> {
   }
 }
 
-class NodeMgmt<T> {
+class DoublyLinkedList<T> {
   private head: Node<T> | null = null;
   private tail: Node<T> | null = null;
 
@@ -584,7 +584,7 @@ class NodeMgmt<T> {
     this.tail = newNode;
   }
 
-  desc(): T[] {
+  toArray(): T[] {
     const result: T[] = [];
     let node = this.head;
     
@@ -651,13 +651,13 @@ class NodeMgmt<T> {
 }
 
 // 사용 예제: 2 앞에 1.5 삽입
-const doubleLinkedList = new NodeMgmt(0);
+const doubleLinkedList = new DoublyLinkedList(0);
 for (let data = 1; data < 10; data++) {
   doubleLinkedList.insert(data);
 }
 
 doubleLinkedList.insertBefore(1.5, 2);
-const allData = doubleLinkedList.desc(); 
+const allData = doubleLinkedList.toArray(); 
 // [0, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, 9]`,
   },
   {
@@ -676,7 +676,7 @@ class Node<T> {
   }
 }
 
-class NodeMgmt<T> {
+class DoublyLinkedList<T> {
   private head: Node<T> | null = null;
   private tail: Node<T> | null = null;
 
@@ -703,7 +703,7 @@ class NodeMgmt<T> {
     this.tail = newNode;
   }
 
-  desc(): T[] {
+  toArray(): T[] {
     const result: T[] = [];
     let node = this.head;
     
@@ -772,13 +772,13 @@ class NodeMgmt<T> {
 }
 
 // 사용 예제: 1 뒤에 1.7 삽입
-const nodeMgmt = new NodeMgmt(0);
+const doubleLinkedList = new DoublyLinkedList(0);
 for (let data = 1; data < 10; data++) {
-  nodeMgmt.insert(data);
+  doubleLinkedList.insert(data);
 }
 
-nodeMgmt.insertAfter(1.7, 1);
-const allData = nodeMgmt.desc(); 
+doubleLinkedList.insertAfter(1.7, 1);
+const allData = doubleLinkedList.toArray(); 
 // [0, 1, 1.7, 2, 3, 4, 5, 6, 7, 8, 9]`,
   },
 ];

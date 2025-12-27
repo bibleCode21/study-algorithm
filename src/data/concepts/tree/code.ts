@@ -80,15 +80,15 @@ class BinaryTree<T> {
 }
 
 // 이진 탐색 트리 (BST) 구현
-class BinarySearchTree {
-  root: TreeNode<number> | null = null;
+class BinarySearchTree<T> {
+  root: TreeNode<T> | null = null;
 
   // 값 삽입 (O(log n) 평균, O(n) 최악)
-  insert(value: number): void {
+  insert(value: T): void {
     this.root = this.insertNode(this.root, value);
   }
 
-  private insertNode(node: TreeNode<number> | null, value: number): TreeNode<number> {
+  private insertNode(node: TreeNode<T> | null, value: T): TreeNode<T> {
     if (!node) {
       return new TreeNode(value);
     }
@@ -103,11 +103,11 @@ class BinarySearchTree {
   }
 
   // 값 검색 (O(log n) 평균, O(n) 최악)
-  search(value: number): boolean {
+  search(value: T): boolean {
     return this.searchNode(this.root, value);
   }
 
-  private searchNode(node: TreeNode<number> | null, value: number): boolean {
+  private searchNode(node: TreeNode<T> | null, value: T): boolean {
     if (!node) return false;
     if (node.value === value) return true;
     if (value < node.value) return this.searchNode(node.left, value);
@@ -115,7 +115,7 @@ class BinarySearchTree {
   }
 
   // 최소값 찾기
-  findMin(node: TreeNode<number> | null = this.root): number | null {
+  findMin(node: TreeNode<T> | null = this.root): T | null {
     if (!node) return null;
     while (node.left) {
       node = node.left;
@@ -124,7 +124,7 @@ class BinarySearchTree {
   }
 
   // 최대값 찾기
-  findMax(node: TreeNode<number> | null = this.root): number | null {
+  findMax(node: TreeNode<T> | null = this.root): T | null {
     if (!node) return null;
     while (node.right) {
       node = node.right;
@@ -133,11 +133,11 @@ class BinarySearchTree {
   }
 
   // 값 삭제 (O(log n) 평균, O(n) 최악)
-  delete(value: number): void {
+  delete(value: T): void {
     this.root = this.deleteNode(this.root, value);
   }
 
-  private deleteNode(node: TreeNode<number> | null, value: number): TreeNode<number> | null {
+  private deleteNode(node: TreeNode<T> | null, value: T): TreeNode<T> | null {
     if (!node) return null;
 
     if (value < node.value) {
@@ -159,7 +159,7 @@ class BinarySearchTree {
 }
 
 // 사용 예제
-const bst = new BinarySearchTree();
+const bst = new BinarySearchTree<number>();
 bst.insert(5);
 bst.insert(3);
 bst.insert(7);
