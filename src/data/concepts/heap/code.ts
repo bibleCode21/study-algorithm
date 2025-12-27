@@ -252,118 +252,69 @@ class MaxHeap<T> {
     return index * 2 + 2;
   }
 
-  private moveUp(insertedIdx: number): boolean {
-    if (insertedIdx <= 0) {
-      return false;
-    }
+  // 두 요소 교환
+  private swap(i: number, j: number): void {
+    [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
+  }
 
-    const parentIdx = this.parent(insertedIdx);
-    if (this.heap[insertedIdx] > this.heap[parentIdx]) {
-      return true;
-    } else {
-      return false;
+  // 힙 속성 유지 (위로 올라가며)
+  private heapifyUp(index: number): void {
+    while (index > 0 && this.heap[this.parent(index)] < this.heap[index]) {
+      this.swap(this.parent(index), index);
+      index = this.parent(index);
     }
   }
 
-  insert(data: T): boolean {
-    this.heapArray.push(data);
-    let insertedIdx = this.heapArray.length - 1;
+  // 힙 속성 유지 (아래로 내려가며)
+  private heapifyDown(index: number): void {
+    let largest = index;
+    const left = this.leftChild(index);
+    const right = this.rightChild(index);
 
-    while (this.moveUp(insertedIdx)) {
-      const parentIdx = this.parent(insertedIdx);
-      [this.heap[insertedIdx], this.heap[parentIdx]] = [
-        this.heap[parentIdx],
-        this.heap[insertedIdx],
-      ];
-      insertedIdx = parentIdx;
+    if (left < this.heap.length && this.heap[left] > this.heap[largest]) {
+      largest = left;
     }
 
-    return true;
-  }
+    if (right < this.heap.length && this.heap[right] > this.heap[largest]) {
+      largest = right;
+    }
 
-  private moveDown(poppedIdx: number): boolean {
-    const leftChildPoppedIdx = this.leftChild(poppedIdx);
-    const rightChildPoppedIdx = this.rightChild(poppedIdx);
-
-    if (leftChildPoppedIdx >= this.heap.length) {
-      return false;
-    } else if (rightChildPoppedIdx >= this.heap.length) {
-      if (this.heap[poppedIdx] < this.heap[leftChildPoppedIdx]) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      if (
-        this.heap[leftChildPoppedIdx] >
-        this.heap[rightChildPoppedIdx]
-      ) {
-        if (this.heap[poppedIdx] < this.heap[leftChildPoppedIdx]) {
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        if (this.heap[poppedIdx] < this.heap[rightChildPoppedIdx]) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+    if (largest !== index) {
+      this.swap(index, largest);
+      this.heapifyDown(largest);
     }
   }
 
+  // 요소 추가 (O(log n))
+  insert(value: T): void {
+    this.heap.push(value);
+    this.heapifyUp(this.heap.length - 1);
+  }
+
+  // 최대값 제거 및 반환 (O(log n))
   pop(): T | null {
-    if (this.heap.length === 0) {
-      return null;
-    }
+    if (this.heap.length === 0) return null;
+    if (this.heap.length === 1) return this.heap.pop()!;
 
-    if (this.heap.length === 1) {
-      return this.heap.pop()!;
-    }
+    const max = this.heap[0];
+    this.heap[0] = this.heap.pop()!;
+    this.heapifyDown(0);
+    return max;
+  }
 
-    const returnedData = this.heap[0];
-    this.heap[0] = this.heap[this.heap.length - 1];
-    this.heap.pop();
-    let poppedIdx = 0;
+  // 최대값 확인 (O(1))
+  peek(): T | null {
+    return this.heap.length > 0 ? this.heap[0] : null;
+  }
 
-    while (this.moveDown(poppedIdx)) {
-      const leftChildPoppedIdx = this.leftChild(poppedIdx);
-      const rightChildPoppedIdx = this.rightChild(poppedIdx);
+  // 힙 크기
+  size(): number {
+    return this.heap.length;
+  }
 
-      if (rightChildPoppedIdx >= this.heap.length) {
-        if (this.heap[poppedIdx] < this.heap[leftChildPoppedIdx]) {
-          [this.heap[poppedIdx], this.heap[leftChildPoppedIdx]] = [
-            this.heap[leftChildPoppedIdx],
-            this.heap[poppedIdx],
-          ];
-          poppedIdx = leftChildPoppedIdx;
-        }
-      } else {
-        if (
-          this.heap[leftChildPoppedIdx] >
-          this.heap[rightChildPoppedIdx]
-        ) {
-          if (this.heap[poppedIdx] < this.heap[leftChildPoppedIdx]) {
-            [this.heap[poppedIdx], this.heap[leftChildPoppedIdx]] = [
-              this.heap[leftChildPoppedIdx],
-              this.heap[poppedIdx],
-            ];
-            poppedIdx = leftChildPoppedIdx;
-          }
-        } else {
-          if (this.heap[poppedIdx] < this.heap[rightChildPoppedIdx]) {
-            [this.heap[poppedIdx], this.heap[rightChildPoppedIdx]] = [
-              this.heap[rightChildPoppedIdx],
-              this.heap[poppedIdx],
-            ];
-            poppedIdx = rightChildPoppedIdx;
-          }
-        }
-      }
-    }
-
-    return returnedData;
+  // 힙이 비어있는지 확인
+  isEmpty(): boolean {
+    return this.heap.length === 0;
   }
 }
 
