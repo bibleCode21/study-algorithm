@@ -18,6 +18,12 @@ class TreeNode<T> {
 class BinaryTree<T> {
   root: TreeNode<T> | null = null;
 
+  constructor(value?: T) {
+    if (value !== undefined) {
+      this.root = new TreeNode(value);
+    }
+  }
+
   // 전위 순회 (Pre-order): 루트 -> 왼쪽 -> 오른쪽
   preOrderTraversal(node: TreeNode<T> | null, result: T[] = []): T[] {
     if (node) {
@@ -82,6 +88,12 @@ class BinaryTree<T> {
 // 이진 탐색 트리 (BST) 구현
 class BinarySearchTree<T> {
   root: TreeNode<T> | null = null;
+
+  constructor(value?: T) {
+    if (value !== undefined) {
+      this.root = new TreeNode(value);
+    }
+  }
 
   // 값 삽입 (O(log n) 평균, O(n) 최악)
   insert(value: T): void {

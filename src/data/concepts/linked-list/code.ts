@@ -160,8 +160,10 @@ class Node<T> {
 class LinkedList<T> {
   private head: Node<T> | null = null;
 
-  constructor(data: T) {
-    this.head = new Node(data);
+  constructor(data?: T) {
+    if (data !== undefined) {
+      this.head = new Node(data);
+    }
   }
 
   // 링크드 리스트 끝에 데이터 추가
@@ -217,8 +219,10 @@ class Node<T> {
 class LinkedList<T> {
   private head: Node<T> | null = null;
 
-  constructor(data: T) {
-    this.head = new Node(data);
+  constructor(data?: T) {
+    if (data !== undefined) {
+      this.head = new Node(data);
+    }
   }
 
   add(data: T): void {
@@ -298,8 +302,10 @@ class Node<T> {
 class LinkedList<T> {
   private head: Node<T> | null = null;
 
-  constructor(data: T) {
-    this.head = new Node(data);
+  constructor(data?: T) {
+    if (data !== undefined) {
+      this.head = new Node(data);
+    }
   }
 
   add(data: T): void {
@@ -394,9 +400,11 @@ class DoublyLinkedList<T> {
   private head: Node<T> | null = null;
   private tail: Node<T> | null = null;
 
-  constructor(data: T) {
-    this.head = new Node(data);
-    this.tail = this.head;
+  constructor(data?: T) {
+    if (data !== undefined) {
+      this.head = new Node(data);
+      this.tail = this.head;
+    }
   }
 
   // 링크드 리스트 끝에 데이터 추가
@@ -460,9 +468,11 @@ class DoublyLinkedList<T> {
   private head: Node<T> | null = null;
   private tail: Node<T> | null = null;
 
-  constructor(data: T) {
-    this.head = new Node(data);
-    this.tail = this.head;
+  constructor(data?: T) {
+    if (data !== undefined) {
+      this.head = new Node(data);
+      this.tail = this.head;
+    }
   }
 
   insert(data: T): void {
@@ -561,9 +571,11 @@ class DoublyLinkedList<T> {
   private head: Node<T> | null = null;
   private tail: Node<T> | null = null;
 
-  constructor(data: T) {
-    this.head = new Node(data);
-    this.tail = this.head;
+  constructor(data?: T) {
+    if (data !== undefined) {
+      this.head = new Node(data);
+      this.tail = this.head;
+    }
   }
 
   insert(data: T): void {
@@ -680,9 +692,11 @@ class DoublyLinkedList<T> {
   private head: Node<T> | null = null;
   private tail: Node<T> | null = null;
 
-  constructor(data: T) {
-    this.head = new Node(data);
-    this.tail = this.head;
+  constructor(data?: T) {
+    if (data !== undefined) {
+      this.head = new Node(data);
+      this.tail = this.head;
+    }
   }
 
   insert(data: T): void {

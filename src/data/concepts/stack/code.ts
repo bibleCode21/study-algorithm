@@ -7,6 +7,12 @@ export const code: CodeExample[] = [
 class Stack<T> {
   private items: T[] = [];
 
+  constructor(item?: T) {
+    if (item !== undefined) {
+      this.items.push(item);
+    }
+  }
+
   // Push: 스택에 데이터를 넣는 기능
   push(item: T): void {
     this.items.push(item);

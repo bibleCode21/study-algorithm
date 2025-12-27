@@ -7,6 +7,12 @@ export const code: CodeExample[] = [
 class Queue<T> {
   private items: T[] = [];
 
+  constructor(item?: T) {
+    if (item !== undefined) {
+      this.items.push(item);
+    }
+  }
+
   // Enqueue: 큐에 데이터를 넣는 기능
   enqueue(item: T): void {
     this.items.push(item);
@@ -45,6 +51,12 @@ const second = queue.dequeue(); // 2`,
 class LifoQueue<T> {
   private items: T[] = [];
 
+  constructor(item?: T) {
+    if (item !== undefined) {
+      this.items.push(item);
+    }
+  }
+
   enqueue(item: T): void {
     this.items.push(item);
   }
@@ -80,6 +92,13 @@ const second = lifoQueue.dequeue(); // 2`,
 // 우선순위가 높은 순서대로 데이터 출력
 class PriorityQueue<T> {
   private items: Array<[number, T]> = [];
+
+  constructor(priority?: number, item?: T) {
+    if (priority !== undefined && item !== undefined) {
+      this.items.push([priority, item]);
+      this.items.sort((a, b) => a[0] - b[0]);
+    }
+  }
 
   // 우선순위와 데이터를 함께 저장
   enqueue(priority: number, item: T): void {
