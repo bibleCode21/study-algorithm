@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ConceptViewProps } from '@/features/algorithm/types/components';
 import AnnotatedCodeBlock from './AnnotatedCodeBlock';
 import { getCodeAnnotations } from '@/features/algorithm/utils/codeAnnotations';
@@ -8,6 +8,11 @@ import Pagination from '@/components/ui/Pagination';
 
 const CodeFirstView = ({ concept, codeExamples }: ConceptViewProps) => {
   const [currentPage, setCurrentPage] = useState(1);
+
+  // 페이지가 변경될 때 스크롤을 최상위로 이동
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
 
   if (codeExamples.length === 0) {
     return null;
