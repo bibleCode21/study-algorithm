@@ -3,45 +3,45 @@ import { CodeAnnotation } from '../codeAnnotations';
 // 각 코드 예제별 해석 배열
 export const queueAnnotations: Record<string, CodeAnnotation[][]> = {
   typescript: [
-    // 첫 번째 예제: 기본 큐 구현
+    // 첫 번째 예제: 기본 큐 구현 (1-41줄)
     [
       {
-        line: 7,
+        line: 1,
         comment:
           'Queue 클래스 정의: 제네릭 타입 T를 사용하여 다양한 타입의 데이터를 저장할 수 있습니다. FIFO(First-In, First-Out) 구조를 구현합니다.',
       },
       {
-        line: 8,
+        line: 2,
         comment:
           'items 배열: 큐의 데이터를 저장하는 내부 배열입니다. private으로 선언하여 외부에서 직접 접근할 수 없도록 캡슐화합니다.',
       },
       {
-        line: 17,
+        line: 10,
         comment:
           'enqueue 메서드: 큐의 끝에 데이터를 추가합니다. push 메서드를 사용하여 O(1) 시간에 추가할 수 있습니다.',
       },
       {
-        line: 22,
+        line: 15,
         comment:
           'dequeue 메서드: 큐의 앞에서 데이터를 제거하고 반환합니다. shift 메서드를 사용하지만, 이는 O(n) 시간이 소요됩니다. (실제 프로덕션에서는 더 효율적인 구현 사용)',
       },
       {
-        line: 27,
+        line: 19,
         comment:
           'front 메서드: 큐의 가장 앞에 있는 데이터를 확인합니다. 데이터를 제거하지 않고 단순히 확인만 하므로 O(1) 시간이 소요됩니다.',
       },
       {
-        line: 31,
+        line: 23,
         comment:
           'isEmpty 메서드: 큐가 비어있는지 확인합니다. 배열의 길이가 0인지 확인하여 O(1) 시간에 판단할 수 있습니다.',
       },
       {
-        line: 35,
+        line: 27,
         comment:
           'size 메서드: 큐에 저장된 데이터의 개수를 반환합니다. 배열의 길이를 반환하므로 O(1) 시간이 소요됩니다.',
       },
     ],
-    // 두 번째 예제: LifoQueue 구현
+    // 두 번째 예제: LifoQueue 구현 (1-28줄)
     [
       {
         line: 1,
@@ -49,65 +49,65 @@ export const queueAnnotations: Record<string, CodeAnnotation[][]> = {
           'LifoQueue 클래스: LIFO(Last-In, First-Out) 구조를 구현하는 큐입니다. 스택과 동일한 동작을 하지만 큐의 인터페이스를 사용합니다.',
       },
       {
-        line: 4,
+        line: 13,
         comment:
           'enqueue 메서드: 큐의 끝에 데이터를 추가합니다. push 메서드를 사용하여 O(1) 시간에 추가합니다.',
       },
       {
-        line: 5,
+        line: 17,
         comment:
           'dequeue 메서드: 큐의 끝에서 데이터를 제거하고 반환합니다. pop 메서드를 사용하여 O(1) 시간에 제거합니다. 이것이 LIFO 구조의 특징입니다.',
       },
       {
-        line: 8,
+        line: 21,
         comment:
           'top 메서드: 큐의 가장 위에 있는 데이터를 확인합니다. 스택의 peek 메서드와 동일한 역할을 합니다.',
       },
     ],
-    // 세 번째 예제: PriorityQueue 구현
+    // 세 번째 예제: PriorityQueue 구현 (1-46줄)
     [
       {
-        line: 3,
+        line: 1,
         comment:
           'PriorityQueue 클래스: 우선순위가 높은 순서대로 데이터를 출력하는 큐입니다. 우선순위와 데이터를 함께 저장합니다.',
       },
       {
-        line: 4,
+        line: 2,
         comment:
           'items 배열: [우선순위, 데이터] 튜플을 저장하는 배열입니다. 우선순위는 숫자로 표현되며, 낮은 숫자가 높은 우선순위를 의미합니다.',
       },
       {
-        line: 6,
+        line: 4,
         comment:
           '생성자: 우선순위와 데이터를 받아 초기값을 설정할 수 있습니다. 설정 시 자동으로 정렬됩니다.',
       },
       {
-        line: 9,
+        line: 7,
         comment:
           '정렬: sort 메서드를 사용하여 우선순위 순으로 정렬합니다. a[0] - b[0]은 우선순위를 비교하여 오름차순으로 정렬합니다.',
       },
       {
-        line: 15,
+        line: 12,
         comment:
           'enqueue 메서드: 우선순위와 데이터를 함께 저장합니다. 저장 후 우선순위 순으로 정렬하여 항상 우선순위가 높은 데이터가 앞에 오도록 합니다.',
       },
       {
-        line: 16,
+        line: 13,
         comment:
           '정렬 로직: 낮은 숫자가 높은 우선순위를 의미하므로, a[0] - b[0]으로 오름차순 정렬하면 우선순위가 높은 데이터가 앞에 옵니다.',
       },
       {
-        line: 20,
+        line: 17,
         comment:
           'dequeue 메서드: 가장 앞에 있는 데이터(가장 높은 우선순위)를 제거하고 반환합니다. shift 메서드를 사용하여 O(n) 시간이 소요됩니다.',
       },
       {
-        line: 22,
+        line: 19,
         comment:
           '데이터 추출: item[1]을 사용하여 튜플에서 데이터 부분만 추출합니다. item[0]은 우선순위입니다.',
       },
     ],
-    // 네 번째 예제: 리스트를 이용한 큐 구현
+    // 네 번째 예제: 리스트를 이용한 큐 구현 (1-28줄)
     [
       {
         line: 1,

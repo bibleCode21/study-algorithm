@@ -3,7 +3,7 @@ import { CodeAnnotation } from '../codeAnnotations';
 // 각 코드 예제별 해석 배열
 export const bubbleSortAnnotations: Record<string, CodeAnnotation[][]> = {
   typescript: [
-    // 첫 번째 예제: 버블 정렬 구현
+    // 첫 번째 예제: 버블 정렬 구현 (1-27줄)
     [
       {
         line: 1,
