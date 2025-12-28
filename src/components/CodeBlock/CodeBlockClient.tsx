@@ -41,7 +41,7 @@ const CodeBlockClient = ({
             () => {
                 lineIndex++;
                 const paddedLineNumber = lineIndex.toString().padStart(lineNumberWidth, ' ');
-                return `<span class="line flex"><span class="text-gray-600 select-none text-right inline-block shrink-0" style="min-width: ${lineNumberWidth * 0.6 + 0.5}em; margin-right: 1rem; user-select: none">${paddedLineNumber}</span><span class="flex-1">`;
+                return `<span class="line flex" data-line-number="${lineIndex}"><span class="text-gray-600 select-none text-right inline-block shrink-0" style="min-width: ${lineNumberWidth * 0.6 + 0.5}em; margin-right: 1rem; user-select: none">${paddedLineNumber}</span><span class="flex-1">`;
             }
         );
 
