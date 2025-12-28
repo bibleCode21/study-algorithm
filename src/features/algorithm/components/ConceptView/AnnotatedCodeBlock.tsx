@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import CodeBlockClient from '@/components/CodeBlock/CodeBlockClient';
 
 interface AnnotatedCodeBlockProps {
@@ -20,6 +21,7 @@ const AnnotatedCodeBlock = ({
     const [selectedLine, setSelectedLine] = useState<number | null>(null);
     const codeContainerRef = useRef<HTMLDivElement>(null);
     const annotationPanelRef = useRef<HTMLDivElement>(null);
+    const pathname = usePathname();
 
     // 코드나 annotations가 변경될 때 해석 패널 스크롤을 맨 위로 초기화
     useEffect(() => {
@@ -27,6 +29,12 @@ const AnnotatedCodeBlock = ({
             annotationPanelRef.current.scrollTop = 0;
         }
     }, [code, annotations]);
+
+    // 코드, annotations, 또는 경로가 변경될 때 확장된 줄과 선택된 줄 초기화
+    useEffect(() => {
+        setExpandedLines(new Set());
+        setSelectedLine(null);
+    }, [code, annotations, pathname]);
 
     const toggleLine = (line: number) => {
         const newExpanded = new Set(expandedLines);
