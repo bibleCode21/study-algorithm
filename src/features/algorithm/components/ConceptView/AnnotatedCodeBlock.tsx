@@ -36,6 +36,42 @@ const AnnotatedCodeBlock = ({
         setSelectedLine(null);
     }, [code, annotations, pathname]);
 
+    // 코드 블록의 높이에 맞춰 해석 패널의 높이 조정
+    useEffect(() => {
+        const updatePanelHeight = () => {
+            if (codeContainerRef.current && annotationPanelRef.current) {
+                const codeBlock = codeContainerRef.current.querySelector('div[class*="bg-gray-900"]');
+                if (codeBlock) {
+                    const codeHeight = codeBlock.getBoundingClientRect().height;
+                    const viewportHeight = window.innerHeight;
+                    const topOffset = 64; // lg:top-16 = 64px
+                    
+                    // 코드 블록 높이에 맞춰 해석 패널 높이 설정
+                    // 최소한 뷰포트 높이만큼은 보장하되, 코드 블록이 길면 그에 맞춰 높이 설정
+                    // 단, 뷰포트를 넘지 않도록 제한 (sticky 유지)
+                    const calculatedHeight = Math.min(
+                        Math.max(codeHeight, viewportHeight - topOffset - 32),
+                        viewportHeight - topOffset
+                    );
+                    
+                    annotationPanelRef.current.style.maxHeight = `${calculatedHeight}px`;
+                }
+            }
+        };
+
+        // 초기 설정
+        const timeoutId = setTimeout(updatePanelHeight, 100);
+
+        // 리사이즈 이벤트 리스너
+        window.addEventListener('resize', updatePanelHeight);
+
+        return () => {
+            clearTimeout(timeoutId);
+            window.removeEventListener('resize', updatePanelHeight);
+        };
+    }, [code, highlightedHtml]);
+
+
     const toggleLine = (line: number) => {
         const newExpanded = new Set(expandedLines);
         if (newExpanded.has(line)) {
@@ -129,7 +165,7 @@ const AnnotatedCodeBlock = ({
             <div className="lg:flex-1 lg:max-w-lg">
                 <div 
                     ref={annotationPanelRef}
-                    className="bg-blue-50 border border-blue-200 rounded-lg p-4 lg:sticky lg:top-16 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto"
+                    className="bg-blue-50 border border-blue-200 rounded-lg p-4 lg:sticky lg:top-16 lg:overflow-y-auto"
                 >
                     <h3 className="text-sm font-semibold text-blue-900 mb-3">코드 해석</h3>
                     <div className="space-y-3">
