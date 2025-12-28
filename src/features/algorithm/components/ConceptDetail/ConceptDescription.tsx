@@ -91,7 +91,7 @@ const ConceptDescription = ({ description }: ConceptDescriptionProps) => {
     return (
         <section className="mb-8">
             <h2 className="text-xl font-semibold text-gray-900 mb-3">설명</h2>
-            <div className="text-gray-700 leading-relaxed">
+            <div className="text-gray-700 leading-relaxed break-keep">
                 {parseMarkdown(description)}
             </div>
         </section>

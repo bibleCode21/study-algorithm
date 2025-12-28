@@ -40,7 +40,7 @@ export default async function ConceptDetailPage({ params }: ConceptDetailPagePro
 
     return (
         <main className="bg-gray-50 min-h-screen">
-            <article className="mx-auto max-w-7xl px-6 md:px-8 py-12">
+            <article className="mx-auto max-w-[90rem] px-6 md:px-8 py-12">
                 <ConceptHeader concept={concept} />
                 <ConceptViewWrapper concept={concept} codeExamples={highlightedCodeExamples} />
                 <ConceptNavigation conceptType={concept.type} conceptId={concept.id} />

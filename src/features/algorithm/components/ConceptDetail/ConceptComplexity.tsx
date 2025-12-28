@@ -7,7 +7,7 @@ const ConceptComplexity = ({
     return (
         <section className="mb-8">
             <h2 className="text-xl font-semibold text-gray-900 mb-3">복잡도</h2>
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
+            <div className="bg-white rounded-lg border border-gray-200 p-6 break-keep">
                 <div className="space-y-3">
                     <div>
                         <h3 className="text-sm font-medium text-gray-700 mb-2">시간 복잡도</h3>

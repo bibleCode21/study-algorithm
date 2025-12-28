@@ -8,7 +8,7 @@ const CompactView = ({ concept }: ConceptViewProps) => {
     <div className="space-y-6">
       <section>
         <h2 className="text-lg font-semibold text-gray-900 mb-3">요약</h2>
-        <p className="text-gray-700 leading-relaxed">{summary}</p>
+        <p className="text-gray-700 leading-relaxed break-keep">{summary}</p>
       </section>
 
       {(concept.timeComplexity || concept.spaceComplexity) && (

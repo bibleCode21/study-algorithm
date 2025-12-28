@@ -157,12 +157,12 @@ const AnnotatedCodeBlock = ({
     return (
         <div className="flex flex-col lg:flex-row gap-4">
             {/* 코드 블록 - PC에서는 왼쪽, 모바일에서는 위 */}
-            <div className="flex-1 lg:flex-[1.2] min-w-0" ref={codeContainerRef}>
+            <div className="flex-1 lg:flex-[1.8] min-w-0" ref={codeContainerRef}>
                 <CodeBlockClient language={language} code={code} highlightedHtml={highlightedHtml} />
             </div>
 
             {/* 해석 패널 - PC에서는 오른쪽, 모바일에서는 아래 */}
-            <div className="lg:flex-1 lg:max-w-lg">
+            <div className="lg:flex-1 lg:max-w-md">
                 <div 
                     ref={annotationPanelRef}
                     className="bg-blue-50 border border-blue-200 rounded-lg p-4 lg:sticky lg:top-16 lg:overflow-y-auto"
