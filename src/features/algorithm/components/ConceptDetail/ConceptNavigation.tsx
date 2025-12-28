@@ -18,7 +18,7 @@ const ConceptNavigation = ({ conceptType, conceptId }: ConceptNavigationProps) =
                     {conceptId && (
                         <Link
                             href={`/concept/${conceptId}/practice`}
-                            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 font-medium transition-colors cursor-pointer"
+                            className="px-4 py-2 bg-blue-600 !text-white rounded-md hover:bg-blue-700 font-medium transition-colors cursor-pointer"
                         >
                             문제 풀기
                         </Link>

@@ -19,7 +19,7 @@ const CompactView = ({ concept }: ConceptViewProps) => {
               {concept.timeComplexity && (
                 <div>
                   <h3 className="text-sm font-semibold text-gray-900 mb-3">시간 복잡도</h3>
-                  <ul className="space-y-2.5 pl-4 list-disc list-outside">
+                  <ul className="space-y-2.5 pl-6 list-disc">
                     <li>
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-gray-600">최선</span>
