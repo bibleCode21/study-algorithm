@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import CodeBlockClient from '@/components/CodeBlock/CodeBlockClient';
 
 interface AnnotatedCodeBlockProps {
@@ -19,6 +19,14 @@ const AnnotatedCodeBlock = ({
     const [expandedLines, setExpandedLines] = useState<Set<number>>(new Set());
     const [selectedLine, setSelectedLine] = useState<number | null>(null);
     const codeContainerRef = useRef<HTMLDivElement>(null);
+    const annotationPanelRef = useRef<HTMLDivElement>(null);
+
+    // 코드나 annotations가 변경될 때 해석 패널 스크롤을 맨 위로 초기화
+    useEffect(() => {
+        if (annotationPanelRef.current) {
+            annotationPanelRef.current.scrollTop = 0;
+        }
+    }, [code, annotations]);
 
     const toggleLine = (line: number) => {
         const newExpanded = new Set(expandedLines);
@@ -68,7 +76,10 @@ const AnnotatedCodeBlock = ({
 
             {/* 해석 패널 - PC에서는 오른쪽, 모바일에서는 아래 */}
             <div className="lg:flex-1 lg:max-w-lg">
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto">
+                <div 
+                    ref={annotationPanelRef}
+                    className="bg-blue-50 border border-blue-200 rounded-lg p-4 lg:sticky lg:top-16 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto"
+                >
                     <h3 className="text-sm font-semibold text-blue-900 mb-3">코드 해석</h3>
                     <div className="space-y-3">
                         {annotations.map((annotation, index) => {

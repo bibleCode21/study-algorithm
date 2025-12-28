@@ -108,7 +108,6 @@ const third = pop(); // 7`,
     language: 'typescript',
     code: `// 리스트 변수로 스택을 다루는 pop, push 기능 직접 구현
 // (pop, push 함수 사용하지 않고 직접 구현)
-
 const stackList: number[] = [];
 
 // Push 함수 직접 구현
