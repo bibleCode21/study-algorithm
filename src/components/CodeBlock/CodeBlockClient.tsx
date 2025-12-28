@@ -61,7 +61,7 @@ const CodeBlockClient = ({
                 </button>
             </div>
             <div
-                className="p-4 overflow-x-auto break-keep [&_pre]:!bg-transparent [&_pre]:!p-0 [&_pre]:!m-0 [&_code]:!text-sm [&_code]:!font-mono [&_code]:!leading-relaxed [&_code]:!block [&_.line]:!block [&_.line]:!whitespace-nowrap"
+                className="p-4 overflow-x-auto [&_pre]:!bg-transparent [&_pre]:!p-0 [&_pre]:!m-0 [&_code]:!text-sm [&_code]:!font-mono [&_code]:!leading-relaxed [&_code]:!block [&_.line]:!block"
                 dangerouslySetInnerHTML={{ __html: htmlWithLineNumbers }}
             />
         </div>
