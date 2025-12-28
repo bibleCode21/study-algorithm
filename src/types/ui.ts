@@ -36,3 +36,12 @@ export interface SearchBarProps {
     className?: string;
 }
 
+// Pagination 컴포넌트 Props
+export interface PaginationProps {
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (page: number) => void;
+    showFirstLast?: boolean;
+    className?: string;
+}
+
