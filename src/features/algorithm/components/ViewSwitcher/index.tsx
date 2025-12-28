@@ -3,9 +3,9 @@
 import { ViewSwitcherProps } from '@/features/algorithm/types/components';
 
 const viewOptions: { value: ViewSwitcherProps['currentView']; label: string; icon: string }[] = [
-    { value: 'default', label: '기본', icon: '📄' },
+    { value: 'default', label: '개념 설명', icon: '📄' },
     { value: 'compact', label: '컴팩트', icon: '📋' },
-    { value: 'codeFirst', label: '코드 중심', icon: '💻' },
+    { value: 'codeFirst', label: '코드 예제', icon: '💻' },
 ];
 
 const ViewSwitcher = ({ currentView, onViewChange }: ViewSwitcherProps) => {

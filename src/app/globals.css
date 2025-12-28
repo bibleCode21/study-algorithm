@@ -14,3 +14,21 @@ a {
     text-decoration: none;
     color: inherit;
 }
+
+/* ul, li 기본 스타일 보장 */
+ul, ol {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+li {
+    display: list-item;
+}

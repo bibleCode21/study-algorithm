@@ -11,23 +11,44 @@ const CompactView = ({ concept }: ConceptViewProps) => {
         <p className="text-gray-700 leading-relaxed">{summary}</p>
       </section>
 
-      {concept.type === 'algorithm' && concept.timeComplexity && (
+      {(concept.timeComplexity || concept.spaceComplexity) && (
         <section>
           <h2 className="text-lg font-semibold text-gray-900 mb-3">복잡도</h2>
           <div className="bg-white rounded-lg border border-gray-200 p-4">
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">시간 복잡도 (최악)</span>
-                <span className="font-mono font-semibold text-gray-900">
-                  {concept.timeComplexity.worst}
-                </span>
-              </div>
+            <div className="space-y-6">
+              {concept.timeComplexity && (
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-900 mb-3">시간 복잡도</h3>
+                  <ul className="space-y-2.5 pl-5 list-disc list-outside">
+                    <li className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">최선</span>
+                      <span className="font-mono font-bold text-gray-900">
+                        {concept.timeComplexity.best}
+                      </span>
+                    </li>
+                    <li className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">평균</span>
+                      <span className="font-mono font-bold text-gray-900">
+                        {concept.timeComplexity.average}
+                      </span>
+                    </li>
+                    <li className="flex justify-between items-center">
+                      <span className="text-sm font-semibold text-gray-700">최악</span>
+                      <span className="font-mono font-bold text-gray-900">
+                        {concept.timeComplexity.worst}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              )}
               {concept.spaceComplexity && (
-                <div className="flex justify-between items-center pt-2 border-t">
-                  <span className="text-sm text-gray-600">공간 복잡도</span>
-                  <span className="font-mono font-semibold text-gray-900">
-                    {concept.spaceComplexity}
-                  </span>
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-900 mb-3">공간 복잡도</h3>
+                  <div className="pl-4">
+                    <span className="font-mono font-bold text-gray-900">
+                      {concept.spaceComplexity}
+                    </span>
+                  </div>
                 </div>
               )}
             </div>
