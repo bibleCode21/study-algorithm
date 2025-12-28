@@ -15,7 +15,8 @@ const CodeFirstView = ({ concept, codeExamples }: ConceptViewProps) => {
 
   const currentExample = codeExamples[currentPage - 1];
   const totalPages = codeExamples.length;
-  const annotations = getCodeAnnotations(concept.id, currentExample.language, currentExample.code);
+  const exampleIndex = currentPage - 1; // 0부터 시작하는 인덱스
+  const annotations = getCodeAnnotations(concept.id, currentExample.language, currentExample.code, exampleIndex);
 
   return (
     <div className="space-y-8">
