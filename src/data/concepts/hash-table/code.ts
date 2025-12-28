@@ -5,7 +5,6 @@ export const code: CodeExample[] = [
     language: 'typescript',
     code: `// 해시 테이블 기본 구조 만들기
 // 배열을 사용하여 해시 테이블의 저장 공간 생성
-
 const hashTable: number[] = Array.from({ length: 10 }, () => 0);
 // [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -17,7 +16,6 @@ const hashTable2: number[] = new Array(10).fill(0);
     language: 'typescript',
     code: `// 간단한 해시 함수 구현
 // Division 법: 나누기를 통한 나머지 값을 사용하는 기법
-
 const hash = (key: number): number => {
   return key % 5;
 };
@@ -35,7 +33,6 @@ const hash3 = hash(key3); // 2`,
     language: 'typescript',
     code: `// 해시 테이블에 데이터 저장하고 읽기
 // 문자열의 첫 번째 문자의 ASCII 코드를 키로 사용
-
 const hashTable: string[] = new Array(10).fill('');
 
 // 해시 함수
@@ -69,7 +66,6 @@ const davePhone = readData('Dave'); // '01044443333'`,
     language: 'typescript',
     code: `// 해시 테이블 구현 (리스트 변수 활용)
 // hash() 함수를 사용하여 키 생성
-
 const hashTable: (string | number)[] = new Array(8).fill(0);
 
 // 해시 키 생성 함수
@@ -116,7 +112,6 @@ const andyPhone = readData('Andy'); // '01033232200'`,
     code: `// Chaining 기법으로 충돌 해결
 // 개방 해싱(Open Hashing): 해시 테이블 저장공간 외의 공간을 활용
 // 충돌이 발생하면 링크드 리스트로 데이터를 추가로 연결
-
 const hashTable: Array<Array<[number, string]>> = new Array(8).fill(0).map(() => []);
 
 // 해시 키 생성 함수
@@ -188,7 +183,6 @@ const dataPhone = readData('Data'); // '3301023010'`,
 // 폐쇄 해싱(Close Hashing): 해시 테이블 저장공간 안에서 충돌 해결
 // 충돌이 발생하면 해당 해시 주소의 다음 주소부터 빈 공간을 찾아 저장
 // 배열 끝에 도달하면 처음으로 돌아가서 순환 탐색
-
 const hashTable: ([number, string] | null)[] = new Array(8).fill(null);
 
 // 해시 키 생성 함수
@@ -277,7 +271,6 @@ const daPhone = readData('da'); // '3333333333'`,
     language: 'typescript',
     code: `// 해시 테이블 구현 (체이닝 방식으로 충돌 해결)
 // 완전한 해시 테이블 클래스 구현
-
 class HashTable<K, V> {
   private buckets: Array<Array<[K, V]>>;
   private size: number;

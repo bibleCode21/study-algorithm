@@ -6,12 +6,12 @@ export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
     // 첫 번째 예제: 해시 테이블 기본 구조 만들기 (1-9줄)
     [
       {
-        line: 4,
+        line: 3,
         comment:
           '해시 테이블 초기화: Array.from을 사용하여 길이 10의 배열을 만들고 모든 요소를 0으로 초기화합니다. 이것이 해시 테이블의 저장 공간입니다.',
       },
       {
-        line: 8,
+        line: 7,
         comment:
           '간단한 초기화: new Array(10).fill(0)을 사용하여 동일한 결과를 얻을 수 있습니다. 더 간결한 방법입니다.',
       },
@@ -19,12 +19,12 @@ export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
     // 두 번째 예제: 간단한 해시 함수 구현 (1-15줄)
     [
       {
-        line: 4,
+        line: 3,
         comment:
           'hash 함수: Division 법을 사용하여 키를 해시 주소로 변환합니다. 키를 5로 나눈 나머지를 해시 주소로 사용합니다. 이것은 간단한 해시 함수의 예시입니다.',
       },
       {
-        line: 5,
+        line: 4,
         comment:
           'Division 법: 키를 특정 숫자(여기서는 5)로 나눈 나머지를 해시 주소로 사용합니다. 나머지 연산자(%)를 사용하여 구현합니다.',
       },
@@ -65,33 +65,28 @@ export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
     // 네 번째 예제: 해시 테이블 구현 (리스트 변수 활용) (1-43줄)
     [
       {
-        line: 10,
+        line: 6,
         comment:
           'hashKey 함수: 문자열을 해시 키로 변환하는 함수입니다. 각 문자의 ASCII 코드를 사용하여 해시 값을 계산합니다. 31을 사용하는 것은 소수이므로 해시 분산이 좋아집니다.',
       },
       {
-        line: 18,
+        line: 14,
         comment:
           '비트 시프트 연산: hash << 5는 hash를 왼쪽으로 5비트 이동시켜 hash * 32를 의미합니다. (hash << 5) - hash는 hash * 31과 같습니다. 이렇게 하면 해시 분산이 좋아집니다.',
       },
       {
-        line: 19,
+        line: 15,
         comment:
           '오버플로우 방지: hash & hash를 사용하여 32비트 정수로 변환합니다. 이렇게 하면 오버플로우를 방지할 수 있습니다.',
       },
       {
-        line: 30,
+        line: 26,
         comment:
           'saveData 함수: hashKey 함수를 사용하여 문자열을 해시 키로 변환한 후, 해시 함수를 적용하여 해시 주소를 계산하고 데이터를 저장합니다.',
       },
     ],
     // 다섯 번째 예제: Chaining 기법으로 충돌 해결 (1-68줄)
     [
-      {
-        line: 1,
-        comment:
-          'Chaining 기법: 충돌 해결을 위한 개방 해싱 방식입니다. 각 해시 주소에 배열을 저장하여, 충돌이 발생하면 링크드 리스트처럼 데이터를 추가로 연결합니다.',
-      },
       {
         line: 25,
         comment:
@@ -121,42 +116,37 @@ export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
     // 여섯 번째 예제: Linear Probing 기법으로 충돌 해결 (1-88줄)
     [
       {
-        line: 1,
-        comment:
-          'Linear Probing 기법: 충돌 해결을 위한 폐쇄 해싱 방식입니다. 충돌이 발생하면 해당 해시 주소의 다음 주소부터 빈 공간을 찾아 저장합니다.',
-      },
-      {
-        line: 25,
+        line: 26,
         comment:
           'saveData 함수 (Linear Probing): Linear Probing 기법을 사용하여 데이터를 저장합니다. 충돌이 발생하면 순환 탐색으로 빈 공간을 찾아 저장합니다.',
       },
       {
-        line: 29,
+        line: 30,
         comment:
           '충돌 발생: hashTable[hashAddress]가 null이 아니면 충돌이 발생한 것입니다. 다음 주소부터 빈 공간을 찾아야 합니다.',
       },
       {
-        line: 31,
+        line: 32,
         comment:
           '순환 탐색: index를 hashAddress로 시작하여 checked 변수로 탐색 횟수를 추적합니다. 배열의 길이만큼만 탐색하여 무한 루프를 방지합니다.',
       },
       {
-        line: 34,
+        line: 35,
         comment:
           '빈 공간 찾기: hashTable[index]가 null이면 빈 공간입니다. 여기에 키-값 쌍을 저장합니다.',
       },
       {
-        line: 38,
+        line: 39,
         comment:
           '같은 키 확인: hashTable[index]![0]을 사용하여 저장된 키와 비교합니다. 같은 키가 있으면 값만 업데이트합니다.',
       },
       {
-        line: 44,
+        line: 45,
         comment:
           '순환 탐색: (index + 1) % hashTable.length를 사용하여 배열의 끝에 도달하면 처음으로 돌아가서 순환 탐색합니다.',
       },
       {
-        line: 56,
+        line: 57,
         comment:
           'readData 함수 (Linear Probing): Linear Probing 기법을 사용하여 데이터를 읽습니다. 저장할 때와 동일한 방식으로 순환 탐색하여 키를 찾습니다.',
       },
@@ -164,62 +154,62 @@ export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
     // 일곱 번째 예제: 해시 테이블 완전 구현 (1-118줄)
     [
       {
-        line: 4,
+        line: 3,
         comment:
           'HashTable 클래스: 완전한 해시 테이블 클래스 구현입니다. 제네릭 타입 K(키)와 V(값)를 사용하여 다양한 타입을 저장할 수 있습니다.',
       },
       {
-        line: 5,
+        line: 4,
         comment:
           'buckets 배열: 각 버킷은 키-값 쌍의 배열입니다. Chaining 기법을 사용하여 충돌을 해결합니다.',
       },
       {
-        line: 8,
+        line: 7,
         comment:
           'DEFAULT_CAPACITY: 해시 테이블의 기본 용량입니다. 정적 상수로 선언하여 모든 인스턴스가 공유합니다.',
       },
       {
-        line: 9,
+        line: 8,
         comment:
           'LOAD_FACTOR: 로드 팩터는 저장된 요소 수와 용량의 비율입니다. 0.75를 초과하면 리사이징을 수행합니다.',
       },
       {
-        line: 18,
+        line: 17,
         comment:
           'hash 메서드: 키를 해시 주소로 변환하는 내부 메서드입니다. 문자열로 변환한 후 각 문자의 ASCII 코드를 사용하여 해시 값을 계산합니다.',
       },
       {
-        line: 32,
+        line: 31,
         comment:
           'set 메서드: 키-값 쌍을 추가하거나 업데이트합니다. 평균적으로 O(1) 시간이 소요되지만, 최악의 경우 O(n) 시간이 소요될 수 있습니다.',
       },
       {
-        line: 37,
+        line: 36,
         comment:
           '기존 키 확인: 버킷을 순회하면서 같은 키가 있는지 확인합니다. 있으면 값만 업데이트하고 함수를 종료합니다.',
       },
       {
-        line: 45,
+        line: 44,
         comment:
           '새 키-값 쌍 추가: 같은 키가 없으면 push 메서드를 사용하여 새 키-값 쌍을 버킷에 추가합니다.',
       },
       {
-        line: 49,
+        line: 48,
         comment:
           '리사이징: 로드 팩터(저장된 요소 수 / 용량)가 0.75를 초과하면 용량을 두 배로 늘리고 모든 요소를 다시 삽입합니다. 이를 통해 해시 테이블의 성능을 유지합니다.',
       },
       {
-        line: 55,
+        line: 54,
         comment:
           'get 메서드: 키에 해당하는 값을 가져옵니다. 평균적으로 O(1) 시간이 소요되지만, 최악의 경우 O(n) 시간이 소요될 수 있습니다.',
       },
       {
-        line: 69,
+        line: 68,
         comment:
           'delete 메서드: 키-값 쌍을 삭제합니다. 버킷을 순회하면서 키를 찾고, 찾으면 splice 메서드를 사용하여 제거합니다.',
       },
       {
-        line: 95,
+        line: 94,
         comment:
           'resize 메서드: 해시 테이블의 용량을 두 배로 늘립니다. 모든 요소를 다시 삽입하여 해시 주소를 재계산합니다.',
       },
