@@ -48,24 +48,67 @@ const AnnotatedCodeBlock = ({
 
     const scrollToLine = (line: number) => {
         setSelectedLine(line);
+        
+        // 해당 라인의 해석을 자동으로 열거나 닫기
+        const newExpanded = new Set(expandedLines);
+        if (newExpanded.has(line)) {
+            newExpanded.delete(line);
+        } else {
+            newExpanded.add(line);
+        }
+        setExpandedLines(newExpanded);
+        
         // 약간의 지연을 두어 DOM이 완전히 렌더링된 후 찾기
         setTimeout(() => {
+            // 코드 블록에서 해당 라인으로 스크롤
             if (codeContainerRef.current) {
-                const lineElement = codeContainerRef.current.querySelector(
-                    `[data-line-number="${line}"]`
-                );
-                if (lineElement) {
-                    lineElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    // 하이라이트 효과를 위한 클래스 추가
-                    const lineContent = lineElement as HTMLElement;
-                    lineContent.style.backgroundColor = 'rgba(59, 130, 246, 0.3)';
-                    lineContent.style.transition = 'background-color 0.3s';
-                    setTimeout(() => {
-                        lineContent.style.backgroundColor = '';
-                    }, 2000);
+                // CodeBlockClient 내부의 실제 코드 컨테이너를 찾기
+                const codeBlock = codeContainerRef.current.querySelector('div[class*="overflow-x-auto"]');
+                if (codeBlock) {
+                    const lineElement = codeBlock.querySelector(
+                        `[data-line-number="${line}"]`
+                    ) as HTMLElement;
+                    if (lineElement) {
+                        // Header 높이 계산 (h-16 = 64px, 추가 여백 포함)
+                        const headerHeight = 80; // Header 높이 + 여백
+                        
+                        // 요소의 현재 위치 계산
+                        const elementRect = lineElement.getBoundingClientRect();
+                        const currentScrollY = window.scrollY || window.pageYOffset;
+                        
+                        // Header 아래에 보이도록 스크롤 위치 계산
+                        const targetScrollY = currentScrollY + elementRect.top - headerHeight;
+                        
+                        // 스크롤 실행
+                        window.scrollTo({
+                            top: targetScrollY,
+                            behavior: 'smooth'
+                        });
+                        
+                        // 하이라이트 효과를 위한 클래스 추가
+                        lineElement.style.backgroundColor = 'rgba(59, 130, 246, 0.3)';
+                        lineElement.style.transition = 'background-color 0.3s';
+                        setTimeout(() => {
+                            lineElement.style.backgroundColor = '';
+                        }, 2000);
+                    }
                 }
             }
-        }, 100);
+            
+            // 해석 패널에서도 해당 항목으로 스크롤
+            if (annotationPanelRef.current) {
+                const annotationItem = annotationPanelRef.current.querySelector(
+                    `[data-annotation-line="${line}"]`
+                ) as HTMLElement;
+                if (annotationItem) {
+                    annotationItem.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'nearest',
+                        inline: 'nearest'
+                    });
+                }
+            }
+        }, 150);
     };
 
     const hasAnnotations = annotations.length > 0;
@@ -95,6 +138,7 @@ const AnnotatedCodeBlock = ({
                             return (
                                 <div
                                     key={index}
+                                    data-annotation-line={annotation.line}
                                     className={`border-l-4 border-blue-400 pl-3 transition-all rounded ${
                                         selectedLine === annotation.line
                                             ? 'bg-blue-100 border-blue-600'

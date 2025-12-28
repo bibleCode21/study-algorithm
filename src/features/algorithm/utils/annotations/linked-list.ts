@@ -26,17 +26,17 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
           '생성자: 데이터와 다음 노드를 받아 노드를 초기화합니다. 다음 노드가 없으면 null로 설정합니다.',
       },
       {
-        line: 13,
+        line: 14,
         comment:
           '노드 생성: new Node(1)을 사용하여 데이터가 1인 노드를 생성합니다. next는 기본값 null로 설정됩니다.',
       },
       {
-        line: 15,
+        line: 16,
         comment:
           '노드 연결: node1.next = node2를 사용하여 node1의 다음 노드를 node2로 설정합니다. 이렇게 하면 두 노드가 연결됩니다.',
       },
       {
-        line: 16,
+        line: 17,
         comment:
           'head 설정: head 변수에 node1을 할당하여 링크드 리스트의 시작점을 지정합니다.',
       },
@@ -77,32 +77,32 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
     // 세 번째 예제: 링크드 리스트 데이터 출력하기 (1-30줄)
     [
       {
-        line: 12,
+        line: 13,
         comment:
           'getAllData 함수: 링크드 리스트의 모든 데이터를 배열로 변환하여 반환합니다. 제네릭 타입을 사용하여 다양한 타입을 처리할 수 있습니다.',
       },
       {
-        line: 13,
+        line: 14,
         comment:
           'result 배열: 반환할 배열을 초기화합니다. 각 노드의 데이터를 이 배열에 추가합니다.',
       },
       {
-        line: 14,
+        line: 15,
         comment:
           'node 변수: 현재 탐색 중인 노드를 가리키는 포인터입니다. head부터 시작하여 null까지 이동합니다.',
       },
       {
-        line: 16,
+        line: 17,
         comment:
           'while 루프: node가 null이 아닐 때까지 반복하여 모든 노드를 순회합니다. null이면 리스트의 끝에 도달한 것입니다.',
       },
       {
-        line: 17,
+        line: 18,
         comment:
           '데이터 추가: 현재 노드의 데이터를 result 배열에 추가합니다. push 메서드를 사용하여 O(1) 시간에 추가합니다.',
       },
       {
-        line: 18,
+        line: 19,
         comment:
           '다음 노드로 이동: node.next를 사용하여 다음 노드로 이동합니다. 마지막 노드의 next는 null이므로 루프가 종료됩니다.',
       },
@@ -110,27 +110,27 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
     // 네 번째 예제: 링크드 리스트 데이터 사이에 데이터를 추가 (1-46줄)
     [
       {
-        line: 12,
+        line: 13,
         comment:
           'insertBefore 함수: 특정 값 앞에 새 노드를 삽입하는 함수입니다. 제네릭 타입을 사용하여 다양한 타입을 처리할 수 있습니다.',
       },
       {
-        line: 13,
+        line: 14,
         comment:
           '빈 리스트 체크: head가 null이면 리스트가 비어있으므로, 새 노드를 생성하여 반환합니다.',
       },
       {
-        line: 18,
+        line: 19,
         comment:
           'head가 target인 경우: head 노드가 찾는 값이면, 새 노드를 head 앞에 삽입합니다. 새 노드의 next를 기존 head로 설정하고, 새 노드를 head로 반환합니다.',
       },
       {
-        line: 25,
+        line: 26,
         comment:
           '중간에 삽입: head가 아닌 노드 앞에 삽입하는 경우입니다. target을 찾을 때까지 리스트를 순회합니다.',
       },
       {
-        line: 27,
+        line: 28,
         comment:
           'target 찾기: node.next.data가 targetData와 같으면 삽입할 위치를 찾은 것입니다. node.next 앞에 새 노드를 삽입해야 합니다.',
       },
