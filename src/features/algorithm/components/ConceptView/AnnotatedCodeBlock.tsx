@@ -21,6 +21,7 @@ const AnnotatedCodeBlock = ({
     const [selectedLine, setSelectedLine] = useState<number | null>(null);
     const codeContainerRef = useRef<HTMLDivElement>(null);
     const annotationPanelRef = useRef<HTMLDivElement>(null);
+    const timeoutRefs = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
     const pathname = usePathname();
 
     // 코드나 annotations가 변경될 때 해석 패널 스크롤을 맨 위로 초기화
@@ -35,6 +36,14 @@ const AnnotatedCodeBlock = ({
         setExpandedLines(new Set());
         setSelectedLine(null);
     }, [code, annotations, pathname]);
+
+    // 컴포넌트 unmount 시 모든 타이머 정리
+    useEffect(() => {
+        return () => {
+            timeoutRefs.current.forEach((timeout) => clearTimeout(timeout));
+            timeoutRefs.current.clear();
+        };
+    }, []);
 
     // 코드 블록의 높이에 맞춰 해석 패널의 높이 조정
     useEffect(() => {
@@ -82,6 +91,152 @@ const AnnotatedCodeBlock = ({
         setExpandedLines(newExpanded);
     };
 
+    // 부드러운 스크롤 애니메이션 함수
+    const smoothScrollTo = (targetY: number, duration: number = 600) => {
+        const startY = window.scrollY || window.pageYOffset;
+        const distance = targetY - startY;
+        const startTime = performance.now();
+
+        const easeInOutCubic = (t: number): number => {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        };
+
+        const animateScroll = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = easeInOutCubic(progress);
+            
+            window.scrollTo(0, startY + distance * eased);
+            
+            if (progress < 1) {
+                requestAnimationFrame(animateScroll);
+            }
+        };
+
+        requestAnimationFrame(animateScroll);
+    };
+
+    // 라인 요소 찾기
+    const findLineElement = (codeBlock: Element, line: number): HTMLElement | null => {
+        const allLineElements = codeBlock.querySelectorAll('[data-line-number]');
+        
+        // 정확히 해당 라인 번호를 가진 최상위 요소 찾기
+        for (let i = 0; i < allLineElements.length; i++) {
+            const el = allLineElements[i] as HTMLElement;
+            const lineNum = el.getAttribute('data-line-number');
+            if (lineNum === String(line)) {
+                const parent = el.parentElement;
+                if (!parent || !parent.classList.contains('line')) {
+                    return el;
+                }
+            }
+        }
+        
+        // 최상위를 찾지 못했다면 첫 번째로 찾은 요소 사용
+        return codeBlock.querySelector(`[data-line-number="${line}"]`) as HTMLElement;
+    };
+
+    // 라인 요소로 스크롤
+    const scrollToLineElement = (lineElement: HTMLElement) => {
+        const headerHeight = 80;
+        const elementRect = lineElement.getBoundingClientRect();
+        const currentScrollY = window.scrollY || window.pageYOffset;
+        const targetScrollY = currentScrollY + elementRect.top - headerHeight;
+        smoothScrollTo(targetScrollY, 600);
+    };
+
+    // 라인 하이라이트
+    const highlightLine = (lineElement: HTMLElement, codeBlock: Element) => {
+        // 모든 라인에서 기존 하이라이트 제거
+        const allLineElements = codeBlock.querySelectorAll('[data-line-number]');
+        allLineElements.forEach((el) => {
+            (el as HTMLElement).style.backgroundColor = '';
+        });
+
+        const nestedLines = lineElement.querySelectorAll('[data-line-number]');
+        const firstChild = lineElement.children[0] as HTMLElement;
+        const secondChild = lineElement.children[1] as HTMLElement;
+
+        if (firstChild && secondChild) {
+            // 첫 번째 줄 높이 계산
+            const firstChildRect = firstChild.getBoundingClientRect();
+            const secondChildRect = secondChild.getBoundingClientRect();
+            const firstLineHeight = Math.max(firstChildRect.height, secondChildRect.height);
+
+            // lineElement를 relative로 설정
+            const originalPosition = lineElement.style.position;
+            lineElement.style.position = 'relative';
+
+            // 하이라이트 overlay 생성
+            const highlightOverlay = document.createElement('div');
+            highlightOverlay.style.cssText = `
+                position: absolute;
+                top: 0;
+                width: 100%;
+                height: ${firstLineHeight}px;
+                background-color: rgba(59, 130, 246, 0.3);
+                pointer-events: none;
+                z-index: 10;
+            `;
+            highlightOverlay.setAttribute('data-highlight-overlay', 'true');
+            lineElement.appendChild(highlightOverlay);
+
+            // 중첩된 line 요소들의 배경색 제거
+            nestedLines.forEach((nested) => {
+                if (nested !== lineElement) {
+                    (nested as HTMLElement).style.backgroundColor = '';
+                    (nested as HTMLElement).style.background = '';
+                }
+            });
+
+            // 1.5초 후 하이라이트 제거
+            const timeoutId = setTimeout(() => {
+                highlightOverlay.remove();
+                lineElement.style.position = originalPosition;
+                timeoutRefs.current.delete(timeoutId);
+            }, 1500);
+            timeoutRefs.current.add(timeoutId);
+        } else {
+            // fallback: 기존 방식
+            lineElement.style.backgroundColor = 'rgba(59, 130, 246, 0.3)';
+            lineElement.style.transition = 'background-color 0.3s';
+            lineElement.setAttribute('data-highlighted', 'true');
+
+            nestedLines.forEach((nested) => {
+                if (nested !== lineElement) {
+                    (nested as HTMLElement).style.backgroundColor = '';
+                }
+            });
+
+            const timeoutId = setTimeout(() => {
+                lineElement.style.backgroundColor = '';
+                lineElement.removeAttribute('data-highlighted');
+                timeoutRefs.current.delete(timeoutId);
+            }, 1500);
+            timeoutRefs.current.add(timeoutId);
+        }
+    };
+
+    // 해석 패널 스크롤
+    const scrollAnnotationPanel = (line: number) => {
+        if (!annotationPanelRef.current) return;
+
+        const annotationItem = annotationPanelRef.current.querySelector(
+            `[data-annotation-line="${line}"]`
+        ) as HTMLElement;
+
+        if (annotationItem) {
+            const panelRect = annotationPanelRef.current.getBoundingClientRect();
+            const itemRect = annotationItem.getBoundingClientRect();
+            const itemTop = itemRect.top - panelRect.top + annotationPanelRef.current.scrollTop;
+
+            annotationPanelRef.current.scrollTo({
+                top: itemTop - 20,
+                behavior: 'smooth'
+            });
+        }
+    };
+
     const scrollToLine = (line: number) => {
         setSelectedLine(line);
         
@@ -94,57 +249,31 @@ const AnnotatedCodeBlock = ({
         }
         setExpandedLines(newExpanded);
         
-        // 약간의 지연을 두어 DOM이 완전히 렌더링된 후 찾기
-        setTimeout(() => {
-            // 코드 블록에서 해당 라인으로 스크롤
-            if (codeContainerRef.current) {
-                // CodeBlockClient 내부의 실제 코드 컨테이너를 찾기
-                const codeBlock = codeContainerRef.current.querySelector('div[class*="overflow-x-auto"]');
-                if (codeBlock) {
-                    const lineElement = codeBlock.querySelector(
-                        `[data-line-number="${line}"]`
-                    ) as HTMLElement;
-                    if (lineElement) {
-                        // Header 높이 계산 (h-16 = 64px, 추가 여백 포함)
-                        const headerHeight = 80; // Header 높이 + 여백
-                        
-                        // 요소의 현재 위치 계산
-                        const elementRect = lineElement.getBoundingClientRect();
-                        const currentScrollY = window.scrollY || window.pageYOffset;
-                        
-                        // Header 아래에 보이도록 스크롤 위치 계산
-                        const targetScrollY = currentScrollY + elementRect.top - headerHeight;
-                        
-                        // 스크롤 실행
-                        window.scrollTo({
-                            top: targetScrollY,
-                            behavior: 'smooth'
-                        });
-                        
-                        // 하이라이트 효과를 위한 클래스 추가
-                        lineElement.style.backgroundColor = 'rgba(59, 130, 246, 0.3)';
-                        lineElement.style.transition = 'background-color 0.3s';
-                        setTimeout(() => {
-                            lineElement.style.backgroundColor = '';
-                        }, 2000);
-                    }
-                }
+        // DOM이 완전히 렌더링된 후 실행
+        const timeoutId = setTimeout(() => {
+            if (!codeContainerRef.current) {
+                timeoutRefs.current.delete(timeoutId);
+                return;
             }
-            
-            // 해석 패널에서도 해당 항목으로 스크롤
-            if (annotationPanelRef.current) {
-                const annotationItem = annotationPanelRef.current.querySelector(
-                    `[data-annotation-line="${line}"]`
-                ) as HTMLElement;
-                if (annotationItem) {
-                    annotationItem.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'nearest',
-                        inline: 'nearest'
-                    });
-                }
+
+            const codeBlock = codeContainerRef.current.querySelector('div[class*="overflow-x-auto"]');
+            if (!codeBlock) {
+                timeoutRefs.current.delete(timeoutId);
+                return;
             }
-        }, 150);
+
+            const lineElement = findLineElement(codeBlock, line);
+            if (!lineElement) {
+                timeoutRefs.current.delete(timeoutId);
+                return;
+            }
+
+            scrollToLineElement(lineElement);
+            highlightLine(lineElement, codeBlock);
+            scrollAnnotationPanel(line);
+            timeoutRefs.current.delete(timeoutId);
+        }, 100);
+        timeoutRefs.current.add(timeoutId);
     };
 
     const hasAnnotations = annotations.length > 0;
@@ -156,10 +285,10 @@ const AnnotatedCodeBlock = ({
 
     return (
         <div className="flex flex-col lg:flex-row gap-4">
-            {/* 코드 블록 - PC에서는 왼쪽, 모바일에서는 위 */}
-            <div className="flex-1 lg:flex-[1.8] min-w-0" ref={codeContainerRef}>
-                <CodeBlockClient language={language} code={code} highlightedHtml={highlightedHtml} />
-            </div>
+                {/* 코드 블록 - PC에서는 왼쪽, 모바일에서는 위 */}
+                <div className="flex-1 lg:flex-[1.8] min-w-0" ref={codeContainerRef}>
+                    <CodeBlockClient language={language} code={code} highlightedHtml={highlightedHtml} />
+                </div>
 
             {/* 해석 패널 - PC에서는 오른쪽, 모바일에서는 아래 */}
             <div className="lg:flex-1 lg:max-w-md">

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef, useEffect } from 'react';
 
 interface CodeBlockClientProps {
     language: string;
@@ -16,12 +16,31 @@ const CodeBlockClient = ({
     className = '',
 }: CodeBlockClientProps) => {
     const [copied, setCopied] = useState(false);
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // 컴포넌트 unmount 시 타이머 정리
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
 
     const handleCopy = async () => {
         try {
             await navigator.clipboard.writeText(code);
             setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
+            
+            // 기존 타이머가 있으면 정리
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+            
+            timeoutRef.current = setTimeout(() => {
+                setCopied(false);
+                timeoutRef.current = null;
+            }, 2000);
         } catch (err) {
             console.error('Failed to copy code:', err);
         }
