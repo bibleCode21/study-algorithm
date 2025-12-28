@@ -48,7 +48,7 @@ const ExerciseDescription = ({ exercise }: ExerciseDescriptionProps) => {
       {exercise.constraints && exercise.constraints.length > 0 && (
         <section>
           <h2 className="text-lg font-semibold text-gray-900 mb-3">제약 조건</h2>
-          <ul className="list-disc list-inside space-y-1 text-sm text-gray-700">
+          <ul className="list-disc list-outside space-y-1 text-sm text-gray-700 pl-4">
             {exercise.constraints.map((constraint, index) => (
               <li key={index}>{constraint}</li>
             ))}
@@ -65,7 +65,7 @@ const ExerciseDescription = ({ exercise }: ExerciseDescriptionProps) => {
             <span>💡 힌트 {showHints ? '숨기기' : '보기'}</span>
           </button>
           {showHints && (
-            <ul className="list-disc list-inside space-y-2 text-sm text-gray-700 bg-blue-50 p-4 rounded-lg">
+            <ul className="list-disc list-outside space-y-2 text-sm text-gray-700 bg-blue-50 p-4 rounded-lg pl-4">
               {exercise.hints.map((hint, index) => (
                 <li key={index}>{hint}</li>
               ))}

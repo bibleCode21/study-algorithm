@@ -19,24 +19,30 @@ const CompactView = ({ concept }: ConceptViewProps) => {
               {concept.timeComplexity && (
                 <div>
                   <h3 className="text-sm font-semibold text-gray-900 mb-3">시간 복잡도</h3>
-                  <ul className="space-y-2.5 pl-5 list-disc list-outside">
-                    <li className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">최선</span>
-                      <span className="font-mono font-bold text-gray-900">
-                        {concept.timeComplexity.best}
-                      </span>
+                  <ul className="space-y-2.5 pl-4 list-disc list-outside">
+                    <li>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">최선</span>
+                        <span className="font-mono font-bold text-gray-900">
+                          {concept.timeComplexity.best}
+                        </span>
+                      </div>
                     </li>
-                    <li className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">평균</span>
-                      <span className="font-mono font-bold text-gray-900">
-                        {concept.timeComplexity.average}
-                      </span>
+                    <li>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-600">평균</span>
+                        <span className="font-mono font-bold text-gray-900">
+                          {concept.timeComplexity.average}
+                        </span>
+                      </div>
                     </li>
-                    <li className="flex justify-between items-center">
-                      <span className="text-sm font-semibold text-gray-700">최악</span>
-                      <span className="font-mono font-bold text-gray-900">
-                        {concept.timeComplexity.worst}
-                      </span>
+                    <li>
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm font-semibold text-gray-700">최악</span>
+                        <span className="font-mono font-bold text-gray-900">
+                          {concept.timeComplexity.worst}
+                        </span>
+                      </div>
                     </li>
                   </ul>
                 </div>
