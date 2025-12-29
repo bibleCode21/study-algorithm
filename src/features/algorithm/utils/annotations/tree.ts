@@ -153,27 +153,27 @@ export const treeAnnotations: Record<string, CodeAnnotation[][]> = {
       {
         line: 116,
         comment:
-          '자식이 두 개인 경우: 오른쪽 서브트리에서 가장 작은 값을 찾아 삭제할 노드를 대체합니다. 이렇게 하면 이진 탐색 트리의 속성을 유지할 수 있습니다.',
+          '자식이 두 개인 경우: 오른쪽 서브트리에서 가장 작은 값을 찾아 삭제할 노드를 대체합니다. 왜 오른쪽 서브트리의 최소값을 사용하나요? 삭제할 노드보다 크면서 가장 작은 값이어야 이진 탐색 트리의 속성(왼쪽 자식 < 부모 < 오른쪽 자식)을 유지할 수 있기 때문입니다. 왼쪽 서브트리의 최대값을 사용해도 되지만, 일반적으로 오른쪽 서브트리의 최소값을 사용합니다.',
       },
       {
         line: 119,
         comment:
-          'changeNode 초기화: 오른쪽 서브트리에서 가장 작은 값을 찾기 위해 오른쪽 자식으로 시작합니다.',
+          'changeNode와 changeNodeParent 초기화: 오른쪽 서브트리에서 가장 작은 값을 찾기 위해 changeNode와 changeNodeParent를 모두 삭제할 노드의 오른쪽 자식(this.currentNode!.right)으로 초기화합니다. changeNodeParent는 changeNode의 부모를 추적하기 위한 변수입니다. 초기에는 같은 노드를 가리키지만, while 루프에서 changeNode가 왼쪽으로 이동할 때 changeNodeParent가 한 단계 뒤에서 따라옵니다.',
       },
       {
         line: 122,
         comment:
-          '가장 작은 값 찾기: changeNode.left가 null이 아닐 때까지 왼쪽으로 이동하여 가장 작은 값을 찾습니다. 이진 탐색 트리에서는 왼쪽 자식이 항상 더 작은 값을 가집니다.',
+          '가장 작은 값 찾기: changeNode.left가 null이 아닐 때까지 왼쪽으로 이동하여 가장 작은 값을 찾습니다. 이진 탐색 트리에서는 왼쪽 자식이 항상 더 작은 값을 가지므로, 왼쪽 끝까지 가면 최소값을 찾을 수 있습니다. 루프 종료 후: changeNode는 오른쪽 서브트리에서 가장 작은 값을 가진 노드(최소값 노드)를 가리키고, changeNodeParent는 changeNode의 부모 노드를 가리킵니다. 만약 changeNode가 바로 오른쪽 자식이라면 changeNodeParent === changeNode가 됩니다.',
       },
       {
         line: 127,
         comment:
-          'changeNode의 오른쪽 자식 처리: changeNode에 오른쪽 자식이 있으면, changeNodeParent의 left를 changeNode의 오른쪽 자식으로 설정합니다. 이렇게 하면 changeNode를 제거할 수 있습니다.',
+          'changeNode의 오른쪽 자식 처리: changeNode에 오른쪽 자식이 있으면, changeNodeParent.left를 changeNode.right로 설정합니다. 이렇게 하는 이유: changeNode를 삭제할 노드의 위치로 옮기기 전에, changeNode의 원래 위치에서 제거해야 합니다. changeNode는 왼쪽 자식이 없지만(최소값이므로), 오른쪽 자식은 있을 수 있습니다. changeNodeParent.left를 changeNode.right로 설정하면 changeNode를 건너뛰고 changeNode의 오른쪽 자식이 changeNodeParent의 왼쪽 자식이 됩니다. 만약 changeNode.right가 null이면 changeNodeParent.left도 null이 되어 changeNode가 완전히 제거됩니다.',
       },
       {
         line: 133,
         comment:
-          '노드 교환: 삭제할 노드의 부모가 changeNode를 가리키도록 하고, changeNode의 자식을 삭제할 노드의 자식으로 설정합니다. 이렇게 하면 삭제할 노드가 changeNode로 대체됩니다.',
+          '노드 교환: 삭제할 노드의 부모(this.parent)가 changeNode를 가리키도록 하고, changeNode의 자식을 삭제할 노드의 자식으로 설정합니다. 구체적으로: 1) this.parent.left(또는 right) = changeNode로 설정하여 삭제할 노드의 부모가 changeNode를 가리키게 합니다. 2) changeNode.left = this.currentNode!.left로 설정하여 삭제할 노드의 왼쪽 서브트리를 changeNode에 연결합니다. 3) changeNode.right = this.currentNode!.right로 설정하여 삭제할 노드의 오른쪽 서브트리를 changeNode에 연결합니다. 이렇게 하면 삭제할 노드가 changeNode로 완전히 대체되고, 이진 탐색 트리의 속성이 유지됩니다.',
       },
     ],
     // 일곱 번째 예제: 깔끔하게 정리된 이진 탐색 트리 (BST) 구현
