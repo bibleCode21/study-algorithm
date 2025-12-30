@@ -49,7 +49,7 @@ const CodeFirstView = ({ concept, codeExamples }: ConceptViewProps) => {
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={setCurrentPage}
-            className="mt-6"
+            className="mt-8 md:mt-6"
           />
         )}
       </section>

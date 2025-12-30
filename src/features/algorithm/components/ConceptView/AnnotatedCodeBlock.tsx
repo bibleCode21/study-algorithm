@@ -294,7 +294,7 @@ const AnnotatedCodeBlock = ({
             <div className="lg:flex-1 lg:max-w-md">
                 <div 
                     ref={annotationPanelRef}
-                    className="bg-blue-50 border border-blue-200 rounded-lg p-4 lg:sticky lg:top-16 lg:overflow-y-auto"
+                    className="bg-blue-50 border border-blue-200 rounded-lg p-4 lg:sticky lg:top-16 lg:overflow-y-auto max-h-[60vh] overflow-y-auto mb-4 lg:mb-0"
                 >
                     <h3 className="text-sm font-semibold text-blue-900 mb-3">코드 해석</h3>
                     <div className="space-y-3">
