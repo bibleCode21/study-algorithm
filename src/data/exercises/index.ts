@@ -1,11 +1,14 @@
 import { Exercise } from '@/features/practice/types/exercise';
-import { arrayExercises } from './array';
-import { queueExercises } from './queue';
-import { stackExercises } from './stack';
-import { bubbleSortExercises } from './bubble-sort';
-import { linkedListExercises } from './linked-list';
-import { hashTableExercises } from './hash-table';
-import { heapExercises } from './heap';
+// 데이터 구조
+import { arrayExercises } from './data-structures/array';
+import { queueExercises } from './data-structures/queue';
+import { stackExercises } from './data-structures/stack';
+import { linkedListExercises } from './data-structures/linked-list';
+import { hashTableExercises } from './data-structures/hash-table';
+import { heapExercises } from './data-structures/heap';
+import { treeExercises } from './data-structures/tree';
+// 알고리즘
+import { bubbleSortExercises } from './algorithms/bubble-sort';
 
 export const exercises: Exercise[] = [
   ...arrayExercises,
@@ -15,6 +18,7 @@ export const exercises: Exercise[] = [
   ...linkedListExercises,
   ...hashTableExercises,
   ...heapExercises,
+  ...treeExercises,
 ];
 
 /**
