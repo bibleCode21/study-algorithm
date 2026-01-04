@@ -437,7 +437,7 @@ const DoublyLinkedList = () => {
                                   id={`arrow-prev-reverse-${node.id}`}
                                   markerWidth="10"
                                   markerHeight="10"
-                                  refX="-15"
+                                  refX="8"
                                   refY="5"
                                   orient="auto"
                                 >
@@ -451,7 +451,7 @@ const DoublyLinkedList = () => {
                                 y2="10"
                                 stroke="currentColor"
                                 strokeWidth="1.5"
-                                markerStart={`url(#arrow-prev-reverse-${node.id})`}
+                                markerEnd={`url(#arrow-prev-reverse-${node.id})`}
                               />
                             </svg>
                             <span className="text-[9px] text-green-500 font-semibold">prev</span>
