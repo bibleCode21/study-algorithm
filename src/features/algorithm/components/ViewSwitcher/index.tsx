@@ -1,14 +1,22 @@
 'use client';
 
 import { ViewSwitcherProps } from '@/features/algorithm/types/components';
+import { hasVisualization } from '../ConceptView/visualizations';
 
-const viewOptions: { value: ViewSwitcherProps['currentView']; label: string; icon: string }[] = [
+const baseViewOptions: { value: ViewSwitcherProps['currentView']; label: string; icon: string }[] = [
     { value: 'default', label: '개념 설명', icon: '📄' },
     { value: 'compact', label: '컴팩트', icon: '📋' },
     { value: 'codeFirst', label: '코드 예제', icon: '💻' },
 ];
 
-const ViewSwitcher = ({ currentView, onViewChange }: ViewSwitcherProps) => {
+const visualViewOption = { value: 'visual' as const, label: '시각화', icon: '🎨' };
+
+const ViewSwitcher = ({ currentView, onViewChange, conceptId }: ViewSwitcherProps) => {
+    // 시각화가 있는 개념일 때만 visual 옵션 추가
+    const viewOptions = conceptId && hasVisualization(conceptId)
+        ? [...baseViewOptions, visualViewOption]
+        : baseViewOptions;
+
     return (
         <div className="flex items-center gap-2 p-1 bg-gray-100 rounded-lg">
             {viewOptions.map((option) => (

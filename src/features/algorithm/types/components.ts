@@ -59,11 +59,12 @@ export interface CategoryFilterProps {
 }
 
 // ViewSwitcher 컴포넌트 Props
-export type ViewMode = 'default' | 'compact' | 'codeFirst';
+export type ViewMode = 'default' | 'compact' | 'codeFirst' | 'visual';
 
 export interface ViewSwitcherProps {
     currentView: ViewMode;
     onViewChange: (view: ViewMode) => void;
+    conceptId?: string; // array일 때만 visual 옵션 표시
 }
 
 // ConceptView 컴포넌트 Props

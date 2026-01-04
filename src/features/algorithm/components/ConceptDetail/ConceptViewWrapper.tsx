@@ -6,6 +6,7 @@ import { CodeExample } from '@/features/algorithm/types/algorithm';
 import { ViewMode } from '@/features/algorithm/types/components';
 import ViewSwitcher from '@/features/algorithm/components/ViewSwitcher';
 import ConceptView from '@/features/algorithm/components/ConceptView';
+import { hasVisualization } from '@/features/algorithm/components/ConceptView/visualizations';
 
 interface ConceptViewWrapperProps {
     concept: Concept;
@@ -20,10 +21,13 @@ const ConceptViewWrapper = ({ concept, codeExamples }: ConceptViewWrapperProps) 
   // 로컬 스토리지에서 저장된 뷰 모드 불러오기
   useEffect(() => {
     const savedView = localStorage.getItem(STORAGE_KEY) as ViewMode | null;
-    if (savedView && ['default', 'compact', 'codeFirst'].includes(savedView)) {
+    const validViews: ViewMode[] = hasVisualization(concept.id)
+      ? ['default', 'compact', 'codeFirst', 'visual']
+      : ['default', 'compact', 'codeFirst'];
+    if (savedView && validViews.includes(savedView)) {
       setViewMode(savedView);
     }
-  }, []);
+  }, [concept.id]);
 
     // 뷰 모드 변경 시 로컬 스토리지에 저장
     const handleViewChange = (view: ViewMode) => {
@@ -34,7 +38,11 @@ const ConceptViewWrapper = ({ concept, codeExamples }: ConceptViewWrapperProps) 
     return (
         <div className="space-y-6">
             <div className="flex justify-end mb-4">
-                <ViewSwitcher currentView={viewMode} onViewChange={handleViewChange} />
+                <ViewSwitcher 
+                    currentView={viewMode} 
+                    onViewChange={handleViewChange} 
+                    conceptId={concept.id}
+                />
             </div>
             <ConceptView concept={concept} codeExamples={codeExamples} viewMode={viewMode} />
         </div>
