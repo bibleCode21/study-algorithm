@@ -19,6 +19,7 @@ import { ComponentType } from 'react';
 import ArrayVisualization from './Array';
 import StackVisualization from './Stack';
 import QueueVisualization from './Queue';
+import LinkedListVisualization from './LinkedList';
 
 // 시각화 컴포넌트의 공통 Props 타입
 // 각 시각화는 필요에 따라 자신만의 props를 가질 수 있지만,
@@ -32,8 +33,8 @@ export const visualizationRegistry: Record<string, ComponentType<VisualizationPr
   array: ArrayVisualization,
   stack: StackVisualization,
   queue: QueueVisualization,
+  'linked-list': LinkedListVisualization,
   // 여기에 다른 시각화들을 추가할 수 있습니다:
-  // 'linked-list': LinkedListVisualization,  // 선형 그래프 형태
   // 'tree': TreeVisualization,              // 트리 구조 그래프
   // 등등...
 };
