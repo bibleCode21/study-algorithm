@@ -261,9 +261,6 @@ const SinglyLinkedList = () => {
                   <div key={node.id} className="flex items-center gap-4 flex-shrink-0">
                     {/* 노드 */}
                     <div className="flex flex-col items-center">
-                      {isHead && (
-                        <span className="text-xs font-semibold text-blue-600 mb-1">Head</span>
-                      )}
                       <div
                         className={`relative flex border-2 rounded transition-all duration-300 ${
                           isHighlighted
@@ -280,14 +277,19 @@ const SinglyLinkedList = () => {
                         }}
                       >
                         {/* data */}
-                        <div className={`px-4 py-3 border-r-2 font-mono font-bold text-lg flex items-center justify-center min-w-[60px] ${
+                        <div className={`px-4 py-3 border-r-2 font-mono font-bold text-lg flex flex-col items-center justify-center min-w-[60px] relative ${
                           isHighlighted
                             ? 'bg-blue-500 text-white border-blue-600'
                             : isHead
                             ? 'bg-yellow-50 text-gray-900 border-gray-300'
                             : 'bg-gray-50 text-gray-900 border-gray-300'
                         }`}>
-                          {node.data}
+                          {isHead && (
+                            <span className="text-[9px] font-semibold text-blue-600 mb-0.5">
+                              Head
+                            </span>
+                          )}
+                          <span>{node.data}</span>
                         </div>
                         {/* next 포인터 영역 */}
                         <div className={`px-3 py-3 font-mono text-xs flex flex-col items-center justify-center min-w-[50px] ${
@@ -310,16 +312,16 @@ const SinglyLinkedList = () => {
                       <div className="flex flex-col items-center">
                         <svg
                           width="40"
-                          height="40"
-                          viewBox="0 0 40 40"
-                          className="text-gray-400"
+                          height="20"
+                          viewBox="0 0 40 20"
+                          className="text-blue-500"
                         >
                           <defs>
                             <marker
                               id={`arrow-${node.id}`}
                               markerWidth="10"
                               markerHeight="10"
-                              refX="9"
+                              refX="8"
                               refY="5"
                               orient="auto"
                             >
@@ -328,15 +330,15 @@ const SinglyLinkedList = () => {
                           </defs>
                           <line
                             x1="0"
-                            y1="20"
+                            y1="10"
                             x2="35"
-                            y2="20"
+                            y2="10"
                             stroke="currentColor"
-                            strokeWidth="2"
+                            strokeWidth="1.5"
                             markerEnd={`url(#arrow-${node.id})`}
                           />
                         </svg>
-                        <span className="text-[10px] text-gray-500 mt-1">next</span>
+                        <span className="text-[9px] text-blue-500 font-semibold">next</span>
                       </div>
                     )}
                     
