@@ -1,6 +1,8 @@
 import { ConceptViewProps } from '@/features/algorithm/types/components';
 
-const CompactView = ({ concept }: ConceptViewProps) => {
+type CompactViewProps = Omit<ConceptViewProps, 'viewMode'>;
+
+const CompactView = ({ concept }: CompactViewProps) => {
   // 설명을 요약 (첫 2-3 문장만)
   const summary = concept.description.split(/[.!?]\s+/).slice(0, 2).join('. ') + '.';
 

@@ -6,12 +6,12 @@ import CodeFirstView from './CodeFirstView';
 const ConceptView = ({ concept, codeExamples, viewMode }: ConceptViewProps) => {
     switch (viewMode) {
         case 'compact':
-            return <CompactView concept={concept} codeExamples={codeExamples} viewMode={viewMode} />;
+            return <CompactView concept={concept} codeExamples={codeExamples} />;
         case 'codeFirst':
-            return <CodeFirstView concept={concept} codeExamples={codeExamples} viewMode={viewMode} />;
+            return <CodeFirstView concept={concept} codeExamples={codeExamples} />;
         case 'default':
         default:
-            return <DefaultView concept={concept} codeExamples={codeExamples} viewMode={viewMode} />;
+            return <DefaultView concept={concept} codeExamples={codeExamples} />;
     }
 };
 

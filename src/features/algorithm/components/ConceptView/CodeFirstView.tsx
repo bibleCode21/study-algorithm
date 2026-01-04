@@ -6,7 +6,9 @@ import AnnotatedCodeBlock from './AnnotatedCodeBlock';
 import { getCodeAnnotations } from '@/features/algorithm/utils/codeAnnotations';
 import Pagination from '@/components/ui/Pagination';
 
-const CodeFirstView = ({ concept, codeExamples }: ConceptViewProps) => {
+type CodeFirstViewProps = Omit<ConceptViewProps, 'viewMode'>;
+
+const CodeFirstView = ({ concept, codeExamples }: CodeFirstViewProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // 페이지가 변경될 때 스크롤을 최상위로 이동
