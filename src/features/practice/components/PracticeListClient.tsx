@@ -248,7 +248,9 @@ const PracticeListClient = ({ exercises }: PracticeListClientProps) => {
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {paginatedExercises.map((exercise) => (
+              {paginatedExercises
+                .filter((exercise) => exercise.conceptId) // conceptId가 없는 문제는 제외
+                .map((exercise) => (
                 <Link
                   key={exercise.id}
                   href={`/concept/${exercise.conceptId}/practice?exerciseId=${exercise.id}`}

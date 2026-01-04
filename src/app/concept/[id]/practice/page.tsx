@@ -9,6 +9,13 @@ interface PracticePageProps {
   searchParams: Promise<{ exerciseId?: string }>;
 }
 
+// 정적 생성: 빌드 시 모든 개념의 practice 페이지를 미리 생성
+export async function generateStaticParams() {
+  return concepts.map((concept) => ({
+    id: concept.id,
+  }));
+}
+
 export default async function PracticePage({ params, searchParams }: PracticePageProps) {
   const { id } = await params;
   const { exerciseId } = await searchParams;
