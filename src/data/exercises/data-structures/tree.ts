@@ -25,23 +25,23 @@ export const treeExercises: Exercise[] = [
     ],
     testCases: [
       {
-        input: { val: 3, left: { val: 9 }, right: { val: 20, left: { val: 15 }, right: { val: 7 } } },
+        input: { val: 3, left: { val: 9, left: null, right: null }, right: { val: 20, left: { val: 15, left: null, right: null }, right: { val: 7, left: null, right: null } } },
         expectedOutput: 3,
       },
       {
-        input: { val: 1, right: { val: 2 } },
+        input: { val: 1, left: null, right: { val: 2, left: null, right: null } },
         expectedOutput: 2,
       },
       {
-        input: null,
-        expectedOutput: 0,
-      },
-      {
-        input: { val: 1 },
+        input: { val: 1, left: null, right: null },
         expectedOutput: 1,
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 3 } } },
+        input: { val: 1, left: { val: 2, left: { val: 3, left: null, right: null }, right: null }, right: null },
+        expectedOutput: 3,
+      },
+      {
+        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: { val: 6, left: null, right: null }, right: { val: 7, left: null, right: null } } },
         expectedOutput: 3,
       },
     ],
@@ -106,24 +106,24 @@ const solution = (root: TreeNode | null): number => {
     ],
     testCases: [
       {
-        input: { val: 1, left: { val: 2 }, right: { val: 3 } },
+        input: { val: 1, left: { val: 2, left: null, right: null }, right: { val: 3, left: null, right: null } },
         expectedOutput: 3,
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4 }, right: { val: 5 } }, right: { val: 3 } },
+        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: null, right: null } },
         expectedOutput: 5,
       },
       {
-        input: null,
-        expectedOutput: 0,
-      },
-      {
-        input: { val: 1 },
+        input: { val: 1, left: null, right: null },
         expectedOutput: 1,
       },
       {
-        input: { val: 1, left: { val: 2 } },
+        input: { val: 1, left: { val: 2, left: null, right: null }, right: null },
         expectedOutput: 2,
+      },
+      {
+        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: { val: 6, left: null, right: null }, right: { val: 7, left: null, right: null } } },
+        expectedOutput: 7,
       },
     ],
     solution: {
@@ -184,24 +184,24 @@ const solution = (root: TreeNode | null): number => {
     ],
     testCases: [
       {
-        input: { val: 1, left: { val: 2 }, right: { val: 3 } },
+        input: { val: 1, left: { val: 2, left: null, right: null }, right: { val: 3, left: null, right: null } },
         expectedOutput: [1, 2, 3],
       },
       {
-        input: { val: 1, right: { val: 2, left: { val: 3 } } },
+        input: { val: 1, left: null, right: { val: 2, left: { val: 3, left: null, right: null }, right: null } },
         expectedOutput: [1, 2, 3],
       },
       {
-        input: null,
-        expectedOutput: [],
-      },
-      {
-        input: { val: 1 },
+        input: { val: 1, left: null, right: null },
         expectedOutput: [1],
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4 }, right: { val: 5 } }, right: { val: 3 } },
+        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: null, right: null } },
         expectedOutput: [1, 2, 4, 5, 3],
+      },
+      {
+        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: { val: 6, left: null, right: null }, right: { val: 7, left: null, right: null } } },
+        expectedOutput: [1, 2, 4, 5, 3, 6, 7],
       },
     ],
     solution: {
@@ -271,24 +271,24 @@ const solution = (root: TreeNode | null): number[] => {
     ],
     testCases: [
       {
-        input: { val: 1, left: { val: 2 }, right: { val: 3 } },
+        input: { val: 1, left: { val: 2, left: null, right: null }, right: { val: 3, left: null, right: null } },
         expectedOutput: [2, 1, 3],
       },
       {
-        input: { val: 1, right: { val: 2, left: { val: 3 } } },
+        input: { val: 1, left: null, right: { val: 2, left: { val: 3, left: null, right: null }, right: null } },
         expectedOutput: [1, 3, 2],
       },
       {
-        input: null,
-        expectedOutput: [],
-      },
-      {
-        input: { val: 1 },
+        input: { val: 1, left: null, right: null },
         expectedOutput: [1],
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4 }, right: { val: 5 } }, right: { val: 3 } },
+        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: null, right: null } },
         expectedOutput: [4, 2, 5, 1, 3],
+      },
+      {
+        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: { val: 6, left: null, right: null }, right: { val: 7, left: null, right: null } } },
+        expectedOutput: [4, 2, 5, 1, 6, 3, 7],
       },
     ],
     solution: {
@@ -358,24 +358,24 @@ const solution = (root: TreeNode | null): number[] => {
     ],
     testCases: [
       {
-        input: { val: 3, left: { val: 9 }, right: { val: 20, left: { val: 15 }, right: { val: 7 } } },
+        input: { val: 3, left: { val: 9, left: null, right: null }, right: { val: 20, left: { val: 15, left: null, right: null }, right: { val: 7, left: null, right: null } } },
         expectedOutput: [3, 9, 20, 15, 7],
       },
       {
-        input: { val: 1 },
+        input: { val: 1, left: null, right: null },
         expectedOutput: [1],
       },
       {
-        input: null,
-        expectedOutput: [],
-      },
-      {
-        input: { val: 1, left: { val: 2 }, right: { val: 3 } },
+        input: { val: 1, left: { val: 2, left: null, right: null }, right: { val: 3, left: null, right: null } },
         expectedOutput: [1, 2, 3],
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4 } }, right: { val: 3, right: { val: 5 } } },
+        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: null }, right: { val: 3, left: null, right: { val: 5, left: null, right: null } } },
         expectedOutput: [1, 2, 3, 4, 5],
+      },
+      {
+        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: { val: 6, left: null, right: null }, right: { val: 7, left: null, right: null } } },
+        expectedOutput: [1, 2, 3, 4, 5, 6, 7],
       },
     ],
     solution: {
@@ -452,23 +452,23 @@ const solution = (root: TreeNode | null): number[] => {
     ],
     testCases: [
       {
-        input: { val: 1, left: { val: 2, left: { val: 3 }, right: { val: 4 } }, right: { val: 2, left: { val: 4 }, right: { val: 3 } } },
+        input: { val: 1, left: { val: 2, left: { val: 3, left: null, right: null }, right: { val: 4, left: null, right: null } }, right: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 3, left: null, right: null } } },
         expectedOutput: true,
       },
       {
-        input: { val: 1, left: { val: 2, right: { val: 3 } }, right: { val: 2, right: { val: 3 } } },
+        input: { val: 1, left: { val: 2, left: null, right: { val: 3, left: null, right: null } }, right: { val: 2, left: null, right: { val: 3, left: null, right: null } } },
         expectedOutput: false,
       },
       {
-        input: { val: 1 },
+        input: { val: 1, left: null, right: null },
         expectedOutput: true,
       },
       {
-        input: { val: 1, left: { val: 2 }, right: { val: 2 } },
+        input: { val: 1, left: { val: 2, left: null, right: null }, right: { val: 2, left: null, right: null } },
         expectedOutput: true,
       },
       {
-        input: { val: 1, left: { val: 2 }, right: { val: 3 } },
+        input: { val: 1, left: { val: 2, left: null, right: null }, right: { val: 3, left: null, right: null } },
         expectedOutput: false,
       },
     ],
