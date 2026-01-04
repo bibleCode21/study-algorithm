@@ -111,48 +111,66 @@ const Array2D = () => {
       </div>
 
       {/* 컨트롤 버튼 */}
-      <div className="space-y-4">
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-2">행 연산</h4>
-          <div className="flex gap-2 flex-wrap">
-            <button
-              onClick={() => insertRow(1)}
-              disabled={isAnimating}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
-            >
-              행 1에 삽입
-            </button>
-            <button
-              onClick={() => removeRow(1)}
-              disabled={isAnimating || array.length <= 1}
-              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
-            >
-              행 1 제거
-            </button>
-          </div>
+      <div className="relative">
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="border-b border-gray-200">
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">연산 그룹</th>
+                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">버튼</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-gray-100">
+                <td className="py-3 px-4">
+                  <span className="text-sm font-semibold text-gray-700">행 연산</span>
+                </td>
+                <td className="py-3 px-4">
+                  <div className="flex gap-2 flex-wrap">
+                    <button
+                      onClick={() => insertRow(1)}
+                      disabled={isAnimating}
+                      className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                    >
+                      행 1에 삽입
+                    </button>
+                    <button
+                      onClick={() => removeRow(1)}
+                      disabled={isAnimating || array.length <= 1}
+                      className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                    >
+                      행 1 제거
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td className="py-3 px-4">
+                  <span className="text-sm font-semibold text-gray-700">열 연산</span>
+                </td>
+                <td className="py-3 px-4">
+                  <div className="flex gap-2 flex-wrap">
+                    <button
+                      onClick={() => insertCol(1)}
+                      disabled={isAnimating}
+                      className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                    >
+                      열 1에 삽입
+                    </button>
+                    <button
+                      onClick={() => removeCol(1)}
+                      disabled={isAnimating || array[0]?.length <= 1}
+                      className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                    >
+                      열 1 제거
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-        <div>
-          <h4 className="text-sm font-semibold text-gray-700 mb-2">열 연산</h4>
-          <div className="flex gap-2 flex-wrap">
-            <button
-              onClick={() => insertCol(1)}
-              disabled={isAnimating}
-              className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
-            >
-              열 1에 삽입
-            </button>
-            <button
-              onClick={() => removeCol(1)}
-              disabled={isAnimating || array[0]?.length <= 1}
-              className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
-            >
-              열 1 제거
-            </button>
-          </div>
-        </div>
-
-        <div>
+        <div className="flex justify-end mt-4">
           <button
             onClick={reset}
             disabled={isAnimating}
