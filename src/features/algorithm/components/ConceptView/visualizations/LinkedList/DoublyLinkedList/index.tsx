@@ -25,7 +25,7 @@ const DoublyLinkedList = () => {
   // 리스트를 배열로 변환 (시각화용)
   const toArray = (node: Node | null): Node[] => {
     const result: Node[] = [];
-    let current = node;
+    let current: Node | null = node;
     while (current !== null) {
       result.push(current);
       current = current.next;
@@ -54,18 +54,25 @@ const DoublyLinkedList = () => {
             id: `node-${nextId}`,
             data: nodes.length + 1,
             next: null,
-            prev: tail,
+            prev: tail ?? null,
           };
           
-          // 새로운 리스트 생성
-          const newNodes = nodes.map((n, i) => ({
-            ...n,
-            next: i === nodes.length - 1 ? newNode : n.next,
-            prev: n.prev,
-          }));
+          // 새로운 리스트 생성 - 모든 노드를 새로 생성하여 참조 문제 해결
+          const newNodes: Node[] = [];
+          for (let i = 0; i < nodes.length; i++) {
+            newNodes.push({
+              id: nodes[i].id,
+              data: nodes[i].data,
+              next: null,
+              prev: null,
+            });
+          }
+          newNodes.push(newNode);
           
-          if (tail) {
-            tail.next = newNode;
+          // next와 prev 포인터 재연결
+          for (let i = 0; i < newNodes.length; i++) {
+            newNodes[i].next = i < newNodes.length - 1 ? newNodes[i + 1] : null;
+            newNodes[i].prev = i > 0 ? newNodes[i - 1] : null;
           }
           
           setHead(newNodes[0]);
@@ -81,25 +88,50 @@ const DoublyLinkedList = () => {
   const prepend = () => {
     animate(() => {
       setTimeout(() => {
-        const nodes = toArray(head);
-        const newNode: Node = {
-          id: `node-${nextId}`,
-          data: nodes.length === 0 ? 1 : nodes[0].data - 1,
-          next: head,
-          prev: null,
-        };
-        
-        if (head) {
-          head.prev = newNode;
-        }
-        
-        if (tail === null) {
+        if (head === null) {
+          const newNode: Node = {
+            id: `node-${nextId}`,
+            data: 1,
+            next: null,
+            prev: null,
+          };
+          setHead(newNode);
           setTail(newNode);
+          setNextId(nextId + 1);
+          setHighlightedNodeId(newNode.id);
+        } else {
+          const nodes = toArray(head);
+          const newNode: Node = {
+            id: `node-${nextId}`,
+            data: nodes.length === 0 ? 1 : nodes[0].data - 1,
+            next: null,
+            prev: null,
+          };
+          
+          // 새로운 리스트 생성 - 모든 노드를 새로 생성하여 참조 문제 해결
+          const newNodes: Node[] = [newNode];
+          for (let i = 0; i < nodes.length; i++) {
+            newNodes.push({
+              id: nodes[i].id,
+              data: nodes[i].data,
+              next: null,
+              prev: null,
+            });
+          }
+          
+          // next와 prev 포인터 재연결
+          for (let i = 0; i < newNodes.length; i++) {
+            newNodes[i].next = i < newNodes.length - 1 ? newNodes[i + 1] : null;
+            newNodes[i].prev = i > 0 ? newNodes[i - 1] : null;
+          }
+          
+          setHead(newNodes[0]);
+          if (tail === null) {
+            setTail(newNodes[newNodes.length - 1]);
+          }
+          setNextId(nextId + 1);
+          setHighlightedNodeId(newNode.id);
         }
-        
-        setHead(newNode);
-        setNextId(nextId + 1);
-        setHighlightedNodeId(newNode.id);
       }, 300);
     });
   };
@@ -117,21 +149,34 @@ const DoublyLinkedList = () => {
             const newNode: Node = {
               id: `node-${nextId}`,
               data: nodes.length === 0 ? 1 : nodes[0].data - 1,
-              next: currentHead,
+              next: null,
               prev: null,
             };
             
-            if (currentHead) {
-              currentHead.prev = newNode;
+            // 새로운 리스트 생성 - 모든 노드를 새로 생성하여 참조 문제 해결
+            const newNodes: Node[] = [newNode];
+            for (let i = 0; i < nodes.length; i++) {
+              newNodes.push({
+                id: nodes[i].id,
+                data: nodes[i].data,
+                next: null,
+                prev: null,
+              });
+            }
+            
+            // next와 prev 포인터 재연결
+            for (let i = 0; i < newNodes.length; i++) {
+              newNodes[i].next = i < newNodes.length - 1 ? newNodes[i + 1] : null;
+              newNodes[i].prev = i > 0 ? newNodes[i - 1] : null;
             }
             
             if (tail === null) {
-              setTail(newNode);
+              setTail(newNodes[newNodes.length - 1]);
             }
             
             setNextId(nextId + 1);
             setHighlightedNodeId(newNode.id);
-            return newNode;
+            return newNodes[0];
           }
           
           if (index >= nodes.length) {
@@ -220,19 +265,29 @@ const DoublyLinkedList = () => {
           if (head?.data === data) {
             const newHead = head.next;
             if (newHead) {
-              newHead.prev = null;
+              // 새로운 head 노드 생성 (prev를 null로 설정)
+              const updatedHead: Node = {
+                ...newHead,
+                prev: null,
+              };
+              setHead(updatedHead);
             } else {
+              setHead(null);
               setTail(null);
             }
-            setHead(newHead);
           } else if (tail?.data === data) {
             const newTail = tail.prev ?? null;
             if (newTail) {
-              newTail.next = null;
+              // 새로운 tail 노드 생성 (next를 null로 설정)
+              const updatedTail: Node = {
+                ...newTail,
+                next: null,
+              };
+              setTail(updatedTail);
             } else {
               setHead(null);
+              setTail(null);
             }
-            setTail(newTail);
           } else {
             // 새로운 리스트 생성 (제거할 노드 제외)
             const newNodes: Node[] = [];

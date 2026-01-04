@@ -23,7 +23,7 @@ const SinglyLinkedList = () => {
   // 리스트를 배열로 변환 (시각화용)
   const toArray = (node: Node | null): Node[] => {
     const result: Node[] = [];
-    let current = node;
+    let current: Node | null = node;
     while (current !== null) {
       result.push(current);
       current = current.next;

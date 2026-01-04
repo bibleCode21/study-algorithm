@@ -98,8 +98,6 @@ const QueueFIFO = () => {
                       }`}
                       style={{
                         transformOrigin: 'center center',
-                      }}
-                      style={{
                         boxShadow: isHighlighted
                           ? '0 4px 12px rgba(59, 130, 246, 0.5)'
                           : '0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06)',
