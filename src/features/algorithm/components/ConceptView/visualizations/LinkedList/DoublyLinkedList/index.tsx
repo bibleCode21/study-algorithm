@@ -236,7 +236,7 @@ const DoublyLinkedList = () => {
           } else {
             // 새로운 리스트 생성 (제거할 노드 제외)
             const newNodes: Node[] = [];
-            let current = head;
+            let current: Node | null = head;
             
             while (current !== null) {
               if (current.data !== data) {
@@ -282,10 +282,10 @@ const DoublyLinkedList = () => {
     
     animate(() => {
       const nodes: Node[] = [];
-      let current = tail;
+      let current: Node | null = tail;
       while (current !== null) {
         nodes.unshift(current);
-        current = current.prev || null;
+        current = current.prev ?? null;
       }
       const foundNode = nodes.find(n => n.data === data);
       if (foundNode) {
