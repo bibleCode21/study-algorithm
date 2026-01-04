@@ -9,8 +9,8 @@ const INITIAL_HEAP: number[] = [];
 interface TreeNode {
   value: number;
   index: number;
-  left?: TreeNode;
-  right?: TreeNode;
+  left?: TreeNode | null;
+  right?: TreeNode | null;
 }
 
 const HeapVisualization = ({}: HeapVisualizationProps = {}) => {
