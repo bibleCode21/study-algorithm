@@ -226,7 +226,7 @@ const DoublyLinkedList = () => {
             }
             setHead(newHead);
           } else if (tail?.data === data) {
-            const newTail = tail.prev;
+            const newTail = tail.prev ?? null;
             if (newTail) {
               newTail.next = null;
             } else {
