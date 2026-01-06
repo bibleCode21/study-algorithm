@@ -23,6 +23,7 @@ import LinkedListVisualization from './LinkedList';
 import HeapVisualization from './Heap';
 import HashTableVisualization from './HashTable';
 import TreeVisualization from './Tree';
+import BubbleSortVisualization from './BubbleSort';
 
 // 시각화 컴포넌트의 공통 Props 타입
 // 각 시각화는 필요에 따라 자신만의 props를 가질 수 있지만,
@@ -40,6 +41,7 @@ export const visualizationRegistry: Record<string, ComponentType<VisualizationPr
   heap: HeapVisualization,
   'hash-table': HashTableVisualization,
   tree: TreeVisualization,
+  'bubble-sort': BubbleSortVisualization,
   // 여기에 다른 시각화들을 추가할 수 있습니다:
   // 등등...
 };
