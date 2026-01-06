@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 
 const INITIAL_ARRAY = [64, 34, 25, 12, 22, 11, 90];
 
@@ -11,6 +11,7 @@ type AnimationState = {
 
 const BubbleSortVisualization = () => {
   const [array, setArray] = useState<number[]>([...INITIAL_ARRAY]);
+  const arrayRef = useRef<number[]>([...INITIAL_ARRAY]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationState, setAnimationState] = useState<AnimationState>(null);
   const [isAutoSorting, setIsAutoSorting] = useState(false);
@@ -18,6 +19,11 @@ const BubbleSortVisualization = () => {
     pass: number;
     comparison: number;
   } | null>(null);
+
+  // array 상태가 변경될 때마다 ref 업데이트
+  useEffect(() => {
+    arrayRef.current = array;
+  }, [array]);
 
   const animate = useCallback((callback: () => void, duration = 600) => {
     setIsAnimating(true);
@@ -49,9 +55,8 @@ const BubbleSortVisualization = () => {
   const stepSort = useCallback(() => {
     if (isAnimating || isAutoSorting) return;
 
-    const arr = [...array];
+    const arr = [...arrayRef.current];
     const n = arr.length;
-    let swapped = false;
     let found = false;
     let pass = 0;
     let comparison = 0;
@@ -83,56 +88,57 @@ const BubbleSortVisualization = () => {
       return;
     }
 
-    animate(() => {
-      // 비교 중 표시
-      setAnimationState({
-        type: 'comparing',
-        indices: [comparison, comparison + 1],
-      });
-      setCurrentStep({ pass, comparison });
+    setIsAnimating(true);
+
+    // 비교 중 표시
+    setAnimationState({
+      type: 'comparing',
+      indices: [comparison, comparison + 1],
+    });
+    setCurrentStep({ pass, comparison });
+
+    setTimeout(() => {
+      const { newArray, swapped: didSwap } = performComparison(arr, pass, comparison);
+
+      if (didSwap) {
+        // 교환 중 표시
+        setAnimationState({
+          type: 'swapping',
+          indices: [comparison, comparison + 1],
+        });
+      }
 
       setTimeout(() => {
-        const { newArray, swapped: didSwap } = performComparison(arr, pass, comparison);
-        swapped = didSwap;
+        setArray(newArray);
 
-        if (swapped) {
-          // 교환 중 표시
+        // 다음 단계로 이동
+        if (comparison < n - pass - 2) {
+          setCurrentStep({ pass, comparison: comparison + 1 });
+        } else if (pass < n - 2) {
+          setCurrentStep({ pass: pass + 1, comparison: 0 });
+        } else {
+          // 정렬 완료
+          setCurrentStep(null);
           setAnimationState({
-            type: 'swapping',
-            indices: [comparison, comparison + 1],
+            type: 'sorted',
+            indices: [],
           });
+          setTimeout(() => {
+            setAnimationState(null);
+          }, 1000);
         }
 
-        setTimeout(() => {
-          setArray(newArray);
-
-          // 다음 단계로 이동
-          if (comparison < n - pass - 2) {
-            setCurrentStep({ pass, comparison: comparison + 1 });
-          } else if (pass < n - 2) {
-            setCurrentStep({ pass: pass + 1, comparison: 0 });
-          } else {
-            // 정렬 완료
-            setCurrentStep(null);
-            setAnimationState({
-              type: 'sorted',
-              indices: [],
-            });
-            setTimeout(() => {
-              setAnimationState(null);
-            }, 1000);
-          }
-        }, 300);
+        setIsAnimating(false);
       }, 300);
-    });
-  }, [array, isAnimating, isAutoSorting, currentStep, animate, performComparison]);
+    }, 300);
+  }, [isAnimating, isAutoSorting, currentStep, performComparison]);
 
   // 자동 정렬 (전체 과정)
   const autoSort = useCallback(() => {
     if (isAnimating || isAutoSorting) return;
 
     setIsAutoSorting(true);
-    const arr = [...array];
+    const arr = [...arrayRef.current];
     const n = arr.length;
     let currentArray = [...arr];
     let pass = 0;
@@ -183,6 +189,7 @@ const BubbleSortVisualization = () => {
         }
 
         setArray([...currentArray]);
+        arrayRef.current = [...currentArray];
 
         setTimeout(() => {
           comparison++;
@@ -192,11 +199,13 @@ const BubbleSortVisualization = () => {
     };
 
     sortStep();
-  }, [array, isAnimating, isAutoSorting, performComparison]);
+  }, [isAnimating, isAutoSorting, performComparison]);
 
   const reset = useCallback(() => {
     if (isAnimating || isAutoSorting) return;
-    setArray([...INITIAL_ARRAY]);
+    const resetArray = [...INITIAL_ARRAY];
+    setArray(resetArray);
+    arrayRef.current = resetArray;
     setCurrentStep(null);
     setAnimationState(null);
     setIsAutoSorting(false);
