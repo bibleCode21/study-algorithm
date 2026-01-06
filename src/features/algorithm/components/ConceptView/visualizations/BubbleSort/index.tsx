@@ -12,6 +12,8 @@ type AnimationState = {
 const BubbleSortVisualization = () => {
   const [array, setArray] = useState<number[]>([...INITIAL_ARRAY]);
   const arrayRef = useRef<number[]>([...INITIAL_ARRAY]);
+  const currentStepRef = useRef<{ pass: number; comparison: number } | null>(null);
+  const timeoutRefs = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationState, setAnimationState] = useState<AnimationState>(null);
   const [isAutoSorting, setIsAutoSorting] = useState(false);
@@ -25,13 +27,15 @@ const BubbleSortVisualization = () => {
     arrayRef.current = array;
   }, [array]);
 
-  const animate = useCallback((callback: () => void, duration = 600) => {
-    setIsAnimating(true);
-    callback();
-    setTimeout(() => {
-      setIsAnimating(false);
-      setAnimationState(null);
-    }, duration);
+
+  // 컴포넌트 언마운트 시 모든 timeout 정리
+  useEffect(() => {
+    return () => {
+      timeoutRefs.current.forEach((timeoutId) => {
+        clearTimeout(timeoutId);
+      });
+      timeoutRefs.current.clear();
+    };
   }, []);
 
   // 한 번의 비교와 교환 수행
@@ -55,37 +59,34 @@ const BubbleSortVisualization = () => {
   const stepSort = useCallback(() => {
     if (isAnimating || isAutoSorting) return;
 
-    const arr = [...arrayRef.current];
-    const n = arr.length;
-    let found = false;
+    const currentArray = [...arrayRef.current];
+    const n = currentArray.length;
+    const currentStepValue = currentStepRef.current;
     let pass = 0;
     let comparison = 0;
 
     // 현재 위치 찾기
-    for (let i = 0; i < n - 1; i++) {
-      for (let j = 0; j < n - i - 1; j++) {
-        if (i === 0 && j === 0 && currentStep === null) {
-          // 첫 번째 비교
-          pass = 0;
-          comparison = 0;
-          found = true;
-          break;
-        } else if (
-          currentStep &&
-          (i > currentStep.pass || (i === currentStep.pass && j > currentStep.comparison))
-        ) {
-          pass = i;
-          comparison = j;
-          found = true;
-          break;
+    if (currentStepValue === null) {
+      // 첫 번째 비교
+      pass = 0;
+      comparison = 0;
+    } else {
+      // 다음 비교 위치 찾기
+      pass = currentStepValue.pass;
+      comparison = currentStepValue.comparison + 1;
+
+      // 현재 패스의 마지막 비교를 넘었는지 확인
+      if (comparison >= n - pass - 1) {
+        // 다음 패스로 이동
+        pass++;
+        comparison = 0;
+
+        // 모든 패스가 완료되었는지 확인
+        if (pass >= n - 1) {
+          // 정렬 완료
+          return;
         }
       }
-      if (found) break;
-    }
-
-    if (!found) {
-      // 이미 정렬 완료
-      return;
     }
 
     setIsAnimating(true);
@@ -95,10 +96,13 @@ const BubbleSortVisualization = () => {
       type: 'comparing',
       indices: [comparison, comparison + 1],
     });
-    setCurrentStep({ pass, comparison });
+    const newStep = { pass, comparison };
+    setCurrentStep(newStep);
+    currentStepRef.current = newStep;
+    setArray([...currentArray]);
 
-    setTimeout(() => {
-      const { newArray, swapped: didSwap } = performComparison(arr, pass, comparison);
+    const timeoutId1 = setTimeout(() => {
+      const { newArray, swapped: didSwap } = performComparison(currentArray, pass, comparison);
 
       if (didSwap) {
         // 교환 중 표시
@@ -108,30 +112,18 @@ const BubbleSortVisualization = () => {
         });
       }
 
-      setTimeout(() => {
-        setArray(newArray);
+      setArray([...newArray]);
+      arrayRef.current = [...newArray];
 
-        // 다음 단계로 이동
-        if (comparison < n - pass - 2) {
-          setCurrentStep({ pass, comparison: comparison + 1 });
-        } else if (pass < n - 2) {
-          setCurrentStep({ pass: pass + 1, comparison: 0 });
-        } else {
-          // 정렬 완료
-          setCurrentStep(null);
-          setAnimationState({
-            type: 'sorted',
-            indices: [],
-          });
-          setTimeout(() => {
-            setAnimationState(null);
-          }, 1000);
-        }
-
+      const timeoutId2 = setTimeout(() => {
         setIsAnimating(false);
+        timeoutRefs.current.delete(timeoutId2);
       }, 300);
+      timeoutRefs.current.add(timeoutId2);
+      timeoutRefs.current.delete(timeoutId1);
     }, 300);
-  }, [isAnimating, isAutoSorting, currentStep, performComparison]);
+    timeoutRefs.current.add(timeoutId1);
+  }, [isAnimating, isAutoSorting, performComparison]);
 
   // 자동 정렬 (전체 과정)
   const autoSort = useCallback(() => {
@@ -148,15 +140,18 @@ const BubbleSortVisualization = () => {
       if (pass >= n - 1) {
         // 정렬 완료
         setArray(currentArray);
+        arrayRef.current = currentArray;
         setAnimationState({
           type: 'sorted',
           indices: [],
         });
         setIsAutoSorting(false);
         setCurrentStep(null);
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
           setAnimationState(null);
+          timeoutRefs.current.delete(timeoutId);
         }, 1000);
+        timeoutRefs.current.add(timeoutId);
         return;
       }
 
@@ -176,7 +171,7 @@ const BubbleSortVisualization = () => {
       setCurrentStep({ pass, comparison });
       setArray([...currentArray]);
 
-      setTimeout(() => {
+      const timeoutId1 = setTimeout(() => {
         const { newArray, swapped } = performComparison(currentArray, pass, comparison);
         currentArray = newArray;
 
@@ -191,11 +186,15 @@ const BubbleSortVisualization = () => {
         setArray([...currentArray]);
         arrayRef.current = [...currentArray];
 
-        setTimeout(() => {
+        const timeoutId2 = setTimeout(() => {
           comparison++;
           sortStep();
+          timeoutRefs.current.delete(timeoutId2);
         }, 300);
+        timeoutRefs.current.add(timeoutId2);
+        timeoutRefs.current.delete(timeoutId1);
       }, 300);
+      timeoutRefs.current.add(timeoutId1);
     };
 
     sortStep();
@@ -203,12 +202,20 @@ const BubbleSortVisualization = () => {
 
   const reset = useCallback(() => {
     if (isAnimating || isAutoSorting) return;
+    // 모든 timeout 정리
+    timeoutRefs.current.forEach((timeoutId) => {
+      clearTimeout(timeoutId);
+    });
+    timeoutRefs.current.clear();
+    
     const resetArray = [...INITIAL_ARRAY];
     setArray(resetArray);
     arrayRef.current = resetArray;
     setCurrentStep(null);
+    currentStepRef.current = null;
     setAnimationState(null);
     setIsAutoSorting(false);
+    setIsAnimating(false);
   }, [isAnimating, isAutoSorting]);
 
   // 배열이 정렬되었는지 확인
@@ -287,10 +294,12 @@ const BubbleSortVisualization = () => {
               );
             })}
           </div>
+        </div>
 
-          {/* 상태 표시 */}
-          {animationState && (
-            <div className="mt-6 text-center">
+        {/* 상태 표시 - 독립적인 영역 */}
+        {animationState && (
+          <div className="mb-10 py-2">
+            <div className="text-center">
               {animationState.type === 'comparing' && (
                 <p className="text-sm text-yellow-700 font-medium">
                   비교 중: {array[animationState.indices[0]]}와 {array[animationState.indices[1]]}{' '}
@@ -307,8 +316,8 @@ const BubbleSortVisualization = () => {
                 <p className="text-sm text-green-700 font-medium">정렬 완료!</p>
               )}
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {/* 컨트롤 버튼 */}
         <div className="relative">
