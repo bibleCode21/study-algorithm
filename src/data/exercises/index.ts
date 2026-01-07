@@ -9,12 +9,14 @@ import { heapExercises } from './data-structures/heap';
 import { treeExercises } from './data-structures/tree';
 // 알고리즘
 import { bubbleSortExercises } from './algorithms/bubble-sort';
+import { binarySearchExercises } from './algorithms/binary-search';
 
 export const exercises: Exercise[] = [
   ...arrayExercises,
   ...queueExercises,
   ...stackExercises,
   ...bubbleSortExercises,
+  ...binarySearchExercises,
   ...linkedListExercises,
   ...hashTableExercises,
   ...heapExercises,
