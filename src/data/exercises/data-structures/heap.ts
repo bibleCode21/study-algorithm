@@ -246,6 +246,7 @@ export const heapExercises: Exercise[] = [
     // TODO: 마지막 요소를 루트로 이동
     // TODO: moveDown을 통해 힙 속성 유지 (자식 노드보다 작을 경우 교환)
     // TODO: 저장한 루트 노드 반환
+    throw new Error('구현해주세요');
   }
 }`,
     templateDescriptions: [
@@ -459,6 +460,7 @@ export const heapExercises: Exercise[] = [
     // TODO: 마지막 요소를 루트로 이동
     // TODO: heapifyDown을 통해 힙 속성 유지
     // TODO: 저장한 루트 노드 반환
+    throw new Error('구현해주세요');
   }
 
   // 최소값 확인 (O(1))

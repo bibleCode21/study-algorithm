@@ -38,7 +38,7 @@ export const bubbleSortExercises: Exercise[] = [
       },
     ],
     solution: {
-      code: `function bubbleSort(arr: number[]): number[] {
+      code: `function solution(arr: number[]): number[] {
   const n = arr.length;
   const result = [...arr];
 
@@ -67,6 +67,10 @@ export const bubbleSortExercises: Exercise[] = [
       '이미 정렬된 경우를 위해 조기 종료 최적화를 고려해보세요.',
     ],
     tags: ['정렬', '버블 정렬', '알고리즘'],
+    templateCode: `function solution(arr: number[]): number[] {
+  // 여기에 코드를 작성하세요
+  throw new Error('구현해주세요');
+}`,
   },
 ];
 

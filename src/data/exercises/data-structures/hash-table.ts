@@ -264,7 +264,7 @@ export const hashTableExercises: Exercise[] = [
   // TODO: input.save의 각 키-값 쌍을 저장
   // TODO: input.read의 각 키에 해당하는 값을 읽어서 배열로 반환
   
-  return [];
+  throw new Error('구현해주세요');
 };`,
   },
   {
@@ -423,7 +423,7 @@ export const hashTableExercises: Exercise[] = [
   // TODO: input.save의 각 키-값 쌍을 저장
   // TODO: input.read의 각 키에 해당하는 값을 읽어서 배열로 반환
   
-  return [];
+  throw new Error('구현해주세요');
 };`,
   },
   {
@@ -511,7 +511,7 @@ export const hashTableExercises: Exercise[] = [
     // TODO: 있으면 두 인덱스 반환, 없으면 현재 숫자를 해시 테이블에 저장
   }
   
-  return [];
+  throw new Error('구현해주세요');
 };`,
   },
   {
@@ -588,7 +588,7 @@ export const hashTableExercises: Exercise[] = [
     // TODO: 있으면 true 반환, 없으면 Set에 추가
   }
   
-  return false;
+  throw new Error('구현해주세요');
 };`,
   },
 ];

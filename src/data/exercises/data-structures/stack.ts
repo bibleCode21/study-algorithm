@@ -106,7 +106,7 @@ export const stackExercises: Exercise[] = [
     tags: ['스택', 'LIFO', 'Push', 'Pop'],
     templateCode: `const solution = (items: number[], count: number): number[] => {
   // 여기에 코드를 작성하세요
-  return [];
+  throw new Error('구현해주세요');
 };`,
   },
   {
@@ -193,7 +193,7 @@ export const stackExercises: Exercise[] = [
     tags: ['스택', 'LIFO', '문자열', '역순'],
     templateCode: `const solution = (str: string): string => {
   // 여기에 코드를 작성하세요
-  return '';
+  throw new Error('구현해주세요');
 };`,
   },
 ];

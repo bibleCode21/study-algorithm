@@ -111,7 +111,7 @@ export const queueExercises: Exercise[] = [
     tags: ['큐', 'FIFO', 'Enqueue', 'Dequeue'],
     templateCode: `const solution = (items: number[], count: number): number[] => {
   // 여기에 코드를 작성하세요
-  return [];
+  throw new Error('구현해주세요');
 };`,
   },
 ];

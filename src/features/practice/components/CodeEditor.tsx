@@ -26,10 +26,10 @@ const getDefaultCode = (exercise: Exercise, templateIndex: number = 0): string =
         return exercise.templateCode;
     }
     
-    // 기본 템플릿 (arrow function)
+    // 기본 템플릿 (arrow function) - 모든 문제에 templateCode가 있으므로 이 부분은 거의 사용되지 않음
     return `const solution = (data: any): any => {
   // 여기에 코드를 작성하세요
-  return data;
+  throw new Error('구현해주세요');
 };`;
 };
 

@@ -88,6 +88,10 @@ function solution(arr: number[]): number[] {
       '링크드 리스트를 순회하여 배열로 변환합니다.',
     ],
     tags: ['링크드 리스트', '노드', '추가', '기초'],
+    templateCode: `function solution(arr: number[]): number[] {
+  // 여기에 코드를 작성하세요
+  throw new Error('구현해주세요');
+}`,
   },
   {
     id: 'linked-list-delete',
@@ -190,6 +194,10 @@ function solution(input: { values: number[]; deleteValue: number }): number[] {
       '중간 노드를 삭제할 때는 이전 노드의 next를 다음 노드로 연결합니다.',
     ],
     tags: ['링크드 리스트', '노드', '삭제', '중급'],
+    templateCode: `function solution(input: { values: number[]; deleteValue: number }): number[] {
+  // 여기에 코드를 작성하세요
+  throw new Error('구현해주세요');
+}`,
   },
   {
     id: 'linked-list-reverse',
@@ -290,6 +298,10 @@ function solution(arr: number[]): number[] {
       '순회가 끝나면 prev가 새로운 head가 됩니다.',
     ],
     tags: ['링크드 리스트', '역순', '포인터', '중급'],
+    templateCode: `function solution(arr: number[]): number[] {
+  // 여기에 코드를 작성하세요
+  throw new Error('구현해주세요');
+}`,
   },
   {
     id: 'linked-list-middle',
@@ -373,6 +385,10 @@ function solution(arr: number[]): number {
       'fast가 끝에 도달하면 slow는 중간 노드를 가리키게 됩니다.',
     ],
     tags: ['링크드 리스트', '중간 노드', '투 포인터', '기초'],
+    templateCode: `function solution(arr: number[]): number {
+  // 여기에 코드를 작성하세요
+  throw new Error('구현해주세요');
+}`,
   },
   {
     id: 'linked-list-cycle',
@@ -479,6 +495,10 @@ function solution(input: { values: number[]; cycleIndex: number }): boolean {
       '사이클이 있으면 두 포인터가 만나게 됩니다.',
     ],
     tags: ['링크드 리스트', '사이클', '투 포인터', '중급'],
+    templateCode: `function solution(input: { values: number[]; cycleIndex: number }): boolean {
+  // 여기에 코드를 작성하세요
+  throw new Error('구현해주세요');
+}`,
   },
   {
     id: 'linked-list-node-mgmt',
@@ -543,7 +563,7 @@ class NodeMgmt<T> {
 const solution = (input: { operations: string[]; values: number[] }): any => {
   // NodeMgmt 인스턴스를 생성하고 operations를 수행한 후 결과를 반환하세요
   // delete 연산의 경우, values 배열에서 다음 값을 가져와서 삭제합니다
-  return [];
+  throw new Error('구현해주세요');
 };`,
     ],
     templateDescriptions: ['클래스 작성'],
@@ -719,7 +739,7 @@ class NodeMgmt<T> {
 
 const solution = (input: { operations: string[]; values: number[] }): any => {
   // NodeMgmt 인스턴스를 생성하고 operations를 수행한 후 결과를 반환하세요
-  return [];
+  throw new Error('구현해주세요');
 };`,
     ],
     templateDescriptions: ['더블 링크드 리스트 클래스 작성'],
@@ -936,25 +956,13 @@ class NodeMgmt<T> {
   // insertBefore 메서드를 구현하세요
   insertBefore(data: T, beforeData: T): boolean {
     // tail에서부터 검색하여 beforeData를 가진 노드를 찾고, 그 앞에 data를 삽입하세요
-    return false;
+    throw new Error('구현해주세요');
   }
 }
 
 const solution = (input: { values: number[]; insertBefore: Array<{ data: number; beforeData: number }> }): number[] => {
-  if (input.values.length === 0) {
-    return [];
-  }
-
-  const nodeMgmt = new NodeMgmt(input.values[0]);
-  for (let i = 1; i < input.values.length; i++) {
-    nodeMgmt.insert(input.values[i]);
-  }
-
-  for (const { data, beforeData } of input.insertBefore) {
-    nodeMgmt.insertBefore(data, beforeData);
-  }
-
-  return nodeMgmt.desc();
+  // 여기에 코드를 작성하세요
+  throw new Error('구현해주세요');
 };`,
     ],
     templateDescriptions: ['insertBefore 메서드 작성'],

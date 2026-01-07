@@ -79,7 +79,7 @@ const solution = (root: TreeNode | null): number => {
 
 const solution = (root: TreeNode | null): number => {
   // 여기에 코드를 작성하세요
-  return 0;
+  throw new Error('구현해주세요');
 };`,
   },
   {
@@ -157,7 +157,7 @@ const solution = (root: TreeNode | null): number => {
 
 const solution = (root: TreeNode | null): number => {
   // 여기에 코드를 작성하세요
-  return 0;
+  throw new Error('구현해주세요');
 };`,
   },
   {
@@ -244,7 +244,7 @@ const solution = (root: TreeNode | null): number[] => {
 
 const solution = (root: TreeNode | null): number[] => {
   // 여기에 코드를 작성하세요
-  return [];
+  throw new Error('구현해주세요');
 };`,
   },
   {
@@ -331,7 +331,7 @@ const solution = (root: TreeNode | null): number[] => {
 
 const solution = (root: TreeNode | null): number[] => {
   // 여기에 코드를 작성하세요
-  return [];
+  throw new Error('구현해주세요');
 };`,
   },
   {
@@ -425,7 +425,7 @@ const solution = (root: TreeNode | null): number[] => {
 
 const solution = (root: TreeNode | null): number[] => {
   // 여기에 코드를 작성하세요
-  return [];
+  throw new Error('구현해주세요');
 };`,
   },
   {
@@ -518,7 +518,7 @@ const solution = (root: TreeNode | null): boolean => {
 
 const solution = (root: TreeNode | null): boolean => {
   // 여기에 코드를 작성하세요
-  return false;
+  throw new Error('구현해주세요');
 };`,
   },
 ];

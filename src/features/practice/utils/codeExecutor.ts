@@ -79,10 +79,25 @@ export const executeCode = (
       // solution 함수 또는 변수가 있는지 확인
       if (typeof solution === 'function') {
         // input이 배열인 경우:
-        // - 첫 번째 요소가 배열인 경우: spread로 전달 (다중 파라미터: [items, count] 형태)
+        // - 모든 요소가 배열인 경우: 단일 파라미터로 전달 (2차원 배열: [[1, 2, 3], [4, 5, 6]] 형태)
+        // - 첫 번째 요소만 배열이고 나머지가 배열이 아닌 경우: spread로 전달 (다중 파라미터: [items, count] 형태)
         // - 첫 번째 요소가 배열이 아닌 경우: 단일 배열 파라미터로 전달 (기존 호환성)
-        if (Array.isArray(input) && input.length > 0 && Array.isArray(input[0])) {
-          return solution(...input);
+        if (Array.isArray(input) && input.length > 0) {
+          if (Array.isArray(input[0])) {
+            // 첫 번째 요소가 배열인 경우
+            // 모든 요소가 배열인지 확인 (2차원 배열인지)
+            const allArrays = input.every(item => Array.isArray(item));
+            if (allArrays) {
+              // 모든 요소가 배열이면 2차원 배열로 단일 파라미터로 전달
+              return solution(input);
+            } else {
+              // 첫 번째만 배열이고 나머지는 배열이 아니면 다중 파라미터로 spread 전달
+              return solution(...input);
+            }
+          } else {
+            // 첫 번째 요소가 배열이 아니면 단일 배열 파라미터로 전달
+            return solution(input);
+          }
         } else {
           return solution(input);
         }

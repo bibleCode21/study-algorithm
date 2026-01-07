@@ -39,7 +39,7 @@ export const arrayExercises: Exercise[] = [
       },
     ],
     solution: {
-      code: `function sumArray(arr: number[]): number {
+      code: `function solution(arr: number[]): number {
   return arr.reduce((sum, num) => sum + num, 0);
 }`,
       language: 'typescript',
@@ -47,6 +47,10 @@ export const arrayExercises: Exercise[] = [
     },
     hints: ['배열을 순회하면서 각 요소를 더해야 합니다.', 'reduce 메서드나 for 루프를 사용할 수 있습니다.'],
     tags: ['배열', '기초', '순회'],
+    templateCode: `function solution(arr: number[]): number {
+  // 여기에 코드를 작성하세요
+  throw new Error('구현해주세요');
+}`,
   },
   {
     id: 'array-2d-reverse',
@@ -88,8 +92,12 @@ export const arrayExercises: Exercise[] = [
         expectedOutput: [4, 3, 2, 1],
       },
       {
-        input: [[1]],
-        expectedOutput: [1],
+        input: [
+          [10, 20],
+          [30],
+          [40, 50, 60],
+        ],
+        expectedOutput: [60, 50, 40, 30, 20, 10],
       },
     ],
     solution: {
@@ -116,6 +124,10 @@ export const arrayExercises: Exercise[] = [
       '배열의 인덱스는 0부터 시작하므로 마지막 인덱스는 length - 1입니다.',
     ],
     tags: ['배열', '2차원 배열', '역순', '순회'],
+    templateCode: `function solution(arr: number[][]): number[] {
+  // 여기에 코드를 작성하세요
+  throw new Error('구현해주세요');
+}`,
   },
   {
     id: 'array-char-frequency',
@@ -201,6 +213,10 @@ export const arrayExercises: Exercise[] = [
       '정규표현식 match() 메서드를 사용하면 더 간단하게 구현할 수 있습니다.',
     ],
     tags: ['배열', '문자열', '빈도수', '순회'],
+    templateCode: `function solution(dataset: string[]): number {
+  // 여기에 코드를 작성하세요
+  throw new Error('구현해주세요');
+}`,
   },
 ];
 
