@@ -7,7 +7,7 @@ const ConceptCardBody = ({ concept }: ConceptCardBodyProps) => {
                 {concept.description}
             </p>
 
-            {concept.type === 'algorithm' && concept.timeComplexity && (
+            {concept.timeComplexity && (
                 <div className="mb-3 pt-3 border-t border-gray-100">
                     <div className="flex items-center gap-2 text-xs text-gray-500">
                         <span className="font-medium">시간 복잡도:</span>
@@ -18,8 +18,8 @@ const ConceptCardBody = ({ concept }: ConceptCardBodyProps) => {
                         <span>최악 {concept.timeComplexity.worst}</span>
                     </div>
                     {concept.spaceComplexity && (
-                        <div className="mt-1 text-xs text-gray-500">
-                            <span className="font-medium">공간 복잡도:</span>{' '}
+                        <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
+                            <span className="font-medium">공간 복잡도:</span>
                             <span>{concept.spaceComplexity}</span>
                         </div>
                     )}
