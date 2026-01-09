@@ -28,7 +28,7 @@ export default async function ConceptDetailPage({ params }: ConceptDetailPagePro
         notFound();
     }
 
-    const codeExamples = getConceptCodeSync(id);
+    const codeExamples = await getConceptCodeSync(id);
 
     // 서버에서 코드 하이라이팅 미리 처리
     const highlightedCodeExamples = await Promise.all(

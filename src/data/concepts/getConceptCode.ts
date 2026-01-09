@@ -43,11 +43,11 @@ export const getConceptCode = async (conceptId: string): Promise<CodeExample[]> 
  * @param conceptId 개념 ID
  * @returns 코드 예제 배열
  */
-export const getConceptCodeSync = (conceptId: string): CodeExample[] => {
+export const getConceptCodeSync = async (conceptId: string): Promise<CodeExample[]> => {
   try {
     const codePath = getConceptPath(conceptId);
-    // 동적 import를 사용하되, 서버 컴포넌트에서는 require 사용
-    const codeModule = require(codePath);
+    // 서버 컴포넌트에서 동적 import 사용
+    const codeModule = await import(codePath);
     return codeModule.code || [];
   } catch (error) {
     console.error(`Failed to load code for concept: ${conceptId}`, error);

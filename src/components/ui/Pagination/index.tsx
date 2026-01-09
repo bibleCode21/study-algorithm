@@ -2,6 +2,34 @@
 
 import { PaginationProps } from '@/types/ui';
 
+// Button 컴포넌트를 render 외부에서 선언
+const Button = ({ 
+    onClick, 
+    disabled, 
+    children, 
+    ariaLabel,
+    className: btnClassName 
+}: {
+    onClick: () => void;
+    disabled: boolean;
+    children: React.ReactNode;
+    ariaLabel: string;
+    className?: string;
+}) => (
+    <button
+        onClick={onClick}
+        disabled={disabled}
+        className={`px-3 py-2 rounded-lg border transition-colors flex items-center justify-center ${
+            disabled
+                ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
+                : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 cursor-pointer'
+        } ${btnClassName || ''}`}
+        aria-label={ariaLabel}
+    >
+        {children}
+    </button>
+);
+
 const Pagination = ({ 
     currentPage, 
     totalPages, 
@@ -27,8 +55,8 @@ const Pagination = ({
             pages.push(1);
 
             // 현재 페이지 주변 계산
-            let start = Math.max(2, currentPage - 1);
-            let end = Math.min(totalPages - 1, currentPage + 1);
+            const start = Math.max(2, currentPage - 1);
+            const end = Math.min(totalPages - 1, currentPage + 1);
 
             // 시작 부분 처리
             if (start > 2) {
@@ -53,33 +81,6 @@ const Pagination = ({
     };
 
     const pageNumbers = getPageNumbers();
-
-    const Button = ({ 
-        onClick, 
-        disabled, 
-        children, 
-        ariaLabel,
-        className: btnClassName 
-    }: {
-        onClick: () => void;
-        disabled: boolean;
-        children: React.ReactNode;
-        ariaLabel: string;
-        className?: string;
-    }) => (
-        <button
-            onClick={onClick}
-            disabled={disabled}
-            className={`px-3 py-2 rounded-lg border transition-colors flex items-center justify-center ${
-                disabled
-                    ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
-                    : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 cursor-pointer'
-            } ${btnClassName || ''}`}
-            aria-label={ariaLabel}
-        >
-            {children}
-        </button>
-    );
 
     return (
         <nav 
