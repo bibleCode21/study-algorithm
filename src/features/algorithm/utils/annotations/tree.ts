@@ -3,7 +3,7 @@ import { CodeAnnotation } from '../codeAnnotations';
 // 각 코드 예제별 해석 배열
 export const treeAnnotations: Record<string, CodeAnnotation[][]> = {
   typescript: [
-    // 첫 번째 예제: 노드 클래스 만들기
+    // 첫 번째 예제: 노드 클래스 만들기 (1-16줄)
     [
       {
         line: 2,
@@ -26,101 +26,101 @@ export const treeAnnotations: Record<string, CodeAnnotation[][]> = {
           'right 필드: 오른쪽 자식 노드를 가리키는 포인터입니다. null을 기본값으로 하여 자식이 없음을 표현합니다.',
       },
     ],
-    // 두 번째 예제: 이진 탐색 트리에 데이터 넣기
+    // 두 번째 예제: 이진 탐색 트리에 데이터 넣기 (1-47줄)
     [
       {
-        line: 13,
+        line: 15,
         comment:
           'NodeMgmt 클래스: 이진 탐색 트리를 관리하는 클래스입니다. head 노드를 통해 트리에 접근합니다.',
       },
       {
-        line: 21,
+        line: 23,
         comment:
           'insert 메서드: 이진 탐색 트리에 값을 삽입합니다. 이진 탐색 트리의 속성(왼쪽 자식 < 부모 < 오른쪽 자식)을 유지하면서 적절한 위치에 삽입합니다. 평균적으로 O(log n) 시간이 소요됩니다.',
       },
       {
-        line: 22,
+        line: 24,
         comment:
           '현재 노드 초기화: head 노드부터 시작하여 삽입할 위치를 찾습니다.',
       },
       {
-        line: 25,
+        line: 27,
         comment:
           '값 비교: 삽입할 값이 현재 노드의 값보다 작으면 왼쪽 서브트리로, 크거나 같으면 오른쪽 서브트리로 이동합니다.',
       },
       {
-        line: 26,
+        line: 28,
         comment:
           '왼쪽 자식 확인: 왼쪽 자식이 있으면 왼쪽 자식으로 이동하고, 없으면 왼쪽 자식 위치에 새 노드를 삽입합니다.',
       },
       {
-        line: 33,
+        line: 35,
         comment:
           '오른쪽 자식 확인: 오른쪽 자식이 있으면 오른쪽 자식으로 이동하고, 없으면 오른쪽 자식 위치에 새 노드를 삽입합니다.',
       },
     ],
-    // 세 번째 예제: 이진 탐색 트리 탐색
+    // 세 번째 예제: 이진 탐색 트리 탐색 (1-69줄)
     [
       {
-        line: 42,
+        line: 44,
         comment:
           'search 메서드: 이진 탐색 트리에서 값을 검색합니다. 이진 탐색 트리의 속성을 활용하여 평균적으로 O(log n) 시간에 검색할 수 있습니다.',
       },
       {
-        line: 43,
+        line: 45,
         comment:
           '현재 노드 초기화: head 노드부터 시작하여 값을 검색합니다.',
       },
       {
-        line: 46,
+        line: 48,
         comment:
           '값 비교: 현재 노드의 값과 찾는 값을 비교합니다. 같으면 찾은 것이고, 작으면 왼쪽으로, 크면 오른쪽으로 이동합니다.',
       },
       {
-        line: 48,
+        line: 50,
         comment:
           '값 비교: 찾는 값이 현재 노드의 값보다 작은지 확인합니다.',
       },
       {
-        line: 49,
+        line: 51,
         comment:
           '왼쪽 서브트리 탐색: 찾는 값이 현재 노드의 값보다 작으면 왼쪽 서브트리로 이동합니다.',
       },
       {
-        line: 51,
+        line: 53,
         comment:
           '오른쪽 서브트리 탐색: 찾는 값이 현재 노드의 값보다 크면 오른쪽 서브트리로 이동합니다.',
       },
     ],
-    // 네 번째 예제: 이진 탐색 트리 삭제 - Case 1: Leaf Node 삭제
+    // 네 번째 예제: 이진 탐색 트리 삭제 - Case 1: Leaf Node 삭제 (1-116줄)
     [
       {
-        line: 62,
+        line: 64,
         comment:
           'findNode 메서드: 삭제할 노드를 찾는 내부 메서드입니다. currentNode와 parent를 모두 추적하여 삭제 시 부모 노드를 업데이트할 수 있도록 합니다.',
       },
       {
-        line: 67,
+        line: 69,
         comment:
           '노드 탐색: currentNode가 null이 아닐 때까지 반복하여 삭제할 노드를 찾습니다.',
       },
       {
-        line: 72,
+        line: 73,
         comment:
           '부모 노드 추적: 값을 찾기 위해 이동할 때마다 parent를 업데이트합니다. 이렇게 하면 삭제 시 부모 노드의 포인터를 수정할 수 있습니다.',
       },
       {
-        line: 84,
+        line: 86,
         comment:
           'delete 메서드 (Case 1): Leaf Node를 삭제합니다. Leaf Node는 자식이 없는 노드이므로, 부모 노드의 포인터를 null로 설정하면 됩니다.',
       },
       {
-        line: 92,
+        line: 94,
         comment:
           'Leaf Node 확인: 왼쪽 자식과 오른쪽 자식이 모두 null이면 Leaf Node입니다.',
       },
       {
-        line: 93,
+        line: 95,
         comment:
           '부모 노드의 포인터 제거: 삭제할 노드가 부모의 왼쪽 자식이면 left를 null로, 오른쪽 자식이면 right를 null로 설정합니다.',
       },
