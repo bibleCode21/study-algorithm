@@ -60,7 +60,10 @@ export const useBinarySearch = () => {
 
     // 못 찾은 경우 (while 루프가 종료되었지만 found가 false인 경우)
     if (!found && history.length > 0) {
-      history[history.length - 1].found = false;
+      const lastState = history[history.length - 1];
+      if (lastState !== null) {
+        lastState.found = false;
+      }
     }
 
     return history;
