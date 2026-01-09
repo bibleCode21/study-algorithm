@@ -86,6 +86,12 @@ export const useBinarySearch = () => {
 
     setIsAnimating(true);
     const currentState = searchHistoryRef.current[currentStepRef.current];
+    
+    if (currentState === null) {
+      setIsAnimating(false);
+      return;
+    }
+    
     setSearchState(currentState);
 
     // 비교 중 애니메이션
@@ -125,6 +131,13 @@ export const useBinarySearch = () => {
       }
 
       const currentState = searchHistoryRef.current[stepIndex];
+      
+      if (currentState === null) {
+        setIsAutoSearching(false);
+        setIsSearchComplete(true);
+        return;
+      }
+      
       setSearchState(currentState);
       setAnimationState({
         type: currentState.found === true ? 'found' : currentState.found === false ? 'not-found' : 'comparing',
