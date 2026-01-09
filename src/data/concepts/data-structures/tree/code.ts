@@ -9,8 +9,10 @@ class Node<T> {
   left: Node<T> | null = null;
   right: Node<T> | null = null;
 
-  constructor(value: T) {
-    this.value = value;
+  constructor(value?: T) {
+    if (value !== undefined) {
+      this.value = value;
+    }
   }
 }
 
@@ -27,8 +29,10 @@ class Node<T> {
   left: Node<T> | null = null;
   right: Node<T> | null = null;
 
-  constructor(value: T) {
-    this.value = value;
+  constructor(value?: T) {
+    if (value !== undefined) {
+      this.value = value;
+    }
   }
 }
 
@@ -78,8 +82,10 @@ class Node<T> {
   left: Node<T> | null = null;
   right: Node<T> | null = null;
 
-  constructor(value: T) {
-    this.value = value;
+  constructor(value?: T) {
+    if (value !== undefined) {
+      this.value = value;
+    }
   }
 }
 
@@ -152,8 +158,10 @@ class Node<T> {
   left: Node<T> | null = null;
   right: Node<T> | null = null;
 
-  constructor(value: T) {
-    this.value = value;
+  constructor(value?: T) {
+    if (value !== undefined) {
+      this.value = value;
+    }
   }
 }
 
@@ -268,8 +276,10 @@ class Node<T> {
   left: Node<T> | null = null;
   right: Node<T> | null = null;
 
-  constructor(value: T) {
-    this.value = value;
+  constructor(value?: T) {
+    if (value !== undefined) {
+      this.value = value;
+    }
   }
 }
 
@@ -398,8 +408,10 @@ class Node<T> {
   left: Node<T> | null = null;
   right: Node<T> | null = null;
 
-  constructor(value: T) {
-    this.value = value;
+  constructor(value?: T) {
+    if (value !== undefined) {
+      this.value = value;
+    }
   }
 }
 
@@ -574,8 +586,10 @@ class Node<T> {
   left: Node<T> | null = null;
   right: Node<T> | null = null;
 
-  constructor(value: T) {
-    this.value = value;
+  constructor(value?: T) {
+    if (value !== undefined) {
+      this.value = value;
+    }
   }
 }
 
@@ -783,8 +797,10 @@ class TreeNode<T> {
   left: TreeNode<T> | null = null;
   right: TreeNode<T> | null = null;
 
-  constructor(value: T) {
-    this.value = value;
+  constructor(value?: T) {
+    if (value !== undefined) {
+      this.value = value;
+    }
   }
 }
 

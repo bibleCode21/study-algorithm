@@ -9,8 +9,10 @@ class Node<T> {
   data: T;
   next: Node<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
-    this.data = data;
+  constructor(data?: T, next: Node<T> | null = null) {
+    if (data !== undefined) {
+      this.data = data;
+    }
     this.next = next;
   }
 }
@@ -30,8 +32,10 @@ class Node<T> {
   data: T;
   next: Node<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
-    this.data = data;
+  constructor(data?: T, next: Node<T> | null = null) {
+    if (data !== undefined) {
+      this.data = data;
+    }
     this.next = next;
   }
 }
@@ -68,8 +72,10 @@ class Node<T> {
   data: T;
   next: Node<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
-    this.data = data;
+  constructor(data?: T, next: Node<T> | null = null) {
+    if (data !== undefined) {
+      this.data = data;
+    }
     this.next = next;
   }
 }
@@ -101,8 +107,10 @@ class Node<T> {
   data: T;
   next: Node<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
-    this.data = data;
+  constructor(data?: T, next: Node<T> | null = null) {
+    if (data !== undefined) {
+      this.data = data;
+    }
     this.next = next;
   }
 }
@@ -151,8 +159,10 @@ class Node<T> {
   data: T;
   next: Node<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
-    this.data = data;
+  constructor(data?: T, next: Node<T> | null = null) {
+    if (data !== undefined) {
+      this.data = data;
+    }
     this.next = next;
   }
 }
@@ -210,8 +220,10 @@ class Node<T> {
   data: T;
   next: Node<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
-    this.data = data;
+  constructor(data?: T, next: Node<T> | null = null) {
+    if (data !== undefined) {
+      this.data = data;
+    }
     this.next = next;
   }
 }
@@ -296,9 +308,11 @@ class Node<T> {
   data: T;
   next: Node<T> | null = null;
 
-  constructor(data: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
+  constructor(data?: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
     this.prev = prev;
-    this.data = data;
+    if (data !== undefined) {
+      this.data = data;
+    }
     this.next = next;
   }
 }
@@ -364,9 +378,11 @@ class Node<T> {
   data: T;
   next: Node<T> | null = null;
 
-  constructor(data: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
+  constructor(data?: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
     this.prev = prev;
-    this.data = data;
+    if (data !== undefined) {
+      this.data = data;
+    }
     this.next = next;
   }
 }
@@ -467,9 +483,11 @@ class Node<T> {
   data: T;
   next: Node<T> | null = null;
 
-  constructor(data: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
+  constructor(data?: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
     this.prev = prev;
-    this.data = data;
+    if (data !== undefined) {
+      this.data = data;
+    }
     this.next = next;
   }
 }
@@ -588,9 +606,11 @@ class Node<T> {
   data: T;
   next: Node<T> | null = null;
 
-  constructor(data: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
+  constructor(data?: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
     this.prev = prev;
-    this.data = data;
+    if (data !== undefined) {
+      this.data = data;
+    }
     this.next = next;
   }
 }
@@ -709,8 +729,10 @@ class Node<T> {
   data: T;
   next: Node<T> | null = null;
 
-  constructor(data: T, next: Node<T> | null = null) {
-    this.data = data;
+  constructor(data?: T, next: Node<T> | null = null) {
+    if (data !== undefined) {
+      this.data = data;
+    }
     this.next = next;
   }
 }
@@ -877,9 +899,11 @@ class Node<T> {
   data: T;
   next: Node<T> | null = null;
 
-  constructor(data: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
+  constructor(data?: T, prev: Node<T> | null = null, next: Node<T> | null = null) {
     this.prev = prev;
-    this.data = data;
+    if (data !== undefined) {
+      this.data = data;
+    }
     this.next = next;
   }
 }
