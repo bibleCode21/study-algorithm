@@ -43,24 +43,25 @@ const Pagination = ({
 
     const getPageNumbers = () => {
         const pages: (number | string)[] = [];
-        const maxVisible = 5;
+        const maxVisible = 9;
 
         if (totalPages <= maxVisible) {
-            // 전체 페이지가 5개 이하인 경우 모두 표시
+            // 전체 페이지가 9개 이하인 경우 모두 표시
             for (let i = 1; i <= totalPages; i++) {
                 pages.push(i);
             }
         } else {
-            // 첫 페이지
-            pages.push(1);
+            // 현재 페이지 주변에 더 많은 페이지를 표시
+            // 양쪽으로 4개씩 표시 (현재 페이지 포함 총 9개)
+            let start = Math.max(1, currentPage - 4);
+            let end = Math.min(totalPages, currentPage + 4);
 
-            // 현재 페이지 주변 계산
-            const start = Math.max(2, currentPage - 1);
-            const end = Math.min(totalPages - 1, currentPage + 1);
-
-            // 시작 부분 처리
-            if (start > 2) {
-                pages.push('...');
+            // 시작 부분이 1이 아니면 첫 페이지와 생략 표시 추가
+            if (start > 1) {
+                pages.push(1);
+                if (start > 2) {
+                    pages.push('...');
+                }
             }
 
             // 중간 페이지들
@@ -68,13 +69,13 @@ const Pagination = ({
                 pages.push(i);
             }
 
-            // 끝 부분 처리
-            if (end < totalPages - 1) {
-                pages.push('...');
+            // 끝 부분이 마지막 페이지가 아니면 생략 표시와 마지막 페이지 추가
+            if (end < totalPages) {
+                if (end < totalPages - 1) {
+                    pages.push('...');
+                }
+                pages.push(totalPages);
             }
-
-            // 마지막 페이지
-            pages.push(totalPages);
         }
 
         return pages;
