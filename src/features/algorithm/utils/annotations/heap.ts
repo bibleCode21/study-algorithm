@@ -1,7 +1,7 @@
-import { CodeAnnotation } from '../codeAnnotations';
+import { CodeAnnotation, LanguageAnnotations } from '../codeAnnotations';
 
 // 각 코드 예제별 해석 배열
-export const heapAnnotations: Record<string, CodeAnnotation[][]> = {
+export const heapAnnotations: LanguageAnnotations = {
   typescript: [
     // 첫 번째 예제: 힙 기본 개념 (1-28줄)
     [

@@ -1,7 +1,7 @@
-import { CodeAnnotation } from '../codeAnnotations';
+import { CodeAnnotation, LanguageAnnotations } from '../codeAnnotations';
 
 // 각 코드 예제별 해석 배열
-export const treeAnnotations: Record<string, CodeAnnotation[][]> = {
+export const treeAnnotations: LanguageAnnotations = {
   typescript: [
     // 첫 번째 예제: 노드 클래스 만들기 (1-16줄)
     [

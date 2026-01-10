@@ -1,7 +1,7 @@
-import { CodeAnnotation } from '../codeAnnotations';
+import { CodeAnnotation, LanguageAnnotations } from '../codeAnnotations';
 
 // 각 코드 예제별 해석 배열
-export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
+export const linkedListAnnotations: LanguageAnnotations = {
   typescript: [
     // 첫 번째 예제: Node 구현 (1-21줄)
     [

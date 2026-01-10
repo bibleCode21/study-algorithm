@@ -1,7 +1,7 @@
-import { CodeAnnotation } from '../codeAnnotations';
+import { CodeAnnotation, LanguageAnnotations } from '../codeAnnotations';
 
 // 각 코드 예제별 해석 배열
-export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
+export const hashTableAnnotations: LanguageAnnotations = {
   typescript: [
     // 첫 번째 예제: 해시 테이블 기본 구조 만들기 (1-8줄)
     [

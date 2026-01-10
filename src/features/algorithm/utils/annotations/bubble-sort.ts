@@ -1,7 +1,7 @@
-import { CodeAnnotation } from '../codeAnnotations';
+import { CodeAnnotation, LanguageAnnotations } from '../codeAnnotations';
 
 // 각 코드 예제별 해석 배열
-export const bubbleSortAnnotations: Record<string, CodeAnnotation[][]> = {
+export const bubbleSortAnnotations: LanguageAnnotations = {
   typescript: [
     // 첫 번째 예제: 버블 정렬 기본 구현 (1-27줄)
     [

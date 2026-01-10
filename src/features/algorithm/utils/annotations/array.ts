@@ -1,7 +1,7 @@
-import { CodeAnnotation } from '../codeAnnotations';
+import { CodeAnnotation, LanguageAnnotations } from '../codeAnnotations';
 
 // 각 코드 예제별 해석 배열
-export const arrayAnnotations: Record<string, CodeAnnotation[][]> = {
+export const arrayAnnotations: LanguageAnnotations = {
   typescript: [
     // 첫 번째 예제: 1차원 배열 (1-18줄)
     [

@@ -1,7 +1,7 @@
-import { CodeAnnotation } from '../codeAnnotations';
+import { CodeAnnotation, LanguageAnnotations } from '../codeAnnotations';
 
 // 각 코드 예제별 해석 배열
-export const binarySearchAnnotations: Record<string, CodeAnnotation[][]> = {
+export const binarySearchAnnotations: LanguageAnnotations = {
   typescript: [
     // 첫 번째 예제: 재귀를 사용한 이진 탐색 (분할 정복 알고리즘) (1-37줄)
     [
