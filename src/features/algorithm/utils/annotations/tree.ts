@@ -26,7 +26,7 @@ export const treeAnnotations: Record<string, CodeAnnotation[][]> = {
           'right 필드: 오른쪽 자식 노드를 가리키는 포인터입니다. null을 기본값으로 하여 자식이 없음을 표현합니다.',
       },
     ],
-    // 두 번째 예제: 이진 탐색 트리에 데이터 넣기 (1-47줄)
+    // 두 번째 예제: 이진 탐색 트리에 데이터 넣기 (1-51줄)
     [
       {
         line: 15,
@@ -59,7 +59,7 @@ export const treeAnnotations: Record<string, CodeAnnotation[][]> = {
           '오른쪽 자식 확인: 오른쪽 자식이 있으면 오른쪽 자식으로 이동하고, 없으면 오른쪽 자식 위치에 새 노드를 삽입합니다.',
       },
     ],
-    // 세 번째 예제: 이진 탐색 트리 탐색 (1-69줄)
+    // 세 번째 예제: 이진 탐색 트리 탐색 (1-71줄)
     [
       {
         line: 44,

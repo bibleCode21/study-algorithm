@@ -26,7 +26,7 @@ export const arrayAnnotations: Record<string, CodeAnnotation[][]> = {
           'unshift/shift 연산: 배열의 앞에서 추가/제거하는 연산은 O(n) 시간이 소요됩니다. 모든 요소를 한 칸씩 이동시켜야 하기 때문입니다. 이것이 배열의 단점 중 하나입니다.',
       },
       {
-        line: 14,
+        line: 16,
         comment:
           '배열 순회: 모든 요소를 순회하는 경우 O(n) 시간이 소요됩니다. n은 배열의 길이입니다. 인덱스를 사용하여 각 요소에 접근합니다.',
       },

@@ -117,7 +117,7 @@ export const stackAnnotations: Record<string, CodeAnnotation[][]> = {
           'LIFO 동작 확인: pop()을 호출하면 가장 나중에 추가된 요소(9)가 먼저 제거됩니다. 이것이 LIFO 구조의 특징입니다.',
       },
     ],
-    // 네 번째 예제: pop, push 기능 직접 구현 (1-32줄)
+    // 네 번째 예제: pop, push 기능 직접 구현 (1-30줄)
     [
       {
         line: 3,

@@ -3,7 +3,7 @@ import { CodeAnnotation } from '../codeAnnotations';
 // 각 코드 예제별 해석 배열
 export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
   typescript: [
-    // 첫 번째 예제: Node 구현 (1-19줄)
+    // 첫 번째 예제: Node 구현 (1-21줄)
     [
       {
         line: 3,
@@ -41,7 +41,7 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
           'head 설정: head 변수에 node1을 할당하여 링크드 리스트의 시작점을 지정합니다.',
       },
     ],
-    // 두 번째 예제: 링크드 리스트로 데이터 추가하기 (1-35줄)
+    // 두 번째 예제: 링크드 리스트로 데이터 추가하기 (1-37줄)
     [
       {
         line: 13,
@@ -74,7 +74,7 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
           '새 노드 추가: 마지막 노드의 next를 새 노드로 설정하여 리스트의 끝에 노드를 추가합니다.',
       },
     ],
-    // 세 번째 예제: 링크드 리스트 데이터 출력하기 (1-30줄)
+    // 세 번째 예제: 링크드 리스트 데이터 출력하기 (1-32줄)
     [
       {
         line: 13,
@@ -107,7 +107,7 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
           '다음 노드로 이동: node.next를 사용하여 다음 노드로 이동합니다. 마지막 노드의 next는 null이므로 루프가 종료됩니다.',
       },
     ],
-    // 네 번째 예제: 링크드 리스트 데이터 사이에 데이터를 추가 (1-46줄)
+    // 네 번째 예제: 링크드 리스트 데이터 사이에 데이터를 추가 (1-48줄)
     [
       {
         line: 13,
@@ -140,7 +140,7 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
           '새 노드 생성 및 연결: 새 노드를 생성하고, 새 노드의 next를 node.next로 설정한 후, node.next를 새 노드로 설정합니다. 이렇게 하면 새 노드가 중간에 삽입됩니다.',
       },
     ],
-    // 다섯 번째 예제: 객체지향 프로그래밍으로 링크드 리스트 구현 (1-57줄)
+    // 다섯 번째 예제: 객체지향 프로그래밍으로 링크드 리스트 구현 (1-59줄)
     [
       {
         line: 13,
@@ -163,7 +163,7 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
           'toArray 메서드: 링크드 리스트의 모든 데이터를 배열로 변환하여 반환합니다. 리스트의 내용을 확인하거나 출력할 때 유용합니다.',
       },
     ],
-    // 여섯 번째 예제: 특정 노드 삭제 (1-80줄)
+    // 여섯 번째 예제: 특정 노드 삭제 (1-82줄)
     [
       {
         line: 47,
@@ -196,7 +196,7 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
           '노드 삭제: node.next를 node.next.next로 변경하여 중간 노드를 건너뛰고 삭제합니다. 이렇게 하면 삭제할 노드가 리스트에서 제거됩니다.',
       },
     ],
-    // 일곱 번째 예제: 더블 링크드 리스트 기본 구조 (1-67줄)
+    // 일곱 번째 예제: 더블 링크드 리스트 기본 구조 (1-69줄)
     [
       {
         line: 4,
@@ -224,7 +224,7 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
           '양방향 연결: newNode.prev = node를 설정하여 새 노드가 이전 노드를 가리키도록 합니다. 이렇게 하면 양방향 탐색이 가능합니다.',
       },
     ],
-    // 여덟 번째 예제: 더블 링크드 리스트 head/tail에서 검색 (1-99줄)
+    // 여덟 번째 예제: 더블 링크드 리스트 head/tail에서 검색 (1-101줄)
     [
       {
         line: 56,
@@ -242,7 +242,7 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
           '역방향 탐색: node.prev를 사용하여 이전 노드로 이동합니다. head에 도달할 때까지 반복하여 데이터를 검색합니다.',
       },
     ],
-    // 아홉 번째 예제: 더블 링크드 리스트 특정 노드 앞에 데이터 추가 (1-118줄)
+    // 아홉 번째 예제: 더블 링크드 리스트 특정 노드 앞에 데이터 추가 (1-120줄)
     [
       {
         line: 73,
@@ -265,7 +265,7 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
           '중간에 삽입: 양방향 포인터를 모두 업데이트하여 새 노드를 중간에 삽입합니다. beforeNew.next와 newNode.prev를 설정하여 연결을 유지합니다.',
       },
     ],
-    // 열 번째 예제: 더블 링크드 리스트 특정 노드 뒤에 데이터 추가 (1-120줄)
+    // 열 번째 예제: 더블 링크드 리스트 특정 노드 뒤에 데이터 추가 (1-122줄)
     [
       {
         line: 73,
@@ -288,7 +288,7 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
           '중간에 삽입: 양방향 포인터를 모두 업데이트하여 새 노드를 중간에 삽입합니다. newNode.next와 afterNew.prev를 설정하여 연결을 유지합니다.',
       },
     ],
-    // 열한 번째 예제: 깔끔하게 정리된 LinkedList 구현 (1-164줄)
+    // 열한 번째 예제: 깔끔하게 정리된 LinkedList 구현 (1-166줄)
     [
       {
         line: 12,
@@ -326,7 +326,7 @@ export const linkedListAnnotations: Record<string, CodeAnnotation[][]> = {
           'remove 메서드: 특정 데이터를 가진 노드를 제거합니다. find 메서드와 유사하게 리스트를 순회하여 노드를 찾고 제거합니다.',
       },
     ],
-    // 열두 번째 예제: 깔끔하게 정리된 DoublyLinkedList 구현 (1-220줄)
+    // 열두 번째 예제: 깔끔하게 정리된 DoublyLinkedList 구현 (1-222줄)
     [
       {
         line: 14,

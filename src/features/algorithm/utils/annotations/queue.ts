@@ -41,7 +41,7 @@ export const queueAnnotations: Record<string, CodeAnnotation[][]> = {
           'size 메서드: 큐에 저장된 데이터의 개수를 반환합니다. 배열의 길이를 반환하므로 O(1) 시간이 소요됩니다.',
       },
     ],
-    // 두 번째 예제: LifoQueue 구현 (1-28줄)
+    // 두 번째 예제: LifoQueue 구현 (1-38줄)
     [
       {
         line: 2,

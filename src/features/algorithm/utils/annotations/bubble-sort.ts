@@ -99,7 +99,7 @@ export const bubbleSortAnnotations: Record<string, CodeAnnotation[][]> = {
           '최적화: 이미 정렬된 경우 조기 종료하여 불필요한 반복을 방지합니다. swapped가 false이면 이번 반복에서 교환이 없었으므로 정렬이 완료된 것으로 간주합니다.',
       },
     ],
-    // 세 번째 예제: 버블 정렬 단계별 이해 (1-38줄)
+    // 세 번째 예제: 버블 정렬 단계별 이해 (1-39줄)
     [
       {
         line: 4,

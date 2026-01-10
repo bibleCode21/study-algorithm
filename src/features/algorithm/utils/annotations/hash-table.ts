@@ -3,7 +3,7 @@ import { CodeAnnotation } from '../codeAnnotations';
 // 각 코드 예제별 해석 배열
 export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
   typescript: [
-    // 첫 번째 예제: 해시 테이블 기본 구조 만들기 (1-9줄)
+    // 첫 번째 예제: 해시 테이블 기본 구조 만들기 (1-8줄)
     [
       {
         line: 3,
@@ -16,7 +16,7 @@ export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
           '간단한 초기화: new Array(10).fill(0)을 사용하여 동일한 결과를 얻을 수 있습니다. 더 간결한 방법입니다.',
       },
     ],
-    // 두 번째 예제: 간단한 해시 함수 구현 (1-15줄)
+    // 두 번째 예제: 간단한 해시 함수 구현 (1-14줄)
     [
       {
         line: 3,
@@ -29,7 +29,7 @@ export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
           'Division 법: 키를 특정 숫자(여기서는 5)로 나눈 나머지를 해시 주소로 사용합니다. 나머지 연산자(%)를 사용하여 구현합니다.',
       },
     ],
-    // 세 번째 예제: 해시 테이블에 데이터 저장하고 읽기 (1-31줄)
+    // 세 번째 예제: 해시 테이블에 데이터 저장하고 읽기 (1-30줄)
     [
       {
         line: 3,
@@ -62,7 +62,7 @@ export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
           'readData 함수: 해시 테이블에서 데이터를 읽어옵니다. 저장할 때와 동일한 방식으로 해시 주소를 계산하여 해당 위치의 값을 반환합니다.',
       },
     ],
-    // 네 번째 예제: 해시 테이블 구현 (리스트 변수 활용) (1-43줄)
+    // 네 번째 예제: 해시 테이블 구현 (리스트 변수 활용) (1-42줄)
     [
       {
         line: 6,
@@ -85,7 +85,7 @@ export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
           'saveData 함수: hashKey 함수를 사용하여 문자열을 해시 키로 변환한 후, 해시 함수를 적용하여 해시 주소를 계산하고 데이터를 저장합니다.',
       },
     ],
-    // 다섯 번째 예제: Chaining 기법으로 충돌 해결 (1-68줄)
+    // 다섯 번째 예제: Chaining 기법으로 충돌 해결 (1-67줄)
     [
       {
         line: 25,
@@ -113,7 +113,7 @@ export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
           'readData 함수 (Chaining): Chaining 기법을 사용하여 데이터를 읽습니다. 해시 주소의 배열을 순회하면서 키를 찾습니다.',
       },
     ],
-    // 여섯 번째 예제: Linear Probing 기법으로 충돌 해결 (1-88줄)
+    // 여섯 번째 예제: Linear Probing 기법으로 충돌 해결 (1-87줄)
     [
       {
         line: 26,
@@ -151,7 +151,7 @@ export const hashTableAnnotations: Record<string, CodeAnnotation[][]> = {
           'readData 함수 (Linear Probing): Linear Probing 기법을 사용하여 데이터를 읽습니다. 저장할 때와 동일한 방식으로 순환 탐색하여 키를 찾습니다.',
       },
     ],
-    // 일곱 번째 예제: 해시 테이블 완전 구현 (1-118줄)
+    // 일곱 번째 예제: 해시 테이블 완전 구현 (1-117줄)
     [
       {
         line: 3,

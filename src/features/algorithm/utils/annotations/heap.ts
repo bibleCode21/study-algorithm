@@ -3,7 +3,7 @@ import { CodeAnnotation } from '../codeAnnotations';
 // 각 코드 예제별 해석 배열
 export const heapAnnotations: Record<string, CodeAnnotation[][]> = {
   typescript: [
-    // 첫 번째 예제: 힙 기본 개념 (1-33줄)
+    // 첫 번째 예제: 힙 기본 개념 (1-28줄)
     [
       {
         line: 12,
@@ -21,7 +21,7 @@ export const heapAnnotations: Record<string, CodeAnnotation[][]> = {
           'rightChild 함수: 부모 노드의 인덱스로부터 오른쪽 자식 노드의 인덱스를 반환하는 헬퍼 함수입니다. 부모 인덱스 * 2 + 2가 오른쪽 자식 인덱스입니다.',
       },
     ],
-    // 두 번째 예제: 최대 힙 구현 (삽입) (1-90줄)
+    // 두 번째 예제: 최대 힙 구현 (삽입) (1-54줄)
     [
       {
         line: 5,

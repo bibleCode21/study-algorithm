@@ -127,6 +127,43 @@ function parseCodeFile(filePath) {
 }
 
 /**
+ * 예제 주석에서 정보를 추출합니다. 여러 패턴을 시도합니다.
+ */
+function parseExampleComment(line) {
+  // 패턴 1: // 설명: ... (1-18줄) - 가장 일반적인 형식
+  let match = line.match(/\/\/\s*([^:]+?):\s*(.+?)\s*\((\d+)-(\d+)줄\)/);
+  if (match) {
+    return {
+      name: match[2].trim(),
+      startLine: parseInt(match[3]),
+      endLine: parseInt(match[4]),
+    };
+  }
+  
+  // 패턴 2: // 설명: ... (1-18줄) - 공백이 없는 경우
+  match = line.match(/\/\/\s*([^:]+?):\s*(.+?)\((\d+)-(\d+)줄\)/);
+  if (match) {
+    return {
+      name: match[2].trim(),
+      startLine: parseInt(match[3]),
+      endLine: parseInt(match[4]),
+    };
+  }
+  
+  // 패턴 3: 원래 정규식 (fallback)
+  match = line.match(/\/\/\s*([^:]+?):\s*([^(]+?)(?:\s*\((\d+)-(\d+)줄\))?/);
+  if (match) {
+    return {
+      name: match[2].trim(),
+      startLine: match[3] ? parseInt(match[3]) : null,
+      endLine: match[4] ? parseInt(match[4]) : null,
+    };
+  }
+  
+  return null;
+}
+
+/**
  * annotation 파일에서 예제와 줄 번호를 추출합니다.
  */
 function parseAnnotationFile(filePath, exportName) {
@@ -137,6 +174,9 @@ function parseAnnotationFile(filePath, exportName) {
   let currentExample = null;
   let inTypescriptArray = false;
   let bracketDepth = 0;
+  
+  // 템플릿 형식 확인을 위한 예제 주석 수집
+  const exampleComments = [];
   
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -155,8 +195,11 @@ function parseAnnotationFile(filePath, exportName) {
     bracketDepth -= (line.match(/\]/g) || []).length;
     
     // 예제 주석 찾기: // 네 번째 예제: ... (1-115줄)
-    const exampleCommentMatch = line.match(/\/\/\s*([^:]+?):\s*([^(]+?)(?:\s*\((\d+)-(\d+)줄\))?/);
-    if (exampleCommentMatch) {
+    const exampleInfo = parseExampleComment(line);
+    if (exampleInfo) {
+      // 템플릿 형식 확인을 위해 주석 저장
+      exampleComments.push(line.trim());
+      
       // 이전 예제 저장
       if (currentExample) {
         examples.push(currentExample);
@@ -164,9 +207,9 @@ function parseAnnotationFile(filePath, exportName) {
       
       // 새 예제 시작
       currentExample = {
-        name: exampleCommentMatch[2].trim(),
-        startLine: exampleCommentMatch[3] ? parseInt(exampleCommentMatch[3]) : null,
-        endLine: exampleCommentMatch[4] ? parseInt(exampleCommentMatch[4]) : null,
+        name: exampleInfo.name,
+        startLine: exampleInfo.startLine,
+        endLine: exampleInfo.endLine,
         annotations: [],
       };
       continue;
@@ -292,6 +335,82 @@ function validateExampleDetail(conceptId, exampleIndex) {
 }
 
 /**
+ * 템플릿 형식 일치화를 확인합니다.
+ */
+function validateTemplateFormat(filePath) {
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const lines = content.split('\n');
+  
+  const exampleComments = [];
+  let inTypescriptArray = false;
+  let bracketDepth = 0;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    
+    if (line.includes('typescript:') && line.includes('[')) {
+      inTypescriptArray = true;
+      bracketDepth = 1;
+      continue;
+    }
+    
+    if (!inTypescriptArray) continue;
+    
+    bracketDepth += (line.match(/\[/g) || []).length;
+    bracketDepth -= (line.match(/\]/g) || []).length;
+    
+    // 예제 주석 패턴 확인
+    if (line.includes('//') && line.includes('예제') && line.includes('줄')) {
+      exampleComments.push(line.trim());
+    }
+    
+    if (bracketDepth === 0 && inTypescriptArray) {
+      break;
+    }
+  }
+  
+  if (exampleComments.length === 0) {
+    return { valid: false, message: '예제 주석을 찾을 수 없습니다.' };
+  }
+  
+  // 모든 주석이 동일한 형식인지 확인
+  const patterns = [
+    /\/\/\s*[^:]+?:\s*.+?\s*\(\d+-\d+줄\)/,  // 표준 형식
+    /\/\/\s*[^:]+?:\s*.+?\(\d+-\d+줄\)/,      // 공백 없는 형식
+  ];
+  
+  let allMatch = true;
+  let matchedPattern = null;
+  
+  for (const comment of exampleComments) {
+    let commentMatches = false;
+    for (const pattern of patterns) {
+      if (pattern.test(comment)) {
+        if (!matchedPattern) {
+          matchedPattern = pattern;
+        }
+        commentMatches = true;
+        break;
+      }
+    }
+    if (!commentMatches) {
+      allMatch = false;
+      break;
+    }
+  }
+  
+  if (!allMatch) {
+    return {
+      valid: false,
+      message: `템플릿 형식이 일치하지 않습니다. 첫 번째 예제 주석: ${exampleComments[0]}`,
+      exampleComments: exampleComments.slice(0, 3), // 처음 3개만 표시
+    };
+  }
+  
+  return { valid: true, pattern: matchedPattern };
+}
+
+/**
  * 단일 개념의 annotation을 검증합니다.
  */
 function validateConcept(conceptId) {
@@ -310,6 +429,18 @@ function validateConcept(conceptId) {
   }
   
   console.log(`\n📋 ${conceptId} 검증 중...`);
+  
+  // 먼저 템플릿 형식 확인
+  const templateCheck = validateTemplateFormat(annotationPath);
+  if (!templateCheck.valid) {
+    console.log(`   ⚠️  템플릿 형식 확인: ${templateCheck.message}`);
+    if (templateCheck.exampleComments) {
+      console.log(`   예제 주석 예시:`);
+      templateCheck.exampleComments.forEach(comment => {
+        console.log(`     - ${comment}`);
+      });
+    }
+  }
   
   try {
     const examples = parseAnnotationFile(annotationPath, config.exportName);
