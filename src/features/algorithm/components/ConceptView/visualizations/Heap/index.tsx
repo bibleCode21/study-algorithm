@@ -359,8 +359,9 @@ const HeapVisualization = ({}: HeapVisualizationProps = {}) => {
                 type="number"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={(e) => {
+                onKeyDown={(e) => {
                   if (e.key === 'Enter') {
+                    e.preventDefault();
                     insert();
                   }
                 }}

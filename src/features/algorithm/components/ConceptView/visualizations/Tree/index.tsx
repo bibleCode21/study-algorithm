@@ -1,186 +1,33 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { TreeNode, TreeVisualizationProps, TraversalType } from './types';
-import {
-  insertNode,
-  searchNode,
-  deleteNode,
-  preOrderTraversal,
-  inOrderTraversal,
-  postOrderTraversal,
-  levelOrderTraversal,
-  getNodesByLevel,
-  calculateNodePositions,
-  NodePosition,
-} from './utils';
+import { useMemo } from 'react';
+import { TreeVisualizationProps } from './types';
+import { getNodesByLevel, calculateNodePositions } from './utils';
+import { useTreeVisualization } from './useTreeVisualization';
 
 const TreeVisualization = ({}: TreeVisualizationProps = {}) => {
-  const [root, setRoot] = useState<TreeNode | null>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [highlightedNodeId, setHighlightedNodeId] = useState<string | null>(null);
-  const [nextId, setNextId] = useState(1);
-  const [inputValue, setInputValue] = useState<string>('');
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [deleteValue, setDeleteValue] = useState<string>('');
-  const [traversalResult, setTraversalResult] = useState<number[]>([]);
-  const [traversalType, setTraversalType] = useState<TraversalType | null>(null);
-  const [isTraversing, setIsTraversing] = useState(false);
-  const timeoutRefs = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
-
-  // 컴포넌트 unmount 시 모든 타이머 정리
-  useEffect(() => {
-    return () => {
-      timeoutRefs.current.forEach((timeout) => clearTimeout(timeout));
-      timeoutRefs.current.clear();
-    };
-  }, []);
-
-  // 타이머를 안전하게 등록하고 정리하는 헬퍼 함수
-  const safeSetTimeout = (callback: () => void, delay: number): ReturnType<typeof setTimeout> => {
-    const timeout = setTimeout(() => {
-      timeoutRefs.current.delete(timeout);
-      callback();
-    }, delay);
-    timeoutRefs.current.add(timeout);
-    return timeout;
-  };
-
-  const animate = (callback: () => void, duration = 800) => {
-    setIsAnimating(true);
-    callback();
-    safeSetTimeout(() => {
-      setIsAnimating(false);
-      setHighlightedNodeId(null);
-    }, duration);
-  };
-
-  // Insert: 이진 탐색 트리에 값 추가
-  const insert = () => {
-    const value = parseInt(inputValue);
-    if (isNaN(value)) {
-      alert('올바른 숫자를 입력해주세요.');
-      return;
-    }
-
-    animate(() => {
-      const { root: newRoot, newNodeId } = insertNode(root, value, nextId);
-      setRoot(newRoot);
-      setNextId(nextId + 1);
-      setInputValue('');
-      setHighlightedNodeId(newNodeId);
-    });
-  };
-
-  // Search: 값 검색
-  const search = () => {
-    const value = parseInt(searchValue);
-    if (isNaN(value)) {
-      alert('올바른 숫자를 입력해주세요.');
-      return;
-    }
-
-    animate(() => {
-      const foundNode = searchNode(root, value);
-      if (foundNode) {
-        setHighlightedNodeId(foundNode.id);
-      } else {
-        alert('값을 찾을 수 없습니다.');
-        safeSetTimeout(() => {
-          setHighlightedNodeId(null);
-        }, 300);
-      }
-    });
-  };
-
-  // Delete: 값 삭제
-  const deleteValueFromTree = () => {
-    const value = parseInt(deleteValue);
-    if (isNaN(value)) {
-      alert('올바른 숫자를 입력해주세요.');
-      return;
-    }
-
-    const foundNode = searchNode(root, value);
-    if (!foundNode) {
-      alert('삭제할 값을 찾을 수 없습니다.');
-      return;
-    }
-
-    animate(() => {
-      setHighlightedNodeId(foundNode.id);
-      safeSetTimeout(() => {
-        const newRoot = deleteNode(root, value);
-        setRoot(newRoot);
-        setDeleteValue('');
-      }, 400);
-    });
-  };
-
-  // 순회 함수들
-  const performTraversal = (type: TraversalType) => {
-    if (!root) {
-      alert('트리가 비어있습니다.');
-      return;
-    }
-
-    setIsTraversing(true);
-    setTraversalType(type);
-    setTraversalResult([]);
-    setHighlightedNodeId(null);
-
-    let nodes: TreeNode[] = [];
-    switch (type) {
-      case 'pre-order':
-        nodes = preOrderTraversal(root);
-        break;
-      case 'in-order':
-        nodes = inOrderTraversal(root);
-        break;
-      case 'post-order':
-        nodes = postOrderTraversal(root);
-        break;
-      case 'level-order':
-        nodes = levelOrderTraversal(root);
-        break;
-    }
-
-    // 순회 애니메이션
-    nodes.forEach((node, index) => {
-      safeSetTimeout(() => {
-        setHighlightedNodeId(node.id);
-        setTraversalResult((prev) => [...prev, node.value]);
-        if (index === nodes.length - 1) {
-          safeSetTimeout(() => {
-            setIsTraversing(false);
-            setTraversalType(null);
-            setHighlightedNodeId(null);
-          }, 500);
-        }
-      }, index * 600);
-    });
-  };
-
-  const reset = () => {
-    setRoot(null);
-    setNextId(1);
-    setInputValue('');
-    setSearchValue('');
-    setDeleteValue('');
-    setTraversalResult([]);
-    setTraversalType(null);
-    setIsTraversing(false);
-  };
+  const {
+    root,
+    inputValues,
+    updateInputValue,
+    animationState,
+    traversalState,
+    insert,
+    search,
+    deleteValueFromTree,
+    performTraversal,
+    reset,
+  } = useTreeVisualization();
 
   // 트리 시각화를 위한 데이터 준비
-  const levels = getNodesByLevel(root);
-  const nodePositions = calculateNodePositions(root);
+  const { levels, nodePositions } = useMemo(() => {
+    const levels = getNodesByLevel(root);
+    const nodePositions = calculateNodePositions(root);
+    return { levels, nodePositions };
+  }, [root]);
 
-  // 노드 위치를 ID로 매핑
-  const nodePositionMap = new Map<string, NodePosition>();
-  nodePositions.forEach((pos) => {
-    nodePositionMap.set(pos.node.id, pos);
-  });
+  const { isAnimating, highlightedNodeId } = animationState;
+  const { result: traversalResult, type: traversalType, isActive: isTraversing } = traversalState;
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6">
@@ -296,10 +143,11 @@ const TreeVisualization = ({}: TreeVisualizationProps = {}) => {
           <div className="flex gap-2">
             <input
               type="number"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={(e) => {
+              value={inputValues.insert}
+              onChange={(e) => updateInputValue('insert', e.target.value)}
+              onKeyDown={(e) => {
                 if (e.key === 'Enter') {
+                  e.preventDefault();
                   insert();
                 }
               }}
@@ -309,7 +157,7 @@ const TreeVisualization = ({}: TreeVisualizationProps = {}) => {
             />
             <button
               onClick={insert}
-              disabled={isAnimating || isTraversing || !inputValue}
+              disabled={isAnimating || isTraversing || !inputValues.insert}
               className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
             >
               추가
@@ -326,10 +174,11 @@ const TreeVisualization = ({}: TreeVisualizationProps = {}) => {
           <div className="flex gap-2">
             <input
               type="number"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              onKeyPress={(e) => {
+              value={inputValues.search}
+              onChange={(e) => updateInputValue('search', e.target.value)}
+              onKeyDown={(e) => {
                 if (e.key === 'Enter') {
+                  e.preventDefault();
                   search();
                 }
               }}
@@ -339,7 +188,7 @@ const TreeVisualization = ({}: TreeVisualizationProps = {}) => {
             />
             <button
               onClick={search}
-              disabled={isAnimating || isTraversing || !searchValue}
+              disabled={isAnimating || isTraversing || !inputValues.search}
               className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
             >
               검색
@@ -356,10 +205,11 @@ const TreeVisualization = ({}: TreeVisualizationProps = {}) => {
           <div className="flex gap-2">
             <input
               type="number"
-              value={deleteValue}
-              onChange={(e) => setDeleteValue(e.target.value)}
-              onKeyPress={(e) => {
+              value={inputValues.delete}
+              onChange={(e) => updateInputValue('delete', e.target.value)}
+              onKeyDown={(e) => {
                 if (e.key === 'Enter') {
+                  e.preventDefault();
                   deleteValueFromTree();
                 }
               }}
@@ -369,7 +219,7 @@ const TreeVisualization = ({}: TreeVisualizationProps = {}) => {
             />
             <button
               onClick={deleteValueFromTree}
-              disabled={isAnimating || isTraversing || !deleteValue}
+              disabled={isAnimating || isTraversing || !inputValues.delete}
               className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
             >
               삭제
