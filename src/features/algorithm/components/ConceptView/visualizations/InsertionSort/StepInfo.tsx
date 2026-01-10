@@ -5,19 +5,21 @@ type StepInfoProps = {
 };
 
 export const StepInfo = ({ currentStep }: StepInfoProps) => {
-  if (!currentStep) return null;
-
   return (
-    <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
-      <p className="text-sm text-blue-800">
-        <span className="font-semibold">i = {currentStep.i}</span> - key 값: 배열[{currentStep.keyIndex}] = 현재 정렬 중인 값
-        {currentStep.j >= 0 && (
-          <>
-            {' '}
-            | 비교 중: 배열[{currentStep.j}]와 비교
-          </>
-        )}
-      </p>
+    <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200" style={{ minHeight: '48px' }}>
+      {currentStep ? (
+        <p className="text-sm text-blue-800">
+          <span className="font-semibold">{currentStep.pass}회전</span> - key 값: {currentStep.keyValue} (배열[{currentStep.keyIndex}])
+          {currentStep.j >= 0 && (
+            <>
+              {' '}
+              | 비교 중: key({currentStep.keyValue}) vs 배열[{currentStep.j}]
+            </>
+          )}
+        </p>
+      ) : (
+        <p className="text-sm text-blue-800" style={{ opacity: 0 }}> </p>
+      )}
     </div>
   );
 };

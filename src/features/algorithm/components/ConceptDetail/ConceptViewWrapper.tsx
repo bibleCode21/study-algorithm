@@ -16,26 +16,28 @@ interface ConceptViewWrapperProps {
 const STORAGE_KEY = 'concept-view-mode';
 
 const ConceptViewWrapper = ({ concept, codeExamples }: ConceptViewWrapperProps) => {
-    // 초기 뷰 모드를 로컬 스토리지에서 가져오기
-    const getInitialViewMode = (): ViewMode => {
-        if (typeof window === 'undefined') return 'default';
-        const savedView = localStorage.getItem(STORAGE_KEY) as ViewMode | null;
-        const validViews: ViewMode[] = hasVisualization(concept.id)
-            ? ['default', 'compact', 'codeFirst', 'visual']
-            : ['default', 'compact', 'codeFirst'];
-        if (savedView && validViews.includes(savedView)) {
-            return savedView;
-        }
-        return 'default';
-    };
-
-    const [viewMode, setViewMode] = useState<ViewMode>(() => getInitialViewMode());
+    // 초기값을 항상 'default'로 설정하여 서버와 클라이언트에서 동일하게 렌더링
+    // localStorage는 useEffect에서만 읽어서 hydration mismatch 방지
+    const [viewMode, setViewMode] = useState<ViewMode>('default');
     const prevConceptIdRef = useRef(concept.id);
+    const isInitialMount = useRef(true);
 
-    // concept.id가 변경될 때 뷰 모드 업데이트
-    // useLayoutEffect를 사용하여 동기적으로 처리하되, 조건부로만 실행
+    // 클라이언트에서만 localStorage 읽기 (hydration mismatch 방지)
     useEffect(() => {
-        // concept.id가 변경되었을 때만 뷰 모드 업데이트
+        // 초기 마운트 시 localStorage에서 값 읽기
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+            const savedView = localStorage.getItem(STORAGE_KEY) as ViewMode | null;
+            const validViews: ViewMode[] = hasVisualization(concept.id)
+                ? ['default', 'compact', 'codeFirst', 'visual']
+                : ['default', 'compact', 'codeFirst'];
+            
+            if (savedView && validViews.includes(savedView)) {
+                setViewMode(savedView);
+            }
+        }
+
+        // concept.id가 변경되었을 때 뷰 모드 업데이트
         if (prevConceptIdRef.current !== concept.id) {
             prevConceptIdRef.current = concept.id;
             const savedView = localStorage.getItem(STORAGE_KEY) as ViewMode | null;
@@ -43,14 +45,11 @@ const ConceptViewWrapper = ({ concept, codeExamples }: ConceptViewWrapperProps) 
                 ? ['default', 'compact', 'codeFirst', 'visual']
                 : ['default', 'compact', 'codeFirst'];
             
-            // 상태 업데이트를 다음 렌더 사이클로 지연 (동기 호출 방지)
-            requestAnimationFrame(() => {
-                if (savedView && validViews.includes(savedView)) {
-                    setViewMode(savedView);
-                } else {
-                    setViewMode('default');
-                }
-            });
+            if (savedView && validViews.includes(savedView)) {
+                setViewMode(savedView);
+            } else {
+                setViewMode('default');
+            }
         }
     }, [concept.id]);
 
