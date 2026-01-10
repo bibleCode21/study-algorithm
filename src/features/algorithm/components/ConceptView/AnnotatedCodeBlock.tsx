@@ -19,7 +19,10 @@ const AnnotatedCodeBlock = ({
 }: AnnotatedCodeBlockProps) => {
     const [expandedLines, setExpandedLines] = useState<Set<number>>(new Set());
     const [selectedLine, setSelectedLine] = useState<number | null>(null);
+    const [isCodeExpanded, setIsCodeExpanded] = useState<boolean>(true);
+    const [shouldCollapseCode, setShouldCollapseCode] = useState<boolean>(false);
     const codeContainerRef = useRef<HTMLDivElement>(null);
+    const codeBlockRef = useRef<HTMLDivElement>(null);
     const annotationPanelRef = useRef<HTMLDivElement>(null);
     const timeoutRefs = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
     const pathname = usePathname();
@@ -35,6 +38,8 @@ const AnnotatedCodeBlock = ({
     useEffect(() => {
         setExpandedLines(new Set());
         setSelectedLine(null);
+        setIsCodeExpanded(true);
+        setShouldCollapseCode(false);
     }, [code, annotations, pathname]);
 
     // 컴포넌트 unmount 시 모든 타이머 정리
@@ -44,6 +49,41 @@ const AnnotatedCodeBlock = ({
             timeoutRefs.current.clear();
         };
     }, []);
+
+    // 코드 블록의 높이를 측정하여 스크롤이 생기는지 확인하고 접기/펼치기 결정
+    useEffect(() => {
+        const checkCodeBlockHeight = () => {
+            if (!codeContainerRef.current) return;
+
+            // 코드 블록 내부의 실제 코드 영역 찾기
+            const codeBlock = codeContainerRef.current.querySelector('div[class*="bg-gray-900"]');
+            if (!codeBlock) return;
+
+            const fullHeight = codeBlock.getBoundingClientRect().height;
+            const viewportHeight = window.innerHeight;
+            const maxVisibleHeight = viewportHeight * 0.6; // 뷰포트의 60%를 넘으면 접기
+
+            // 코드 블록이 길어서 스크롤이 생기는 경우 접힌 상태로 시작
+            if (fullHeight > maxVisibleHeight) {
+                setShouldCollapseCode(true);
+                setIsCodeExpanded(false);
+            } else {
+                setShouldCollapseCode(false);
+                setIsCodeExpanded(true);
+            }
+        };
+
+        // DOM이 렌더링된 후 확인
+        const timeoutId = setTimeout(checkCodeBlockHeight, 300);
+
+        // 리사이즈 이벤트 리스너
+        window.addEventListener('resize', checkCodeBlockHeight);
+
+        return () => {
+            clearTimeout(timeoutId);
+            window.removeEventListener('resize', checkCodeBlockHeight);
+        };
+    }, [code, highlightedHtml]);
 
     // 코드 블록의 높이에 맞춰 해석 패널의 높이 조정
     useEffect(() => {
@@ -78,7 +118,7 @@ const AnnotatedCodeBlock = ({
             clearTimeout(timeoutId);
             window.removeEventListener('resize', updatePanelHeight);
         };
-    }, [code, highlightedHtml]);
+    }, [code, highlightedHtml, isCodeExpanded]);
 
 
     const toggleLine = (line: number) => {
@@ -240,16 +280,19 @@ const AnnotatedCodeBlock = ({
     const scrollToLine = (line: number) => {
         setSelectedLine(line);
         
-        // 해당 라인의 해석을 자동으로 열거나 닫기
-        const newExpanded = new Set(expandedLines);
-        if (newExpanded.has(line)) {
-            newExpanded.delete(line);
-        } else {
-            newExpanded.add(line);
+        // 코드 블록이 접혀져 있으면 자동으로 펼치기
+        if (!isCodeExpanded) {
+            setIsCodeExpanded(true);
         }
-        setExpandedLines(newExpanded);
         
-        // DOM이 완전히 렌더링된 후 실행
+        // 해당 라인의 해석을 자동으로 열기 (접혀져 있으면 펼치기)
+        const newExpanded = new Set(expandedLines);
+        if (!newExpanded.has(line)) {
+            newExpanded.add(line);
+            setExpandedLines(newExpanded);
+        }
+        
+        // DOM이 완전히 렌더링된 후 실행 (코드 블록이 펼쳐진 후)
         const timeoutId = setTimeout(() => {
             if (!codeContainerRef.current) {
                 timeoutRefs.current.delete(timeoutId);
@@ -272,8 +315,12 @@ const AnnotatedCodeBlock = ({
             highlightLine(lineElement, codeBlock);
             scrollAnnotationPanel(line);
             timeoutRefs.current.delete(timeoutId);
-        }, 100);
+        }, isCodeExpanded ? 100 : 350); // 코드 블록이 펼쳐지는 시간 고려
         timeoutRefs.current.add(timeoutId);
+    };
+
+    const toggleCodeExpansion = () => {
+        setIsCodeExpanded(!isCodeExpanded);
     };
 
     const hasAnnotations = annotations.length > 0;
@@ -287,7 +334,40 @@ const AnnotatedCodeBlock = ({
         <div className="flex flex-col lg:flex-row gap-4">
                 {/* 코드 블록 - PC에서는 왼쪽, 모바일에서는 위 */}
                 <div className="flex-1 lg:flex-[1.8] min-w-0" ref={codeContainerRef}>
-                    <CodeBlockClient language={language} code={code} highlightedHtml={highlightedHtml} />
+                    <div ref={codeBlockRef} className="relative">
+                        <div 
+                            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                                shouldCollapseCode && !isCodeExpanded ? 'max-h-[60vh]' : ''
+                            }`}
+                            style={{
+                                maxHeight: shouldCollapseCode && !isCodeExpanded ? '60vh' : 'none',
+                            }}
+                        >
+                            <CodeBlockClient language={language} code={code} highlightedHtml={highlightedHtml} />
+                        </div>
+                        {shouldCollapseCode && (
+                            <>
+                                <div className="absolute top-2 right-2 z-10">
+                                    <button
+                                        onClick={toggleCodeExpansion}
+                                        className="bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white px-3 py-1.5 rounded text-xs font-medium transition-colors flex items-center gap-1.5 cursor-pointer border border-gray-700 shadow-lg"
+                                        aria-label={isCodeExpanded ? '코드 접기' : '코드 펼치기'}
+                                    >
+                                        <span className={`inline-block transition-transform duration-300 ${isCodeExpanded ? 'rotate-180' : ''}`}>
+                                            ▼
+                                        </span>
+                                        <span>{isCodeExpanded ? '접기' : '펼치기'}</span>
+                                    </button>
+                                </div>
+                                {!isCodeExpanded && (
+                                    <div 
+                                        className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent pointer-events-none"
+                                        style={{ zIndex: 5 }}
+                                    />
+                                )}
+                            </>
+                        )}
+                    </div>
                 </div>
 
             {/* 해석 패널 - PC에서는 오른쪽, 모바일에서는 아래 */}
