@@ -24,6 +24,7 @@ import HeapVisualization from './Heap';
 import HashTableVisualization from './HashTable';
 import TreeVisualization from './Tree';
 import BubbleSortVisualization from './BubbleSort';
+import InsertionSortVisualization from './InsertionSort';
 import BinarySearchVisualization from './BinarySearch';
 
 // 시각화 컴포넌트의 공통 Props 타입
@@ -43,6 +44,7 @@ export const visualizationRegistry: Record<string, ComponentType<VisualizationPr
   'hash-table': HashTableVisualization,
   tree: TreeVisualization,
   'bubble-sort': BubbleSortVisualization,
+  'insertion-sort': InsertionSortVisualization,
   'binary-search': BinarySearchVisualization,
   // 여기에 다른 시각화들을 추가할 수 있습니다:
   // 등등...
