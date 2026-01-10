@@ -176,80 +176,80 @@ export const treeAnnotations: Record<string, CodeAnnotation[][]> = {
           'changeNode의 오른쪽 자식 처리: changeNode에 오른쪽 자식이 있으면, changeNodeParent.left를 changeNode.right로 설정합니다. 이렇게 하는 이유: changeNode를 삭제할 노드의 위치로 옮기기 전에, changeNode의 원래 위치에서 제거해야 합니다. changeNode는 왼쪽 자식이 없지만(최소값이므로), 오른쪽 자식은 있을 수 있습니다. changeNodeParent.left를 changeNode.right로 설정하면 changeNode를 건너뛰고 changeNode의 오른쪽 자식이 changeNodeParent의 왼쪽 자식이 됩니다. 만약 changeNode.right가 null이면 changeNodeParent.left도 null이 되어 changeNode가 완전히 제거됩니다.',
       },
     ],
-    // 일곱 번째 예제: 깔끔하게 정리된 이진 탐색 트리 (BST) 구현
+    // 일곱 번째 예제: 깔끔하게 정리된 이진 탐색 트리 (BST) 구현 (1-208줄)
     [
       {
-        line: 12,
+        line: 14,
         comment:
           'BinarySearchTree 클래스: 완전한 이진 탐색 트리 구현입니다. 재귀를 사용하여 더 간결하고 이해하기 쉬운 코드를 작성합니다.',
       },
       {
-        line: 22,
+        line: 24,
         comment:
           'insert 메서드: 재귀를 사용하여 이진 탐색 트리에 값을 삽입합니다. insertNode 헬퍼 메서드를 사용하여 구현합니다.',
       },
       {
-        line: 26,
+        line: 28,
         comment:
           'insertNode 메서드: 재귀적으로 노드를 삽입하는 헬퍼 메서드입니다. node가 null이면 새 노드를 생성하고, 그렇지 않으면 적절한 서브트리에 재귀적으로 삽입합니다.',
       },
       {
-        line: 31,
+        line: 33,
         comment:
           '왼쪽 서브트리 삽입: 삽입할 값이 현재 노드의 값보다 작으면 왼쪽 서브트리에 재귀적으로 삽입합니다.',
       },
       {
-        line: 33,
+        line: 35,
         comment:
           '오른쪽 서브트리 삽입: 삽입할 값이 현재 노드의 값보다 크면 오른쪽 서브트리에 재귀적으로 삽입합니다.',
       },
       {
-        line: 41,
+        line: 43,
         comment:
           'search 메서드: 재귀를 사용하여 이진 탐색 트리에서 값을 검색합니다. searchNode 헬퍼 메서드를 사용하여 구현합니다.',
       },
       {
-        line: 62,
+        line: 64,
         comment:
           'findMin 메서드: 이진 탐색 트리에서 최소값을 찾습니다. 왼쪽 자식으로 계속 이동하여 가장 작은 값을 찾습니다. O(log n) 시간이 소요됩니다.',
       },
       {
-        line: 76,
+        line: 78,
         comment:
           'findMax 메서드: 이진 탐색 트리에서 최대값을 찾습니다. 오른쪽 자식으로 계속 이동하여 가장 큰 값을 찾습니다. O(log n) 시간이 소요됩니다.',
       },
       {
-        line: 90,
+        line: 92,
         comment:
           'delete 메서드: 재귀를 사용하여 이진 탐색 트리에서 값을 삭제합니다. deleteNode 헬퍼 메서드를 사용하여 구현합니다.',
       },
       {
-        line: 96,
+        line: 98,
         comment:
           'deleteNode 메서드: 재귀적으로 노드를 삭제하는 헬퍼 메서드입니다. 삭제할 노드를 찾으면 세 가지 경우로 나누어 처리합니다.',
       },
       {
-        line: 107,
+        line: 109,
         comment:
           '자식이 하나인 경우: 왼쪽 자식만 있으면 왼쪽 자식을 반환하고, 오른쪽 자식만 있으면 오른쪽 자식을 반환합니다.',
       },
       {
-        line: 116,
+        line: 118,
         comment:
           '자식이 두 개인 경우: 오른쪽 서브트리의 최소값을 찾아 삭제할 노드의 값을 대체하고, 오른쪽 서브트리에서 최소값 노드를 재귀적으로 삭제합니다.',
       },
       {
-        line: 133,
+        line: 135,
         comment:
           '전위 순회 (Pre-order): 루트 노드를 먼저 방문한 후, 왼쪽 서브트리, 오른쪽 서브트리를 순회합니다. 루트 -> 왼쪽 -> 오른쪽 순서입니다.',
       },
       {
-        line: 143,
+        line: 145,
         comment:
           '중위 순회 (In-order): 왼쪽 서브트리를 먼저 방문한 후, 루트 노드, 오른쪽 서브트리를 순회합니다. 왼쪽 -> 루트 -> 오른쪽 순서이며, 이진 탐색 트리에서는 정렬된 순서로 값을 얻을 수 있습니다.',
       },
       {
-        line: 153,
+        line: 155,
         comment:
           '후위 순회 (Post-order): 왼쪽 서브트리, 오른쪽 서브트리를 먼저 방문한 후, 루트 노드를 순회합니다. 왼쪽 -> 오른쪽 -> 루트 순서입니다.',
       },
@@ -259,30 +259,30 @@ export const treeAnnotations: Record<string, CodeAnnotation[][]> = {
           '레벨 순회 (Level-order): BFS(너비 우선 탐색)를 사용하여 레벨별로 노드를 방문합니다. 큐를 사용하여 구현하며, 루트부터 시작하여 각 레벨의 노드를 왼쪽부터 오른쪽으로 방문합니다.',
       },
     ],
-    // 여덟 번째 예제: 이진 트리 순회 구현
+    // 여덟 번째 예제: 이진 트리 순회 구현 (1-97줄)
     [
       {
-        line: 13,
+        line: 15,
         comment:
           'BinaryTree 클래스: 일반 이진 트리를 구현합니다. 이진 탐색 트리와 달리 특별한 순서 제약이 없습니다.',
       },
       {
-        line: 23,
+        line: 25,
         comment:
           'preOrderTraversal 메서드: 전위 순회를 구현합니다. 루트를 먼저 방문한 후 왼쪽, 오른쪽 서브트리를 재귀적으로 순회합니다.',
       },
       {
-        line: 33,
+        line: 35,
         comment:
           'inOrderTraversal 메서드: 중위 순회를 구현합니다. 왼쪽 서브트리를 먼저 방문한 후 루트, 오른쪽 서브트리를 재귀적으로 순회합니다.',
       },
       {
-        line: 43,
+        line: 45,
         comment:
           'postOrderTraversal 메서드: 후위 순회를 구현합니다. 왼쪽, 오른쪽 서브트리를 먼저 방문한 후 루트를 방문합니다.',
       },
       {
-        line: 53,
+        line: 55,
         comment:
           'levelOrderTraversal 메서드: 레벨 순회를 구현합니다. 큐를 사용하여 BFS 방식으로 각 레벨의 노드를 순회합니다.',
       },
@@ -292,12 +292,12 @@ export const treeAnnotations: Record<string, CodeAnnotation[][]> = {
           '큐 사용: 큐에 루트 노드를 추가하고, 큐가 비어있을 때까지 반복합니다. 각 노드를 방문한 후 자식 노드를 큐에 추가합니다.',
       },
       {
-        line: 71,
+        line: 73,
         comment:
           'height 메서드: 트리의 높이를 계산합니다. 재귀적으로 왼쪽과 오른쪽 서브트리의 높이를 계산하여 더 큰 값에 1을 더합니다.',
       },
       {
-        line: 77,
+        line: 79,
         comment:
           'size 메서드: 트리의 노드 개수를 계산합니다. 재귀적으로 왼쪽과 오른쪽 서브트리의 노드 개수를 계산하여 합산합니다.',
       },
