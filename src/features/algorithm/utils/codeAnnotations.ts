@@ -26,7 +26,8 @@ export type ConceptId =
   | 'hash-table'
   | 'tree'
   | 'binary-search'
-  | 'bubble-sort';
+  | 'bubble-sort'
+  | 'insertion-sort';
 
 /**
  * 모든 개념의 해석을 저장하는 타입
@@ -43,6 +44,7 @@ import { hashTableAnnotations } from './annotations/hash-table';
 import { treeAnnotations } from './annotations/tree';
 import { binarySearchAnnotations } from './annotations/binary-search';
 import { bubbleSortAnnotations } from './annotations/bubble-sort';
+import { insertionSortAnnotations } from './annotations/insertion-sort';
 
 /**
  * 모든 해석을 통합한 맵
@@ -58,6 +60,7 @@ const annotations: CodeAnnotationsMap = {
   tree: treeAnnotations,
   'binary-search': binarySearchAnnotations,
   'bubble-sort': bubbleSortAnnotations,
+  'insertion-sort': insertionSortAnnotations,
 } as const;
 
 /**

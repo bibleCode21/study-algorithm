@@ -63,6 +63,11 @@ const CONCEPT_PATHS = {
     code: 'src/data/concepts/algorithms/bubble-sort/code.ts',
     exportName: 'bubbleSortAnnotations',
   },
+  'insertion-sort': {
+    annotation: 'src/features/algorithm/utils/annotations/insertion-sort.ts',
+    code: 'src/data/concepts/algorithms/insertion-sort/code.ts',
+    exportName: 'insertionSortAnnotations',
+  },
 };
 
 /**

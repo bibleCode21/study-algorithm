@@ -43,6 +43,9 @@ const CONCEPT_PATHS = {
   'bubble-sort': {
     code: 'src/data/concepts/algorithms/bubble-sort/code.ts',
   },
+  'insertion-sort': {
+    code: 'src/data/concepts/algorithms/insertion-sort/code.ts',
+  },
 };
 
 /**
