@@ -1,11 +1,10 @@
 // 삽입 정렬 시각화 타입 정의
 export type AnimationState = {
-  type: 'idle' | 'selecting' | 'comparing' | 'shifting' | 'inserting' | 'sorted';
+  type: 'selecting' | 'comparing' | 'shifting' | 'inserting' | 'sorted';
   keyIndex: number;
   keyValue: number;
   comparingIndex?: number;
-  shiftingIndex?: number; // 이동되는 값의 원래 위치
-  shiftedToIndex?: number; // 이동된 값의 새로운 위치
+  shiftingIndex?: number;
 } | null;
 
 export type Step = {
