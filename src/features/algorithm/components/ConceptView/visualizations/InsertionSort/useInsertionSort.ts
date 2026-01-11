@@ -102,8 +102,34 @@ export const useInsertionSort = () => {
 
   // 한 단계씩 정렬 (수동)
   const stepSort = useCallback(() => {
-    // TODO: 구현 필요
-  }, []);
+    if (isAnimating || isAutoSorting) return;
+
+    if (!generatorRef.current) {
+      generatorRef.current = insertionSortGenerator([...INITIAL_ARRAY]);
+    }
+
+    const result = generatorRef.current.next();
+
+    if (result.done) {
+      setAnimationState({
+        type: 'sorted',
+        keyIndex: 0,
+        keyValue: 0,
+      });
+      generatorRef.current = null;
+      return;
+    }
+
+    const state = result.value;
+    setVisualizationArray(state.visualizationArray);
+    setAnimationState({
+      type: state.type,
+      keyIndex: state.keyIndex,
+      keyValue: state.keyValue,
+      comparingIndex: state.comparingIndex,
+      shiftingIndex: state.shiftingIndex,
+    });
+  }, [isAnimating, isAutoSorting]);
 
   // 자동 정렬
   const autoSort = useCallback(() => {
@@ -151,12 +177,16 @@ export const useInsertionSort = () => {
 
   // 초기화
   const reset = useCallback(() => {
+    timeoutRefs.current.forEach((timeoutId) => clearTimeout(timeoutId));
+    timeoutRefs.current.clear();
+
     const initialArray = [...INITIAL_ARRAY];
     setVisualizationArray(initialArray);
     setAnimationState(null);
     setCurrentStep(null);
     setIsAnimating(false);
     setIsAutoSorting(false);
+    generatorRef.current = null;
   }, []);
 
   return {

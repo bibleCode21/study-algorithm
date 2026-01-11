@@ -1,23 +1,21 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useInsertionSort } from './useInsertionSort';
 import { Header } from './Header';
 import { ArrayVisualization } from './ArrayVisualization';
 import { AnimationStatus } from './AnimationStatus';
+import { ControlButtons } from './ControlButtons';
 
 const InsertionSortVisualization = () => {
   const {
     array,
     animationState,
+    isAnimating,
+    isAutoSorting,
+    stepSort,
     autoSort,
+    reset,
   } = useInsertionSort();
-
-  // 컴포넌트 마운트 시 자동 정렬 시작
-  useEffect(() => {
-    autoSort();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div className="space-y-6">
@@ -32,6 +30,15 @@ const InsertionSortVisualization = () => {
         </div>
 
         <AnimationStatus animationState={animationState} array={array} />
+
+        <ControlButtons
+          array={array}
+          isAnimating={isAnimating}
+          isAutoSorting={isAutoSorting}
+          onStepSort={stepSort}
+          onAutoSort={autoSort}
+          onReset={reset}
+        />
       </div>
     </div>
   );
