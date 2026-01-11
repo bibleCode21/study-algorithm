@@ -2,7 +2,7 @@ import type { AnimationState } from './types';
 
 type AnimationStatusProps = {
   animationState: AnimationState;
-  array: number[];
+  array: (number | null)[];
 };
 
 export const AnimationStatus = ({ animationState, array }: AnimationStatusProps) => {

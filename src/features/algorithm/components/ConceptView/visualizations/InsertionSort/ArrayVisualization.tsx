@@ -3,7 +3,7 @@
 import type { AnimationState } from './types';
 
 type ArrayVisualizationProps = {
-  array: number[];
+  array: (number | null)[];
   animationState: AnimationState;
 };
 
@@ -17,19 +17,55 @@ export const ArrayVisualization = ({ array, animationState }: ArrayVisualization
       {/* 배열 표시 */}
       <div className="flex flex-wrap items-end justify-center gap-3">
         {array.map((value, index) => {
-          const height = 48 + value * 2;
+          const isNull = value === null;
+          const height = isNull ? 48 : 48 + value * 2;
+          
+          // 상태별 스타일
           const isKeyPosition = keyIndex === index && animationState?.type === 'selecting';
+          const isComparing = animationState?.comparingIndex === index && animationState?.type === 'comparing';
+          const isShifting = animationState?.shiftingIndex === index && animationState?.type === 'shifting';
+          const isInserting = keyIndex === index && animationState?.type === 'inserting';
+          const isSorted = animationState?.type === 'sorted';
+
+          let borderColor = 'border-gray-300';
+          let bgColor = 'bg-gray-50';
+          let textColor = 'text-gray-900';
+
+          if (isNull) {
+            borderColor = 'border-gray-200';
+            bgColor = 'bg-gray-100';
+            textColor = 'text-gray-400';
+          } else if (isSorted) {
+            borderColor = 'border-green-500';
+            bgColor = 'bg-green-100';
+          } else if (isInserting) {
+            borderColor = 'border-purple-500';
+            bgColor = 'bg-purple-100';
+          } else if (isShifting) {
+            borderColor = 'border-red-500';
+            bgColor = 'bg-red-100';
+          } else if (isComparing) {
+            borderColor = 'border-yellow-500';
+            bgColor = 'bg-yellow-100';
+          } else if (isKeyPosition) {
+            borderColor = 'border-blue-500';
+            bgColor = 'bg-blue-100';
+          }
 
           return (
-            <div key={`${index}-${value}`} className="relative">
+            <div key={`${index}-${value ?? 'null'}`} className="relative">
               <div
-                className="relative w-16 flex items-center justify-center rounded-lg border-2 border-gray-300 font-mono font-bold text-lg bg-gray-50 text-gray-900 shadow-md"
+                className={`relative w-16 flex items-center justify-center rounded-lg border-2 font-mono font-bold text-lg shadow-md ${borderColor} ${bgColor} ${textColor}`}
                 style={{
                   height: `${height}px`,
                   minHeight: '48px',
                 }}
               >
-                <span>{value}</span>
+                <span 
+                  className={isNull ? 'text-xs whitespace-nowrap' : ''}
+                >
+                  {isNull ? '빈칸' : value}
+                </span>
                 {/* 인덱스 표시 */}
                 <div className="absolute -bottom-6 text-xs font-normal text-gray-500">
                   [{index}]
