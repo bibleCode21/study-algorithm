@@ -19,22 +19,6 @@ export const ArrayVisualization = ({ array, animationState }: ArrayVisualization
 
   return (
     <div className="space-y-6">
-      {/* key 값 별도 표시 영역 */}
-      <div className="flex justify-center" style={{ minHeight: '80px' }}>
-        <div className="flex flex-col items-center">
-          <div className="text-xs font-semibold text-gray-600 mb-2">임시 저장 (key)</div>
-          <div
-            className="w-16 flex items-center justify-center rounded-lg border-2 border-blue-500 bg-blue-400 text-white font-mono font-bold text-lg shadow-lg"
-            style={{
-              height: showKey ? `${48 + keyValue * 2}px` : '48px',
-              minHeight: '48px',
-            }}
-          >
-            <span style={{ opacity: showKey ? 1 : 0 }}>{showKey ? keyValue : 0}</span>
-          </div>
-        </div>
-      </div>
-
       {/* 배열 표시 */}
       <div className="flex flex-wrap items-end justify-center gap-3 min-h-[200px]">
         {array.map((value, index) => {
@@ -123,6 +107,22 @@ export const ArrayVisualization = ({ array, animationState }: ArrayVisualization
         ) : (
           <span style={{ opacity: 0 }}> </span>
         )}
+      </div>
+
+      {/* key 값 별도 표시 영역 */}
+      <div className="flex justify-center" style={{ minHeight: '80px' }}>
+        <div className="flex flex-col items-center">
+          <div className="text-xs font-semibold text-gray-600 mb-2">임시 저장 (key)</div>
+          <div
+            className="w-16 flex items-center justify-center rounded-lg border-2 border-blue-500 bg-blue-400 text-white font-mono font-bold text-lg shadow-lg"
+            style={{
+              height: showKey ? `${48 + keyValue * 2}px` : '48px',
+              minHeight: '48px',
+            }}
+          >
+            <span style={{ opacity: showKey ? 1 : 0 }}>{showKey ? keyValue : 0}</span>
+          </div>
+        </div>
       </div>
     </div>
   );
