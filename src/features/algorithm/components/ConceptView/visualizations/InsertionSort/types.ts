@@ -4,7 +4,8 @@ export type AnimationState = {
   keyIndex: number;
   keyValue: number;
   comparingIndex?: number;
-  shiftingIndex?: number;
+  shiftingIndex?: number; // 이동되는 값의 원래 위치
+  shiftedToIndex?: number; // 이동된 값의 새로운 위치
 } | null;
 
 export type Step = {

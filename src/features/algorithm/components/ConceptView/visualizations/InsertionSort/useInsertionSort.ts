@@ -2,10 +2,143 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { INITIAL_ARRAY } from './constants';
 import type { AnimationState, Step } from './types';
 
+// Generator가 yield하는 상태 타입
+type GeneratorState =
+  | {
+      type: 'selecting';
+      array: number[];
+      pass: number;
+      keyIndex: number;
+      keyValue: number;
+      aux: number;
+    }
+  | {
+      type: 'comparing';
+      array: number[];
+      pass: number;
+      keyIndex: number;
+      keyValue: number;
+      comparingIndex: number;
+      aux: number;
+    }
+  | {
+      type: 'shifting';
+      array: number[];
+      pass: number;
+      keyIndex: number;
+      keyValue: number;
+      shiftingIndex: number; // 이동되는 값의 원래 위치 (aux)
+      shiftedToIndex: number; // 이동된 값의 새로운 위치 (aux + 1)
+      aux: number;
+    }
+  | {
+      type: 'inserting';
+      array: number[];
+      pass: number;
+      keyIndex: number;
+      keyValue: number;
+      aux: number;
+    }
+  | {
+      type: 'sorted';
+      array: number[];
+      pass: number;
+      keyIndex: number;
+      keyValue: number;
+      aux: number;
+    };
+
+// Generator 함수: 삽입 정렬 알고리즘
+function* insertionSortGenerator(arr: number[]): Generator<GeneratorState, number[], unknown> {
+  const array = [...arr]; // 원본 배열 복사
+  const n = array.length;
+
+  for (let index = 1; index < n; index++) {
+    const temp = array[index];
+    const keyIndex = index;
+    const keyValue = temp;
+    let aux = index - 1;
+    const pass = index; // 회전 번호 (1부터 시작)
+
+    // key 선택
+    yield {
+      type: 'selecting' as const,
+      array: [...array],
+      pass,
+      keyIndex,
+      keyValue,
+      aux,
+    };
+
+    // 비교 및 이동
+    while (aux >= 0 && array[aux] > temp) {
+      // 비교 단계
+      yield {
+        type: 'comparing' as const,
+        array: [...array],
+        pass,
+        keyIndex,
+        keyValue,
+        comparingIndex: aux,
+        aux,
+      };
+
+      // 이동 단계
+      const beforeMove = array[aux];
+      const beforeArray = [...array];
+      array[aux + 1] = array[aux];
+      const shiftingState = {
+        type: 'shifting' as const,
+        array: [...array],
+        pass,
+        keyIndex,
+        keyValue,
+        shiftingIndex: aux,
+        shiftedToIndex: aux + 1,
+        aux,
+      };
+      console.log('🔄 Generator - shifting 단계:', {
+        ...shiftingState,
+        이동전배열: beforeArray,
+        이동후배열: [...array],
+        이동전값: beforeMove,
+        설명: `배열[${aux}](${beforeMove})를 배열[${aux + 1}]로 이동`,
+        주의: `keyIndex(${keyIndex})와 shiftedToIndex(${aux + 1})가 겹치는가? ${keyIndex === aux + 1}`,
+      });
+      yield shiftingState;
+
+      aux--;
+    }
+
+    // 삽입 단계
+    array[aux + 1] = temp;
+    yield {
+      type: 'inserting' as const,
+      array: [...array],
+      pass,
+      keyIndex: aux + 1,
+      keyValue,
+      aux,
+    };
+  }
+
+  // 정렬 완료
+  yield {
+    type: 'sorted' as const,
+    array: [...array],
+    pass: n,
+    keyIndex: 0,
+    keyValue: 0,
+    aux: -1,
+  };
+
+  return array;
+}
+
 export const useInsertionSort = () => {
   const [array, setArray] = useState<number[]>([...INITIAL_ARRAY]);
   const arrayRef = useRef<number[]>([...INITIAL_ARRAY]);
-  const currentStepRef = useRef<Step>(null);
+  const generatorRef = useRef<Generator<GeneratorState, number[], unknown> | null>(null);
   const timeoutRefs = useRef<Set<ReturnType<typeof setTimeout>>>(new Set());
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationState, setAnimationState] = useState<AnimationState>(null);
@@ -31,139 +164,91 @@ export const useInsertionSort = () => {
   const stepSort = useCallback(() => {
     if (isAnimating || isAutoSorting) return;
 
-    const currentArray = [...arrayRef.current];
-    const n = currentArray.length;
-    const currentStepValue = currentStepRef.current;
-
-    let pass: number;
-    let i: number;
-    let j: number;
-    let keyIndex: number;
-    let keyValue: number;
-
-    // 현재 위치 찾기
-    if (currentStepValue === null) {
-      // 1회전 시작: i=1, key=34 선택
-      pass = 1;
-      i = 1;
-      keyIndex = i;
-      keyValue = currentArray[keyIndex];
-      j = i - 1;
-    } else {
-      // 다음 단계 찾기
-      pass = currentStepValue.pass;
-      i = currentStepValue.i;
-      keyIndex = currentStepValue.keyIndex;
-      keyValue = currentStepValue.keyValue;
-      j = currentStepValue.j;
-
-      // j가 0 이상이고 arr[j] > key인 경우 - 비교 후 이동
-      if (j >= 0 && currentArray[j] > keyValue) {
-        // 값을 뒤로 이동
-        currentArray[j + 1] = currentArray[j];
-        j--;
-      } else {
-        // key를 올바른 위치에 삽입하고 다음 회전으로 이동
-        currentArray[j + 1] = keyValue;
-        i++;
-        if (i >= n) {
-          // 정렬 완료
-          setArray(currentArray);
-          arrayRef.current = currentArray;
-          setAnimationState({
-            type: 'sorted',
-            keyIndex: 0,
-            keyValue: 0,
-          });
-          setIsAnimating(false);
-          setCurrentStep(null);
-          currentStepRef.current = null;
-          const timeoutId = setTimeout(() => {
-            setAnimationState(null);
-            timeoutRefs.current.delete(timeoutId);
-          }, 1000);
-          timeoutRefs.current.add(timeoutId);
-          return;
-        }
-        // 다음 회전 시작
-        pass++;
-        keyIndex = i;
-        keyValue = currentArray[keyIndex];
-        j = i - 1;
-      }
+    // generator가 없으면 새로 생성
+    if (!generatorRef.current) {
+      generatorRef.current = insertionSortGenerator(arrayRef.current);
     }
 
     setIsAnimating(true);
-    const newStep = { pass, i, j, keyIndex, keyValue };
-    setCurrentStep(newStep);
-    currentStepRef.current = newStep;
+    const result = generatorRef.current.next();
 
-    // 애니메이션 상태 설정
-    if (j >= 0 && currentArray[j] > keyValue) {
-      // 비교 단계
+    if (result.done) {
+      // 정렬 완료
+      if (result.value) {
+        setArray(result.value);
+        arrayRef.current = result.value;
+      }
+      setAnimationState({
+        type: 'sorted',
+        keyIndex: 0,
+        keyValue: 0,
+      });
+      setIsAnimating(false);
+      setCurrentStep(null);
+      generatorRef.current = null;
+      const timeoutId = setTimeout(() => {
+        setAnimationState(null);
+        timeoutRefs.current.delete(timeoutId);
+      }, 1000);
+      timeoutRefs.current.add(timeoutId);
+      return;
+    }
+
+    const state = result.value;
+    console.log('📤 useInsertionSort - state 받음:', {
+      type: state.type,
+      array: state.array,
+      keyIndex: state.keyIndex,
+      shiftingIndex: state.type === 'shifting' ? state.shiftingIndex : undefined,
+      shiftedToIndex: state.type === 'shifting' ? state.shiftedToIndex : undefined,
+    });
+    setArray(state.array);
+    arrayRef.current = state.array;
+
+    // Step 정보 업데이트
+    const step: Step = {
+      pass: state.pass,
+      i: state.keyIndex,
+      j: state.aux,
+      keyIndex: state.keyIndex,
+      keyValue: state.keyValue,
+    };
+    setCurrentStep(step);
+
+    // AnimationState 설정
+    if (state.type === 'selecting') {
+      setAnimationState({
+        type: 'selecting',
+        keyIndex: state.keyIndex,
+        keyValue: state.keyValue,
+      });
+      setIsAnimating(false);
+    } else if (state.type === 'comparing') {
       setAnimationState({
         type: 'comparing',
-        keyIndex,
-        keyValue,
-        comparingIndex: j,
+        keyIndex: state.keyIndex,
+        keyValue: state.keyValue,
+        comparingIndex: state.comparingIndex,
       });
-      setArray([...currentArray]);
-
-      const timeoutId1 = setTimeout(() => {
-        // 이동 단계
-        const newArray = [...currentArray];
-        newArray[j + 1] = newArray[j];
-        
-        setAnimationState({
-          type: 'shifting',
-          keyIndex,
-          keyValue,
-          shiftingIndex: j,
-        });
-        setArray(newArray);
-        arrayRef.current = newArray;
-
-        const timeoutId2 = setTimeout(() => {
-          setIsAnimating(false);
-          // key 선택 상태로 유지
-          setAnimationState({
-            type: 'selecting',
-            keyIndex,
-            keyValue,
-          });
-          timeoutRefs.current.delete(timeoutId2);
-        }, 400);
-        timeoutRefs.current.add(timeoutId2);
-        timeoutRefs.current.delete(timeoutId1);
-      }, 400);
-      timeoutRefs.current.add(timeoutId1);
-    } else {
-      // 삽입 단계
+      setIsAnimating(false);
+    } else if (state.type === 'shifting') {
+      const animationState = {
+        type: 'shifting' as const,
+        keyIndex: state.keyIndex,
+        keyValue: state.keyValue,
+        shiftingIndex: state.shiftingIndex,
+        shiftedToIndex: state.shiftedToIndex,
+      };
+      console.log('📝 AnimationState 설정 (shifting):', animationState);
+      setAnimationState(animationState);
+      setIsAnimating(false);
+    } else if (state.type === 'inserting') {
       setAnimationState({
         type: 'inserting',
-        keyIndex: j + 1,
-        keyValue,
+        keyIndex: state.keyIndex,
+        keyValue: state.keyValue,
       });
-      const newArray = [...currentArray];
-      newArray[j + 1] = keyValue;
-      setArray(newArray);
-      arrayRef.current = newArray;
-
-      const timeoutId = setTimeout(() => {
-        setIsAnimating(false);
-        // 다음 회전이 있으면 key 선택 상태로, 없으면 null
-        if (i < n) {
-          setAnimationState({
-            type: 'selecting',
-            keyIndex: i,
-            keyValue: newArray[i],
-          });
-        } else {
-          setAnimationState(null);
-        }
-        timeoutRefs.current.delete(timeoutId);
-      }, 600);
-      timeoutRefs.current.add(timeoutId);
+      setIsAnimating(false);
     }
   }, [isAnimating, isAutoSorting]);
 
@@ -172,29 +257,19 @@ export const useInsertionSort = () => {
     if (isAnimating || isAutoSorting) return;
 
     setIsAutoSorting(true);
-    const arr = [...arrayRef.current];
-    const n = arr.length;
-    let currentArray = [...arr];
-    let pass = 1;
-    let i = 1;
-    let keyIndex = i;
-    let keyValue = currentArray[keyIndex];
-    let j = i - 1;
+    generatorRef.current = insertionSortGenerator(arrayRef.current);
 
-    // 첫 번째 key 선택
-    setAnimationState({
-      type: 'selecting',
-      keyIndex,
-      keyValue,
-    });
-    setCurrentStep({ pass, i, j, keyIndex, keyValue });
-    setArray([...currentArray]);
+    const processNextStep = () => {
+      if (!generatorRef.current) return;
 
-    const sortStep = () => {
-      if (i >= n) {
+      const result = generatorRef.current.next();
+
+      if (result.done) {
         // 정렬 완료
-        setArray(currentArray);
-        arrayRef.current = currentArray;
+        if (result.value) {
+          setArray(result.value);
+          arrayRef.current = result.value;
+        }
         setAnimationState({
           type: 'sorted',
           keyIndex: 0,
@@ -202,6 +277,7 @@ export const useInsertionSort = () => {
         });
         setIsAutoSorting(false);
         setCurrentStep(null);
+        generatorRef.current = null;
         const timeoutId = setTimeout(() => {
           setAnimationState(null);
           timeoutRefs.current.delete(timeoutId);
@@ -210,80 +286,64 @@ export const useInsertionSort = () => {
         return;
       }
 
-      if (j >= 0 && currentArray[j] > keyValue) {
-        // 비교 단계
+      const state = result.value;
+      setArray(state.array);
+      arrayRef.current = state.array;
+
+      // Step 정보 업데이트
+      const step: Step = {
+        pass: state.pass,
+        i: state.keyIndex,
+        j: state.aux,
+        keyIndex: state.keyIndex,
+        keyValue: state.keyValue,
+      };
+      setCurrentStep(step);
+
+      // AnimationState 설정
+      if (state.type === 'selecting') {
+        setAnimationState({
+          type: 'selecting',
+          keyIndex: state.keyIndex,
+          keyValue: state.keyValue,
+        });
+      } else if (state.type === 'comparing') {
         setAnimationState({
           type: 'comparing',
-          keyIndex,
-          keyValue,
-          comparingIndex: j,
+          keyIndex: state.keyIndex,
+          keyValue: state.keyValue,
+          comparingIndex: state.comparingIndex,
         });
-        setCurrentStep({ pass, i, j, keyIndex, keyValue });
-        setArray([...currentArray]);
-
-        const timeoutId1 = setTimeout(() => {
-          // 이동 단계
-          currentArray[j + 1] = currentArray[j];
-          
-          setAnimationState({
-            type: 'shifting',
-            keyIndex,
-            keyValue,
-            shiftingIndex: j,
-          });
-          setArray([...currentArray]);
-          arrayRef.current = [...currentArray];
-
-          const timeoutId2 = setTimeout(() => {
-            j--;
-            setAnimationState({
-              type: 'selecting',
-              keyIndex,
-              keyValue,
-            });
-            sortStep();
-            timeoutRefs.current.delete(timeoutId2);
-          }, 300);
-          timeoutRefs.current.add(timeoutId2);
-          timeoutRefs.current.delete(timeoutId1);
-        }, 300);
-        timeoutRefs.current.add(timeoutId1);
-      } else {
-        // 삽입 단계
+      } else if (state.type === 'shifting') {
+        setAnimationState({
+          type: 'shifting',
+          keyIndex: state.keyIndex,
+          keyValue: state.keyValue,
+          shiftingIndex: state.shiftingIndex,
+          shiftedToIndex: state.shiftedToIndex,
+        });
+      } else if (state.type === 'inserting') {
         setAnimationState({
           type: 'inserting',
-          keyIndex: j + 1,
-          keyValue,
+          keyIndex: state.keyIndex,
+          keyValue: state.keyValue,
         });
-        currentArray[j + 1] = keyValue;
-        setArray([...currentArray]);
-        arrayRef.current = [...currentArray];
-
-        const timeoutId = setTimeout(() => {
-          i++;
-          if (i < n) {
-            pass++;
-            keyIndex = i;
-            keyValue = currentArray[keyIndex];
-            j = i - 1;
-            setAnimationState({
-              type: 'selecting',
-              keyIndex,
-              keyValue,
-            });
-            setCurrentStep({ pass, i, j, keyIndex, keyValue });
-          }
-          sortStep();
-          timeoutRefs.current.delete(timeoutId);
-        }, 300);
-        timeoutRefs.current.add(timeoutId);
       }
+
+      // 다음 단계로 진행 (약간의 딜레이)
+      const delay = state.type === 'inserting' ? 600 : 300;
+      const timeoutId = setTimeout(() => {
+        processNextStep();
+        timeoutRefs.current.delete(timeoutId);
+      }, delay);
+      timeoutRefs.current.add(timeoutId);
     };
 
+    // 첫 단계 시작
     const startTimeout = setTimeout(() => {
-      sortStep();
+      processNextStep();
       timeoutRefs.current.delete(startTimeout);
-    }, 600);
+    }, 300);
     timeoutRefs.current.add(startTimeout);
   }, [isAnimating, isAutoSorting]);
 
@@ -300,7 +360,7 @@ export const useInsertionSort = () => {
     arrayRef.current = initialArray;
     setAnimationState(null);
     setCurrentStep(null);
-    currentStepRef.current = null;
+    generatorRef.current = null;
     setIsAnimating(false);
     setIsAutoSorting(false);
   }, []);
