@@ -9,18 +9,22 @@ const ConceptCardBody = ({ concept }: ConceptCardBodyProps) => {
 
             {concept.timeComplexity && (
                 <div className="mb-3 pt-3 border-t border-gray-100">
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                        <span className="font-medium">시간 복잡도:</span>
-                        <span>최선 {concept.timeComplexity.best}</span>
-                        <span>•</span>
-                        <span>평균 {concept.timeComplexity.average}</span>
-                        <span>•</span>
-                        <span>최악 {concept.timeComplexity.worst}</span>
+                    <div className="flex items-start gap-2 text-xs text-gray-500">
+                        <span className="font-medium flex-shrink-0">시간 복잡도:</span>
+                        <div className="flex items-center gap-2 flex-wrap">
+                            <span>최선 {concept.timeComplexity.best}</span>
+                            <span>•</span>
+                            <span>평균 {concept.timeComplexity.average}</span>
+                            <span>•</span>
+                            <span>최악 {concept.timeComplexity.worst}</span>
+                        </div>
                     </div>
                     {concept.spaceComplexity && (
-                        <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
-                            <span className="font-medium">공간 복잡도:</span>
-                            <span>{concept.spaceComplexity}</span>
+                        <div className="flex items-start gap-2 text-xs text-gray-500 mt-1">
+                            <span className="font-medium flex-shrink-0">공간 복잡도:</span>
+                            <div className="flex items-center gap-2 flex-wrap">
+                                <span>{concept.spaceComplexity}</span>
+                            </div>
                         </div>
                     )}
                 </div>

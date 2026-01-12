@@ -541,72 +541,72 @@ const DoublyLinkedList = () => {
             </colgroup>
             <thead>
               <tr className="border-b border-gray-200">
-                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">연산</th>
-                <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700">버튼</th>
+                <th className="text-left py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm font-semibold text-gray-700 break-keep">연산</th>
+                <th className="text-left py-2 px-2 md:py-3 md:px-4 text-xs md:text-sm font-semibold text-gray-700 break-keep">버튼</th>
               </tr>
             </thead>
             <tbody>
               <tr className="border-b border-gray-100">
-                <td className="py-3 px-4">
-                  <span className="text-sm font-semibold text-gray-700">append()</span>
-                  <span className="ml-2 text-xs text-gray-500">(O(1))</span>
+                <td className="py-2 px-2 md:py-3 md:px-4 break-keep">
+                  <span className="text-xs md:text-sm font-semibold text-gray-700 break-keep">append()</span>
+                  <span className="ml-1 md:ml-2 text-[10px] md:text-xs text-gray-500 break-keep">(O(1))</span>
                 </td>
-                <td className="py-3 px-4">
+                <td className="py-2 px-2 md:py-3 md:px-4">
                   <button
                     onClick={append}
                     disabled={isAnimating}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                    className="px-2 py-1.5 md:px-4 md:py-2 text-xs md:text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors break-keep"
                   >
                     append() 추가
                   </button>
                 </td>
               </tr>
               <tr className="border-b border-gray-100">
-                <td className="py-3 px-4">
-                  <span className="text-sm font-semibold text-gray-700">prepend()</span>
-                  <span className="ml-2 text-xs text-gray-500">(O(1))</span>
+                <td className="py-2 px-2 md:py-3 md:px-4 break-keep">
+                  <span className="text-xs md:text-sm font-semibold text-gray-700 break-keep">prepend()</span>
+                  <span className="ml-1 md:ml-2 text-[10px] md:text-xs text-gray-500 break-keep">(O(1))</span>
                 </td>
-                <td className="py-3 px-4">
+                <td className="py-2 px-2 md:py-3 md:px-4">
                   <button
                     onClick={prepend}
                     disabled={isAnimating}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                    className="px-2 py-1.5 md:px-4 md:py-2 text-xs md:text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors break-keep"
                   >
                     prepend() 추가
                   </button>
                 </td>
               </tr>
               <tr className="border-b border-gray-100">
-                <td className="py-3 px-4">
-                  <span className="text-sm font-semibold text-gray-700">insertAt(2)</span>
-                  <span className="ml-2 text-xs text-gray-500">(O(n))</span>
+                <td className="py-2 px-2 md:py-3 md:px-4 break-keep">
+                  <span className="text-xs md:text-sm font-semibold text-gray-700 break-keep">insertAt(2)</span>
+                  <span className="ml-1 md:ml-2 text-[10px] md:text-xs text-gray-500 break-keep">(O(n))</span>
                 </td>
-                <td className="py-3 px-4">
+                <td className="py-2 px-2 md:py-3 md:px-4">
                   <button
                     onClick={() => insertAt(2)}
                     disabled={isAnimating || nodes.length < 2}
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
+                    className="px-2 py-1.5 md:px-4 md:py-2 text-xs md:text-sm bg-blue-500 text-white rounded-md hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors break-keep"
                   >
                     insertAt(2) 삽입
                   </button>
                 </td>
               </tr>
-              <tr className="border-b border-gray-100 h-[60px]">
-                <td className="py-3 px-4">
-                  <span className="text-sm font-semibold text-gray-700">remove(data)</span>
-                  <span className="ml-2 text-xs text-gray-500">(O(n))</span>
+              <tr className="border-b border-gray-100 md:h-[60px]">
+                <td className="py-2 px-2 md:py-3 md:px-4 break-keep">
+                  <span className="text-xs md:text-sm font-semibold text-gray-700 break-keep">remove(data)</span>
+                  <span className="ml-1 md:ml-2 text-[10px] md:text-xs text-gray-500 break-keep">(O(n))</span>
                 </td>
-                <td className="py-3 px-4">
-                  <div className="flex gap-2 h-[36px] items-center overflow-x-auto">
+                <td className="py-2 px-2 md:py-3 md:px-4">
+                  <div className="flex gap-1.5 md:gap-2 h-[32px] md:h-[36px] items-center overflow-x-auto">
                     {nodes.length === 0 ? (
-                      <span className="text-sm text-gray-400">리스트가 비어있습니다</span>
+                      <span className="text-xs md:text-sm text-gray-400 break-keep">리스트가 비어있습니다</span>
                     ) : (
                       nodes.map((node) => (
                         <button
                           key={node.id}
                           onClick={() => remove(node.data)}
                           disabled={isAnimating}
-                          className="flex-shrink-0 px-3 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors text-sm whitespace-nowrap"
+                          className="flex-shrink-0 px-2 py-1 md:px-3 md:py-2 bg-red-500 text-white rounded-md hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors text-[10px] md:text-sm whitespace-nowrap break-keep"
                         >
                           remove({node.data})
                         </button>
@@ -615,22 +615,22 @@ const DoublyLinkedList = () => {
                   </div>
                 </td>
               </tr>
-              <tr className="border-b border-gray-100 h-[60px]">
-                <td className="py-3 px-4">
-                  <span className="text-sm font-semibold text-gray-700">findFromHead(data)</span>
-                  <span className="ml-2 text-xs text-gray-500">(O(n))</span>
+              <tr className="border-b border-gray-100 md:h-[60px]">
+                <td className="py-2 px-2 md:py-3 md:px-4 break-keep">
+                  <span className="text-xs md:text-sm font-semibold text-gray-700 break-keep">findFromHead(data)</span>
+                  <span className="ml-1 md:ml-2 text-[10px] md:text-xs text-gray-500 break-keep">(O(n))</span>
                 </td>
-                <td className="py-3 px-4">
-                  <div className="flex gap-2 h-[36px] items-center overflow-x-auto">
+                <td className="py-2 px-2 md:py-3 md:px-4">
+                  <div className="flex gap-1.5 md:gap-2 h-[32px] md:h-[36px] items-center overflow-x-auto">
                     {nodes.length === 0 ? (
-                      <span className="text-sm text-gray-400">리스트가 비어있습니다</span>
+                      <span className="text-xs md:text-sm text-gray-400 break-keep">리스트가 비어있습니다</span>
                     ) : (
                       nodes.map((node) => (
                         <button
                           key={node.id}
                           onClick={() => findFromHead(node.data)}
                           disabled={isAnimating}
-                          className="flex-shrink-0 px-3 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors text-sm whitespace-nowrap"
+                          className="flex-shrink-0 px-2 py-1 md:px-3 md:py-2 bg-green-500 text-white rounded-md hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors text-[10px] md:text-sm whitespace-nowrap break-keep"
                         >
                           findFromHead({node.data})
                         </button>
@@ -639,22 +639,22 @@ const DoublyLinkedList = () => {
                   </div>
                 </td>
               </tr>
-              <tr className="h-[60px]">
-                <td className="py-3 px-4">
-                  <span className="text-sm font-semibold text-gray-700">findFromTail(data)</span>
-                  <span className="ml-2 text-xs text-gray-500">(O(n))</span>
+              <tr className="md:h-[60px]">
+                <td className="py-2 px-2 md:py-3 md:px-4 break-keep">
+                  <span className="text-xs md:text-sm font-semibold text-gray-700 break-keep">findFromTail(data)</span>
+                  <span className="ml-1 md:ml-2 text-[10px] md:text-xs text-gray-500 break-keep">(O(n))</span>
                 </td>
-                <td className="py-3 px-4">
-                  <div className="flex gap-2 h-[36px] items-center overflow-x-auto">
+                <td className="py-2 px-2 md:py-3 md:px-4">
+                  <div className="flex gap-1.5 md:gap-2 h-[32px] md:h-[36px] items-center overflow-x-auto">
                     {nodes.length === 0 ? (
-                      <span className="text-sm text-gray-400">리스트가 비어있습니다</span>
+                      <span className="text-xs md:text-sm text-gray-400 break-keep">리스트가 비어있습니다</span>
                     ) : (
                       nodes.map((node) => (
                         <button
                           key={node.id}
                           onClick={() => findFromTail(node.data)}
                           disabled={isAnimating}
-                          className="flex-shrink-0 px-3 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors text-sm whitespace-nowrap"
+                          className="flex-shrink-0 px-2 py-1 md:px-3 md:py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors text-[10px] md:text-sm whitespace-nowrap break-keep"
                         >
                           findFromTail({node.data})
                         </button>
@@ -666,11 +666,11 @@ const DoublyLinkedList = () => {
             </tbody>
           </table>
         </div>
-        <div className="flex justify-end mt-4">
+        <div className="flex justify-end mt-3 md:mt-4">
           <button
             onClick={reset}
             disabled={isAnimating}
-            className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
+            className="px-2 py-1.5 md:px-4 md:py-2 text-xs md:text-sm bg-gray-500 text-white rounded-md hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors break-keep"
           >
             초기화
           </button>
