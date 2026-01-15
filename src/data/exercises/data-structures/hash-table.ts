@@ -435,14 +435,14 @@ export const hashTableExercises: Exercise[] = [
       '정수 배열과 목표값이 주어졌을 때, 배열에서 두 수를 더해서 목표값이 되는 두 수의 인덱스를 찾는 함수를 작성하세요. 해시 테이블을 사용하여 O(n) 시간에 해결하세요.',
     examples: [
       {
-        input: '{ nums: [2, 7, 11, 15], target: 9 }',
+        input: '{ numbers: [2, 7, 11, 15], target: 9 }',
         output: '[0, 1]',
-        explanation: 'nums[0] + nums[1] = 2 + 7 = 9이므로 [0, 1]을 반환합니다.',
+        explanation: 'numbers[0] + numbers[1] = 2 + 7 = 9이므로 [0, 1]을 반환합니다.',
       },
       {
-        input: '{ nums: [3, 2, 4], target: 6 }',
+        input: '{ numbers: [3, 2, 4], target: 6 }',
         output: '[1, 2]',
-        explanation: 'nums[1] + nums[2] = 2 + 4 = 6이므로 [1, 2]를 반환합니다.',
+        explanation: 'numbers[1] + numbers[2] = 2 + 4 = 6이므로 [1, 2]를 반환합니다.',
       },
     ],
     constraints: [
@@ -454,38 +454,38 @@ export const hashTableExercises: Exercise[] = [
     testCases: [
       {
         input: {
-          nums: [2, 7, 11, 15],
+          numbers: [2, 7, 11, 15],
           target: 9,
         },
         expectedOutput: [0, 1],
       },
       {
         input: {
-          nums: [3, 2, 4],
+          numbers: [3, 2, 4],
           target: 6,
         },
         expectedOutput: [1, 2],
       },
       {
         input: {
-          nums: [3, 3],
+          numbers: [3, 3],
           target: 6,
         },
         expectedOutput: [0, 1],
       },
     ],
     solution: {
-      code: `const solution = (input: { nums: number[]; target: number }): number[] => {
+      code: `const solution = (input: { numbers: number[]; target: number }): number[] => {
   const map = new Map<number, number>();
   
-  for (let i = 0; i < input.nums.length; i++) {
-    const complement = input.target - input.nums[i];
+  for (let i = 0; i < input.numbers.length; i++) {
+    const complement = input.target - input.numbers[i];
     
     if (map.has(complement)) {
       return [map.get(complement)!, i];
     }
     
-    map.set(input.nums[i], i);
+    map.set(input.numbers[i], i);
   }
   
   return [];
@@ -500,12 +500,12 @@ export const hashTableExercises: Exercise[] = [
       '보수가 해시 테이블에 있으면 두 인덱스를 반환합니다.',
     ],
     tags: ['해시 테이블', '두 수의 합', '알고리즘', '기초'],
-    templateCode: `const solution = (input: { nums: number[]; target: number }): number[] => {
+    templateCode: `const solution = (input: { numbers: number[]; target: number }): number[] => {
   // 해시 테이블 생성 (Map 사용)
   const map = new Map<number, number>();
   
   // 배열을 순회하면서
-  for (let i = 0; i < input.nums.length; i++) {
+  for (let i = 0; i < input.numbers.length; i++) {
     // TODO: 현재 숫자와 더해서 목표값이 되는 보수 계산
     // TODO: 보수가 해시 테이블에 있는지 확인
     // TODO: 있으면 두 인덱스 반환, 없으면 현재 숫자를 해시 테이블에 저장
@@ -556,14 +556,14 @@ export const hashTableExercises: Exercise[] = [
       },
     ],
     solution: {
-      code: `const solution = (nums: number[]): boolean => {
+      code: `const solution = (numbers: number[]): boolean => {
   const seen = new Set<number>();
   
-  for (const num of nums) {
-    if (seen.has(num)) {
+  for (const value of numbers) {
+    if (seen.has(value)) {
       return true;
     }
-    seen.add(num);
+    seen.add(value);
   }
   
   return false;
@@ -578,12 +578,12 @@ export const hashTableExercises: Exercise[] = [
       '있으면 중복이므로 true를 반환하고, 없으면 Set에 추가합니다.',
     ],
     tags: ['해시 테이블', '중복 체크', 'Set', '기초'],
-    templateCode: `const solution = (nums: number[]): boolean => {
+    templateCode: `const solution = (numbers: number[]): boolean => {
   // 해시 테이블 생성 (Set 사용)
   const seen = new Set<number>();
   
   // 배열을 순회하면서
-  for (const num of nums) {
+  for (const value of numbers) {
     // TODO: 현재 숫자가 Set에 이미 있는지 확인
     // TODO: 있으면 true 반환, 없으면 Set에 추가
   }

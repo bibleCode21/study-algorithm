@@ -39,15 +39,15 @@ export const arrayExercises: Exercise[] = [
       },
     ],
     solution: {
-      code: `function solution(arr: number[]): number {
-  return arr.reduce((sum, num) => sum + num, 0);
+      code: `function solution(array: number[]): number {
+  return array.reduce((sum, value) => sum + value, 0);
 }`,
       language: 'typescript',
       explanation: 'reduce 메서드를 사용하여 배열의 모든 요소를 더합니다. 초기값은 0으로 설정합니다.',
     },
     hints: ['배열을 순회하면서 각 요소를 더해야 합니다.', 'reduce 메서드나 for 루프를 사용할 수 있습니다.'],
     tags: ['배열', '기초', '순회'],
-    templateCode: `function solution(arr: number[]): number {
+    templateCode: `function solution(array: number[]): number {
   // 여기에 코드를 작성하세요
   throw new Error('구현해주세요');
 }`,
@@ -101,14 +101,14 @@ export const arrayExercises: Exercise[] = [
       },
     ],
     solution: {
-      code: `function solution(arr: number[][]): number[] {
+      code: `function solution(array: number[][]): number[] {
   const result: number[] = [];
   
   // 바깥쪽 루프: 마지막 행부터 첫 번째 행까지
-  for (let i = arr.length - 1; i >= 0; i--) {
+  for (let i = array.length - 1; i >= 0; i--) {
     // 안쪽 루프: 마지막 열부터 첫 번째 열까지
-    for (let j = arr[i].length - 1; j >= 0; j--) {
-      result.push(arr[i][j]);
+    for (let j = array[i].length - 1; j >= 0; j--) {
+      result.push(array[i][j]);
     }
   }
   
@@ -124,7 +124,7 @@ export const arrayExercises: Exercise[] = [
       '배열의 인덱스는 0부터 시작하므로 마지막 인덱스는 length - 1입니다.',
     ],
     tags: ['배열', '2차원 배열', '역순', '순회'],
-    templateCode: `function solution(arr: number[][]): number[] {
+    templateCode: `function solution(array: number[][]): number[] {
   // 여기에 코드를 작성하세요
   throw new Error('구현해주세요');
 }`,

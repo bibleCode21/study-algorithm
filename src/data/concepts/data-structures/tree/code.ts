@@ -17,8 +17,8 @@ class Node<T> {
 }
 
 // 사용 예제
-const node = new Node<number>(1);
-console.log(node.value); // 1`,
+const rootNode = new Node<number>(1);
+console.log(rootNode.value); // 1`,
   },
   {
     language: 'typescript',
@@ -36,16 +36,16 @@ class Node<T> {
   }
 }
 
-class NodeMgmt<T> {
-  head: Node<T>;
+class BinarySearchTree<T> {
+  root: Node<T>;
 
-  constructor(head: Node<T>) {
-    this.head = head;
+  constructor(root: Node<T>) {
+    this.root = root;
   }
 
   // 값 삽입
   insert(value: T): void {
-    let currentNode: Node<T> = this.head;
+    let currentNode: Node<T> = this.root;
     
     while (true) {
       if (value < currentNode.value) {
@@ -68,8 +68,8 @@ class NodeMgmt<T> {
 }
 
 // 사용 예제
-const head = new Node<number>(1);
-const bst = new NodeMgmt(head);
+const root = new Node<number>(1);
+const bst = new BinarySearchTree(root);
 bst.insert(2);
 bst.insert(3);
 bst.insert(0);`,
@@ -89,15 +89,15 @@ class Node<T> {
   }
 }
 
-class NodeMgmt<T> {
-  head: Node<T>;
+class BinarySearchTree<T> {
+  root: Node<T>;
 
-  constructor(head: Node<T>) {
-    this.head = head;
+  constructor(root: Node<T>) {
+    this.root = root;
   }
 
   insert(value: T): void {
-    let currentNode: Node<T> = this.head;
+    let currentNode: Node<T> = this.root;
     
     while (true) {
       if (value < currentNode.value) {
@@ -120,7 +120,7 @@ class NodeMgmt<T> {
 
   // 값 검색
   search(value: T): boolean {
-    let currentNode: Node<T> | null = this.head;
+    let currentNode: Node<T> | null = this.root;
     
     while (currentNode !== null) {
       if (currentNode.value === value) {
@@ -137,8 +137,8 @@ class NodeMgmt<T> {
 }
 
 // 사용 예제
-const head = new Node<number>(1);
-const bst = new NodeMgmt(head);
+const root = new Node<number>(1);
+const bst = new BinarySearchTree(root);
 bst.insert(2);
 bst.insert(3);
 bst.insert(0);
@@ -165,17 +165,17 @@ class Node<T> {
   }
 }
 
-class NodeMgmt<T> {
-  head: Node<T>;
+class BinarySearchTree<T> {
+  root: Node<T>;
   private currentNode: Node<T> | null = null;
   private parent: Node<T> | null = null;
 
-  constructor(head: Node<T>) {
-    this.head = head;
+  constructor(root: Node<T>) {
+    this.root = root;
   }
 
   insert(value: T): void {
-    let currentNode: Node<T> = this.head;
+    let currentNode: Node<T> = this.root;
     
     while (true) {
       if (value < currentNode.value) {
@@ -197,7 +197,7 @@ class NodeMgmt<T> {
   }
 
   search(value: T): boolean {
-    let currentNode: Node<T> | null = this.head;
+    let currentNode: Node<T> | null = this.root;
     
     while (currentNode !== null) {
       if (currentNode.value === value) {
@@ -215,8 +215,8 @@ class NodeMgmt<T> {
   // 삭제할 노드 탐색
   private findNode(value: T): boolean {
     let searched = false;
-    this.currentNode = this.head;
-    this.parent = this.head;
+    this.currentNode = this.root;
+    this.parent = this.root;
     
     while (this.currentNode !== null) {
       if (this.currentNode.value === value) {
@@ -257,8 +257,8 @@ class NodeMgmt<T> {
 }
 
 // 사용 예제
-const head = new Node<number>(5);
-const bst = new NodeMgmt(head);
+const root = new Node<number>(5);
+const bst = new BinarySearchTree(root);
 bst.insert(3);
 bst.insert(7);
 bst.insert(2);
@@ -283,17 +283,17 @@ class Node<T> {
   }
 }
 
-class NodeMgmt<T> {
-  head: Node<T>;
+class BinarySearchTree<T> {
+  root: Node<T>;
   private currentNode: Node<T> | null = null;
   private parent: Node<T> | null = null;
 
-  constructor(head: Node<T>) {
-    this.head = head;
+  constructor(root: Node<T>) {
+    this.root = root;
   }
 
   insert(value: T): void {
-    let currentNode: Node<T> = this.head;
+    let currentNode: Node<T> = this.root;
     
     while (true) {
       if (value < currentNode.value) {
@@ -315,7 +315,7 @@ class NodeMgmt<T> {
   }
 
   search(value: T): boolean {
-    let currentNode: Node<T> | null = this.head;
+    let currentNode: Node<T> | null = this.root;
     
     while (currentNode !== null) {
       if (currentNode.value === value) {
@@ -332,8 +332,8 @@ class NodeMgmt<T> {
 
   private findNode(value: T): boolean {
     let searched = false;
-    this.currentNode = this.head;
-    this.parent = this.head;
+    this.currentNode = this.root;
+    this.parent = this.root;
     
     while (this.currentNode !== null) {
       if (this.currentNode.value === value) {
@@ -389,8 +389,8 @@ class NodeMgmt<T> {
 }
 
 // 사용 예제
-const head = new Node<number>(5);
-const bst = new NodeMgmt(head);
+const root = new Node<number>(5);
+const bst = new BinarySearchTree(root);
 bst.insert(3);
 bst.insert(7);
 bst.insert(2);
@@ -415,17 +415,17 @@ class Node<T> {
   }
 }
 
-class NodeMgmt<T> {
-  head: Node<T>;
+class BinarySearchTree<T> {
+  root: Node<T>;
   private currentNode: Node<T> | null = null;
   private parent: Node<T> | null = null;
 
-  constructor(head: Node<T>) {
-    this.head = head;
+  constructor(root: Node<T>) {
+    this.root = root;
   }
 
   insert(value: T): void {
-    let currentNode: Node<T> = this.head;
+    let currentNode: Node<T> = this.root;
     
     while (true) {
       if (value < currentNode.value) {
@@ -447,7 +447,7 @@ class NodeMgmt<T> {
   }
 
   search(value: T): boolean {
-    let currentNode: Node<T> | null = this.head;
+    let currentNode: Node<T> | null = this.root;
     
     while (currentNode !== null) {
       if (currentNode.value === value) {
@@ -464,8 +464,8 @@ class NodeMgmt<T> {
 
   private findNode(value: T): boolean {
     let searched = false;
-    this.currentNode = this.head;
-    this.parent = this.head;
+    this.currentNode = this.root;
+    this.parent = this.root;
     
     while (this.currentNode !== null) {
       if (this.currentNode.value === value) {
@@ -521,43 +521,43 @@ class NodeMgmt<T> {
     if (this.currentNode!.left !== null && this.currentNode!.right !== null) {
       // Case 3-1: 삭제할 Node가 Parent Node 왼쪽에 있을 때
       if (value < this.parent!.value) {
-        let changeNode = this.currentNode!.right;
-        let changeNodeParent = this.currentNode!.right;
+        let replacementNode = this.currentNode!.right;
+        let replacementParent = this.currentNode!.right;
         
-        while (changeNode.left !== null) {
-          changeNodeParent = changeNode;
-          changeNode = changeNode.left;
+        while (replacementNode.left !== null) {
+          replacementParent = replacementNode;
+          replacementNode = replacementNode.left;
         }
         
-        if (changeNode.right !== null) {
-          changeNodeParent.left = changeNode.right;
+        if (replacementNode.right !== null) {
+          replacementParent.left = replacementNode.right;
         } else {
-          changeNodeParent.left = null;
+          replacementParent.left = null;
         }
         
-        this.parent!.left = changeNode;
-        changeNode.right = this.currentNode!.right;
-        changeNode.left = this.currentNode!.left;
+        this.parent!.left = replacementNode;
+        replacementNode.right = this.currentNode!.right;
+        replacementNode.left = this.currentNode!.left;
       } 
       // Case 3-2: 삭제할 Node가 Parent Node 오른쪽에 있을 때
       else {
-        let changeNode = this.currentNode!.right;
-        let changeNodeParent = this.currentNode!.right;
+        let replacementNode = this.currentNode!.right;
+        let replacementParent = this.currentNode!.right;
         
-        while (changeNode.left !== null) {
-          changeNodeParent = changeNode;
-          changeNode = changeNode.left;
+        while (replacementNode.left !== null) {
+          replacementParent = replacementNode;
+          replacementNode = replacementNode.left;
         }
         
-        if (changeNode.right !== null) {
-          changeNodeParent.left = changeNode.right;
+        if (replacementNode.right !== null) {
+          replacementParent.left = replacementNode.right;
         } else {
-          changeNodeParent.left = null;
+          replacementParent.left = null;
         }
         
-        this.parent!.right = changeNode;
-        changeNode.left = this.currentNode!.left;
-        changeNode.right = this.currentNode!.right;
+        this.parent!.right = replacementNode;
+        replacementNode.left = this.currentNode!.left;
+        replacementNode.right = this.currentNode!.right;
       }
     }
 
@@ -566,8 +566,8 @@ class NodeMgmt<T> {
 }
 
 // 사용 예제
-const head = new Node<number>(5);
-const bst = new NodeMgmt(head);
+const root = new Node<number>(5);
+const bst = new BinarySearchTree(root);
 bst.insert(3);
 bst.insert(7);
 bst.insert(2);
@@ -648,12 +648,12 @@ class BinarySearchTree<T> {
       return null;
     }
     
-    let current = this.root;
-    while (current.left !== null) {
-      current = current.left;
+    let currentNode = this.root;
+    while (currentNode.left !== null) {
+      currentNode = currentNode.left;
     }
     
-    return current.value;
+    return currentNode.value;
   }
 
   // 최대값 찾기
@@ -662,12 +662,12 @@ class BinarySearchTree<T> {
       return null;
     }
     
-    let current = this.root;
-    while (current.right !== null) {
-      current = current.right;
+    let currentNode = this.root;
+    while (currentNode.right !== null) {
+      currentNode = currentNode.right;
     }
     
-    return current.value;
+    return currentNode.value;
   }
 
   // 값 삭제
@@ -706,11 +706,11 @@ class BinarySearchTree<T> {
   }
 
   private findMinNode(node: Node<T>): Node<T> {
-    let current = node;
-    while (current.left !== null) {
-      current = current.left;
+    let currentNode = node;
+    while (currentNode.left !== null) {
+      currentNode = currentNode.left;
     }
-    return current;
+    return currentNode;
   }
 
   // 전위 순회 (Pre-order): 루트 -> 왼쪽 -> 오른쪽
@@ -753,14 +753,14 @@ class BinarySearchTree<T> {
     const queue: Node<T>[] = [this.root];
 
     while (queue.length > 0) {
-      const node = queue.shift()!;
-      result.push(node.value);
+      const currentNode = queue.shift()!;
+      result.push(currentNode.value);
 
-      if (node.left !== null) {
-        queue.push(node.left);
+      if (currentNode.left !== null) {
+        queue.push(currentNode.left);
       }
-      if (node.right !== null) {
-        queue.push(node.right);
+      if (currentNode.right !== null) {
+        queue.push(currentNode.right);
       }
     }
 
@@ -852,11 +852,11 @@ class BinaryTree<T> {
     const queue: TreeNode<T>[] = [this.root];
 
     while (queue.length > 0) {
-      const node = queue.shift()!;
-      result.push(node.value);
+      const currentNode = queue.shift()!;
+      result.push(currentNode.value);
 
-      if (node.left) queue.push(node.left);
-      if (node.right) queue.push(node.right);
+      if (currentNode.left) queue.push(currentNode.left);
+      if (currentNode.right) queue.push(currentNode.right);
     }
 
     return result;

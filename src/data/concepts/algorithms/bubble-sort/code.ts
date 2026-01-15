@@ -6,9 +6,9 @@ export const code: CodeExample[] = [
     code: `// 버블 정렬 기본 구현
 // 인접한 두 요소를 비교하여 순서가 잘못된 경우 교환하는 방식으로 정렬
 
-const bubbleSort = (arr: number[]): number[] => {
-  const n = arr.length;
-  const result = [...arr]; // 원본 배열 보호
+const bubbleSort = (array: number[]): number[] => {
+  const n = array.length;
+  const result = [...array]; // 원본 배열 보호
 
   // 외부 루프: n-1번 반복 (각 반복마다 가장 큰 요소가 끝으로 이동)
   for (let i = 0; i < n - 1; i++) {
@@ -27,8 +27,8 @@ const bubbleSort = (arr: number[]): number[] => {
 };
 
 // 사용 예제
-const arr = [64, 34, 25, 12, 22, 11, 90];
-const sorted = bubbleSort(arr);
+const array = [64, 34, 25, 12, 22, 11, 90];
+const sorted = bubbleSort(array);
 // sorted는 [11, 12, 22, 25, 34, 64, 90]`,
   },
   {
@@ -36,9 +36,9 @@ const sorted = bubbleSort(arr);
     code: `// 버블 정렬 최적화 버전 (조기 종료)
 // 이미 정렬된 배열의 경우 불필요한 반복을 방지하는 최적화
 
-const bubbleSortOptimized = (arr: number[]): number[] => {
-  const n = arr.length;
-  const result = [...arr]; // 원본 배열 보호
+const bubbleSortOptimized = (array: number[]): number[] => {
+  const n = array.length;
+  const result = [...array]; // 원본 배열 보호
 
   // 외부 루프: n-1번 반복
   for (let i = 0; i < n - 1; i++) {
@@ -64,13 +64,13 @@ const bubbleSortOptimized = (arr: number[]): number[] => {
 };
 
 // 사용 예제
-const arr1 = [64, 34, 25, 12, 22, 11, 90];
-const sorted1 = bubbleSortOptimized(arr1);
+const array1 = [64, 34, 25, 12, 22, 11, 90];
+const sorted1 = bubbleSortOptimized(array1);
 // sorted1는 [11, 12, 22, 25, 34, 64, 90]
 
 // 이미 정렬된 배열 (최적화 효과 확인)
-const arr2 = [1, 2, 3, 4, 5];
-const sorted2 = bubbleSortOptimized(arr2);
+const array2 = [1, 2, 3, 4, 5];
+const sorted2 = bubbleSortOptimized(array2);
 // sorted2는 [1, 2, 3, 4, 5] (한 번의 순회로 종료)`,
   },
   {
@@ -78,7 +78,7 @@ const sorted2 = bubbleSortOptimized(arr2);
     code: `// 버블 정렬 단계별 이해
 // 데이터가 4개일 때 버블 정렬의 동작 과정을 단계별로 확인
 
-const dataList = [1, 9, 3, 2];
+const array = [1, 9, 3, 2];
 
 // 1차 로직 적용
 // 1과 9 비교, 자리바꿈 없음 [1, 9, 3, 2]
@@ -96,9 +96,9 @@ const dataList = [1, 9, 3, 2];
 // 3과 9 비교, 자리바꿈 없음 [1, 2, 3, 9]
 
 // 버블 정렬 함수로 확인
-const bubbleSort = (arr: number[]): number[] => {
-  const n = arr.length;
-  const result = [...arr];
+const bubbleSort = (array: number[]): number[] => {
+  const n = array.length;
+  const result = [...array];
 
   for (let i = 0; i < n - 1; i++) {
     for (let j = 0; j < n - i - 1; j++) {

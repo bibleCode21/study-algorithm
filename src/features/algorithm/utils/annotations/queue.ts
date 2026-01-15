@@ -41,27 +41,27 @@ export const queueAnnotations: LanguageAnnotations = {
           'size 메서드: 큐에 저장된 데이터의 개수를 반환합니다. 배열의 길이를 반환하므로 O(1) 시간이 소요됩니다.',
       },
     ],
-    // 두 번째 예제: LifoQueue 구현 (1-38줄)
+    // 두 번째 예제: Stack 구현 (1-38줄)
     [
       {
         line: 2,
         comment:
-          'LifoQueue 클래스: LIFO(Last-In, First-Out) 구조를 구현하는 큐입니다. 스택과 동일한 동작을 하지만 큐의 인터페이스를 사용합니다.',
+          'Stack 클래스: LIFO(Last-In, First-Out) 구조를 구현하는 스택입니다.',
       },
       {
         line: 11,
         comment:
-          'enqueue 메서드: 큐의 끝에 데이터를 추가합니다. push 메서드를 사용하여 O(1) 시간에 추가합니다.',
+          'push 메서드: 스택의 끝에 데이터를 추가합니다. push 메서드를 사용하여 O(1) 시간에 추가합니다.',
       },
       {
         line: 15,
         comment:
-          'dequeue 메서드: 큐의 끝에서 데이터를 제거하고 반환합니다. pop 메서드를 사용하여 O(1) 시간에 제거합니다. 이것이 LIFO 구조의 특징입니다.',
+          'pop 메서드: 스택의 끝에서 데이터를 제거하고 반환합니다. pop 메서드를 사용하여 O(1) 시간에 제거합니다. 이것이 LIFO 구조의 특징입니다.',
       },
       {
         line: 19,
         comment:
-          'top 메서드: 큐의 가장 위에 있는 데이터를 확인합니다. 스택의 peek 메서드와 동일한 역할을 합니다.',
+          'peek 메서드: 스택의 가장 위에 있는 데이터를 확인합니다. 데이터를 제거하지 않고 확인만 합니다.',
       },
     ],
     // 세 번째 예제: PriorityQueue 구현 (1-46줄)

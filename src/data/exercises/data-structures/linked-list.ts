@@ -54,26 +54,26 @@ export const linkedListExercises: Exercise[] = [
   }
 }
 
-function solution(arr: number[]): number[] {
-  if (arr.length === 0) {
+function solution(array: number[]): number[] {
+  if (array.length === 0) {
     return [];
   }
 
-  let head: ListNode<number> | null = new ListNode(arr[0]);
-  let current = head;
+  let head: ListNode<number> | null = new ListNode(array[0]);
+  let currentNode = head;
 
   // 나머지 요소들을 링크드 리스트에 추가
-  for (let i = 1; i < arr.length; i++) {
-    current.next = new ListNode(arr[i]);
-    current = current.next;
+  for (let i = 1; i < array.length; i++) {
+    currentNode.next = new ListNode(array[i]);
+    currentNode = currentNode.next;
   }
 
   // 링크드 리스트를 배열로 변환
   const result: number[] = [];
-  current = head;
-  while (current !== null) {
-    result.push(current.data);
-    current = current.next;
+  currentNode = head;
+  while (currentNode !== null) {
+    result.push(currentNode.data);
+    currentNode = currentNode.next;
   }
 
   return result;
@@ -88,7 +88,7 @@ function solution(arr: number[]): number[] {
       '링크드 리스트를 순회하여 배열로 변환합니다.',
     ],
     tags: ['링크드 리스트', '노드', '추가', '기초'],
-    templateCode: `function solution(arr: number[]): number[] {
+    templateCode: `function solution(array: number[]): number[] {
   // 여기에 코드를 작성하세요
   throw new Error('구현해주세요');
 }`,
@@ -153,10 +153,10 @@ function solution(input: { values: number[]; deleteValue: number }): number[] {
 
   // 링크드 리스트 생성
   let head: ListNode<number> | null = new ListNode(input.values[0]);
-  let current = head;
+  let currentNode = head;
   for (let i = 1; i < input.values.length; i++) {
-    current.next = new ListNode(input.values[i]);
-    current = current.next;
+    currentNode.next = new ListNode(input.values[i]);
+    currentNode = currentNode.next;
   }
 
   // head 노드를 삭제해야 하는 경우
@@ -164,22 +164,22 @@ function solution(input: { values: number[]; deleteValue: number }): number[] {
     head = head.next;
   } else {
     // 중간 노드나 마지막 노드를 삭제하는 경우
-    current = head;
-    while (current.next !== null) {
-      if (current.next.data === input.deleteValue) {
-        current.next = current.next.next;
+    currentNode = head;
+    while (currentNode.next !== null) {
+      if (currentNode.next.data === input.deleteValue) {
+        currentNode.next = currentNode.next.next;
         break;
       }
-      current = current.next;
+      currentNode = currentNode.next;
     }
   }
 
   // 링크드 리스트를 배열로 변환
   const result: number[] = [];
-  current = head;
-  while (current !== null) {
-    result.push(current.data);
-    current = current.next;
+  currentNode = head;
+  while (currentNode !== null) {
+    result.push(currentNode.data);
+    currentNode = currentNode.next;
   }
 
   return result;
@@ -252,38 +252,38 @@ function solution(input: { values: number[]; deleteValue: number }): number[] {
   }
 }
 
-function solution(arr: number[]): number[] {
-  if (arr.length === 0) {
+function solution(array: number[]): number[] {
+  if (array.length === 0) {
     return [];
   }
 
   // 링크드 리스트 생성
-  let head: ListNode<number> | null = new ListNode(arr[0]);
-  let current = head;
-  for (let i = 1; i < arr.length; i++) {
-    current.next = new ListNode(arr[i]);
-    current = current.next;
+  let head: ListNode<number> | null = new ListNode(array[0]);
+  let currentNode = head;
+  for (let i = 1; i < array.length; i++) {
+    currentNode.next = new ListNode(array[i]);
+    currentNode = currentNode.next;
   }
 
   // 링크드 리스트 역순으로 만들기
   let prev: ListNode<number> | null = null;
-  current = head;
+  currentNode = head;
   
-  while (current !== null) {
-    const next = current.next;
-    current.next = prev;
-    prev = current;
-    current = next;
+  while (currentNode !== null) {
+    const next = currentNode.next;
+    currentNode.next = prev;
+    prev = currentNode;
+    currentNode = next;
   }
   
   head = prev;
 
   // 링크드 리스트를 배열로 변환
   const result: number[] = [];
-  current = head;
-  while (current !== null) {
-    result.push(current.data);
-    current = current.next;
+  currentNode = head;
+  while (currentNode !== null) {
+    result.push(currentNode.data);
+    currentNode = currentNode.next;
   }
 
   return result;
@@ -298,7 +298,7 @@ function solution(arr: number[]): number[] {
       '순회가 끝나면 prev가 새로운 head가 됩니다.',
     ],
     tags: ['링크드 리스트', '역순', '포인터', '중급'],
-    templateCode: `function solution(arr: number[]): number[] {
+    templateCode: `function solution(array: number[]): number[] {
   // 여기에 코드를 작성하세요
   throw new Error('구현해주세요');
 }`,
@@ -355,13 +355,13 @@ function solution(arr: number[]): number[] {
   }
 }
 
-function solution(arr: number[]): number {
+function solution(array: number[]): number {
   // 링크드 리스트 생성
-  let head: ListNode<number> | null = new ListNode(arr[0]);
-  let current = head;
-  for (let i = 1; i < arr.length; i++) {
-    current.next = new ListNode(arr[i]);
-    current = current.next;
+  let head: ListNode<number> | null = new ListNode(array[0]);
+  let currentNode = head;
+  for (let i = 1; i < array.length; i++) {
+    currentNode.next = new ListNode(array[i]);
+    currentNode = currentNode.next;
   }
 
   // 두 개의 포인터를 사용: slow는 한 칸씩, fast는 두 칸씩 이동
@@ -385,7 +385,7 @@ function solution(arr: number[]): number {
       'fast가 끝에 도달하면 slow는 중간 노드를 가리키게 됩니다.',
     ],
     tags: ['링크드 리스트', '중간 노드', '투 포인터', '기초'],
-    templateCode: `function solution(arr: number[]): number {
+    templateCode: `function solution(array: number[]): number {
   // 여기에 코드를 작성하세요
   throw new Error('구현해주세요');
 }`,
@@ -457,17 +457,17 @@ function solution(input: { values: number[]; cycleIndex: number }): boolean {
   const nodes: ListNode<number>[] = [];
   let head: ListNode<number> | null = new ListNode(input.values[0]);
   nodes.push(head);
-  let current = head;
+  let currentNode = head;
 
   for (let i = 1; i < input.values.length; i++) {
-    current.next = new ListNode(input.values[i]);
-    current = current.next;
-    nodes.push(current);
+    currentNode.next = new ListNode(input.values[i]);
+    currentNode = currentNode.next;
+    nodes.push(currentNode);
   }
 
   // 사이클 생성
   if (input.cycleIndex >= 0 && input.cycleIndex < nodes.length) {
-    current.next = nodes[input.cycleIndex];
+    currentNode.next = nodes[input.cycleIndex];
   }
 
   // Floyd's Cycle Detection Algorithm (토끼와 거북이 알고리즘)
@@ -503,65 +503,65 @@ function solution(input: { values: number[]; cycleIndex: number }): boolean {
   {
     id: 'linked-list-node-mgmt',
     conceptId: 'linked-list',
-    title: 'NodeMgmt 클래스 구현하기',
+    title: 'LinkedList 클래스 구현하기',
     difficulty: 'medium',
     description:
-      '링크드 리스트를 관리하는 NodeMgmt 클래스를 구현하세요. ListNode 클래스와 NodeMgmt 클래스를 작성하고, add, desc, delete, searchNode 메서드를 구현하세요. delete 메서드는 특정 값을 가진 노드 중 첫 번째로 나타나는 노드만 삭제합니다. 각 노드는 별도의 객체이므로, 같은 값을 가진 노드가 여러 개 있어도 각각은 독립적인 노드입니다.',
+      '링크드 리스트를 관리하는 LinkedList 클래스를 구현하세요. ListNode 클래스와 LinkedList 클래스를 작성하고, add, toArray, delete, find 메서드를 구현하세요. delete 메서드는 특정 값을 가진 노드 중 첫 번째로 나타나는 노드만 삭제합니다. 각 노드는 별도의 객체이므로, 같은 값을 가진 노드가 여러 개 있어도 각각은 독립적인 노드입니다.',
     examples: [
       {
-        input: '{ operations: ["add", "add", "add", "desc"], values: [1, 2, 3] }',
+        input: '{ operations: ["add", "add", "add", "toArray"], values: [1, 2, 3] }',
         output: '[1, 2, 3]',
-        explanation: '1, 2, 3을 순서대로 추가한 후 desc()로 모든 데이터를 반환합니다.',
+        explanation: '1, 2, 3을 순서대로 추가한 후 toArray()로 모든 데이터를 반환합니다.',
       },
       {
-        input: '{ operations: ["add", "delete", "desc"], values: [1, 2] }',
+        input: '{ operations: ["add", "delete", "toArray"], values: [1, 2] }',
         output: '[2]',
         explanation: '1을 초기값으로 생성하고, 2를 추가한 후, 1을 삭제하면 [2]가 됩니다.',
       },
     ],
     constraints: [
-      'ListNode 클래스와 NodeMgmt 클래스를 모두 구현해야 합니다.',
+      'ListNode 클래스와 LinkedList 클래스를 모두 구현해야 합니다.',
       'add 메서드는 링크드 리스트 끝에 데이터를 추가합니다.',
-      'desc 메서드는 링크드 리스트의 모든 데이터를 배열로 반환합니다.',
+      'toArray 메서드는 링크드 리스트의 모든 데이터를 배열로 반환합니다.',
       'delete 메서드는 특정 값을 가진 노드 중 첫 번째로 나타나는 노드만 삭제합니다.',
-      'searchNode 메서드는 특정 값을 가진 노드 중 첫 번째로 나타나는 노드를 반환합니다.',
+      'find 메서드는 특정 값을 가진 노드 중 첫 번째로 나타나는 노드를 반환합니다.',
       '같은 값을 가진 노드가 여러 개 있어도 각각은 독립적인 노드입니다.',
     ],
     testCases: [
       {
         input: {
-          operations: ['add', 'add', 'add', 'desc'],
+          operations: ['add', 'add', 'add', 'toArray'],
           values: [1, 2, 3],
         },
         expectedOutput: [1, 2, 3],
       },
       {
         input: {
-          operations: ['add', 'delete', 'desc'],
+          operations: ['add', 'delete', 'toArray'],
           values: [1, 2],
         },
         expectedOutput: [2],
       },
       {
         input: {
-          operations: ['add', 'add', 'delete', 'desc'],
+          operations: ['add', 'add', 'delete', 'toArray'],
           values: [1, 2, 1],
         },
         expectedOutput: [2, 1],
       },
     ],
     templateCode: [
-      `// ListNode 클래스와 NodeMgmt 클래스를 구현하세요
+      `// ListNode 클래스와 LinkedList 클래스를 구현하세요
 class ListNode<T> {
   // 여기에 ListNode 클래스를 작성하세요
 }
 
-class NodeMgmt<T> {
-  // 여기에 NodeMgmt 클래스를 작성하세요
+class LinkedList<T> {
+  // 여기에 LinkedList 클래스를 작성하세요
 }
 
 const solution = (input: { operations: string[]; values: number[] }): any => {
-  // NodeMgmt 인스턴스를 생성하고 operations를 수행한 후 결과를 반환하세요
+  // LinkedList 인스턴스를 생성하고 operations를 수행한 후 결과를 반환하세요
   // delete 연산의 경우, values 배열에서 다음 값을 가져와서 삭제합니다
   throw new Error('구현해주세요');
 };`,
@@ -578,7 +578,7 @@ const solution = (input: { operations: string[]; values: number[] }): any => {
   }
 }
 
-class NodeMgmt<T> {
+class LinkedList<T> {
   private head: ListNode<T> | null = null;
 
   constructor(data: T) {
@@ -591,20 +591,20 @@ class NodeMgmt<T> {
       return;
     }
 
-    let node = this.head;
-    while (node.next !== null) {
-      node = node.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
     }
-    node.next = new ListNode(data);
+    currentNode.next = new ListNode(data);
   }
 
-  desc(): T[] {
+  toArray(): T[] {
     const result: T[] = [];
-    let node = this.head;
+    let currentNode = this.head;
     
-    while (node !== null) {
-      result.push(node.data);
-      node = node.next;
+    while (currentNode !== null) {
+      result.push(currentNode.data);
+      currentNode = currentNode.next;
     }
     
     return result;
@@ -621,26 +621,26 @@ class NodeMgmt<T> {
       return true;
     }
 
-    let node = this.head;
-    while (node.next !== null) {
-      if (node.next.data === data) {
-        node.next = node.next.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      if (currentNode.next.data === data) {
+        currentNode.next = currentNode.next.next;
         return true;
       }
-      node = node.next;
+      currentNode = currentNode.next;
     }
 
     return false;
   }
 
-  searchNode(data: T): ListNode<T> | null {
-    let node = this.head;
+  find(data: T): ListNode<T> | null {
+    let currentNode = this.head;
     
-    while (node !== null) {
-      if (node.data === data) {
-        return node;
+    while (currentNode !== null) {
+      if (currentNode.data === data) {
+        return currentNode;
       }
-      node = node.next;
+      currentNode = currentNode.next;
     }
     
     return null;
@@ -652,42 +652,42 @@ const solution = (input: { operations: string[]; values: number[] }): any => {
     return [];
   }
 
-  const nodeMgmt = new NodeMgmt(input.values[0]);
+  const linkedList = new LinkedList(input.values[0]);
   let valueIndex = 1;
 
   for (const op of input.operations) {
     if (op === 'add' && valueIndex < input.values.length) {
-      nodeMgmt.add(input.values[valueIndex++]);
+      linkedList.add(input.values[valueIndex++]);
     } else if (op === 'delete') {
       // delete 연산: values 배열에서 다음 값을 가져와서 삭제
       // values 배열이 끝났다면 이미 링크드 리스트에 있는 첫 번째 값을 삭제
       // 첫 번째로 나타나는 노드만 삭제
       if (valueIndex < input.values.length) {
-        nodeMgmt.delete(input.values[valueIndex++]);
+        linkedList.delete(input.values[valueIndex++]);
       } else {
-        const current = nodeMgmt.desc();
+        const current = linkedList.toArray();
         if (current.length > 0) {
-          nodeMgmt.delete(current[0]);
+          linkedList.delete(current[0]);
         }
       }
-    } else if (op === 'desc') {
-      return nodeMgmt.desc();
+    } else if (op === 'toArray') {
+      return linkedList.toArray();
     }
   }
 
-  return nodeMgmt.desc();
+  return linkedList.toArray();
 };`,
       language: 'typescript',
       explanation:
-        'Node 클래스는 데이터와 next 포인터를 가지고 있고, NodeMgmt 클래스는 head를 관리하며 add, desc, delete, searchNode 메서드를 제공합니다.',
+        'ListNode 클래스는 데이터와 next 포인터를 가지고 있고, LinkedList 클래스는 head를 관리하며 add, toArray, delete, find 메서드를 제공합니다.',
     },
     hints: [
       'Node 클래스는 data와 next 필드를 가져야 합니다.',
-      'NodeMgmt 클래스는 head를 private 필드로 관리합니다.',
+      'LinkedList 클래스는 head를 private 필드로 관리합니다.',
       'add 메서드는 링크드 리스트의 끝까지 순회한 후 새 노드를 추가합니다.',
       'delete 메서드는 head 노드 삭제와 중간 노드 삭제를 구분하여 처리합니다.',
     ],
-    tags: ['링크드 리스트', '클래스', 'NodeMgmt', '중급'],
+    tags: ['링크드 리스트', '클래스', 'LinkedList', '중급'],
   },
   {
     id: 'linked-list-doubly',
@@ -695,17 +695,17 @@ const solution = (input: { operations: string[]; values: number[] }): any => {
     title: '더블 링크드 리스트 (Doubly Linked List) 구현하기',
     difficulty: 'medium',
     description:
-      '양방향으로 연결된 더블 링크드 리스트를 구현하세요. Node 클래스에 prev 포인터를 추가하고, NodeMgmt 클래스에 head와 tail을 관리하며, insert, desc, searchFromHead, searchFromTail 메서드를 구현하세요.',
+      '양방향으로 연결된 더블 링크드 리스트를 구현하세요. ListNode 클래스에 prev 포인터를 추가하고, DoublyLinkedList 클래스에 head와 tail을 관리하며, insert, toArray, searchFromHead, searchFromTail 메서드를 구현하세요.',
     examples: [
       {
-        input: '{ operations: ["insert", "insert", "insert", "desc"], values: [1, 2, 3] }',
+        input: '{ operations: ["insert", "insert", "insert", "toArray"], values: [1, 2, 3] }',
         output: '[1, 2, 3]',
-        explanation: '1, 2, 3을 순서대로 삽입한 후 desc()로 모든 데이터를 반환합니다.',
+        explanation: '1, 2, 3을 순서대로 삽입한 후 toArray()로 모든 데이터를 반환합니다.',
       },
     ],
     constraints: [
-      'Node 클래스는 prev와 next 포인터를 모두 가져야 합니다.',
-      'NodeMgmt 클래스는 head와 tail을 모두 관리해야 합니다.',
+      'ListNode 클래스는 prev와 next 포인터를 모두 가져야 합니다.',
+      'DoublyLinkedList 클래스는 head와 tail을 모두 관리해야 합니다.',
       'insert 메서드는 링크드 리스트 끝에 데이터를 추가합니다.',
       'searchFromHead는 head에서부터 검색합니다.',
       'searchFromTail은 tail에서부터 검색합니다.',
@@ -713,32 +713,32 @@ const solution = (input: { operations: string[]; values: number[] }): any => {
     testCases: [
       {
         input: {
-          operations: ['insert', 'insert', 'insert', 'desc'],
+          operations: ['insert', 'insert', 'insert', 'toArray'],
           values: [1, 2, 3],
         },
         expectedOutput: [1, 2, 3],
       },
       {
         input: {
-          operations: ['insert', 'insert', 'searchFromHead', 'desc'],
+          operations: ['insert', 'insert', 'searchFromHead', 'toArray'],
           values: [1, 2, 1],
         },
         expectedOutput: [1, 2],
       },
     ],
     templateCode: [
-      `// 더블 링크드 리스트의 Node 클래스와 NodeMgmt 클래스를 구현하세요
-class Node<T> {
-  // prev, data, next 필드를 가진 Node 클래스를 작성하세요
+      `// 더블 링크드 리스트의 ListNode 클래스와 DoublyLinkedList 클래스를 구현하세요
+class ListNode<T> {
+  // prev, data, next 필드를 가진 ListNode 클래스를 작성하세요
 }
 
-class NodeMgmt<T> {
-  // head와 tail을 관리하는 NodeMgmt 클래스를 작성하세요
-  // insert, desc, searchFromHead, searchFromTail 메서드를 구현하세요
+class DoublyLinkedList<T> {
+  // head와 tail을 관리하는 DoublyLinkedList 클래스를 작성하세요
+  // insert, toArray, searchFromHead, searchFromTail 메서드를 구현하세요
 }
 
 const solution = (input: { operations: string[]; values: number[] }): any => {
-  // NodeMgmt 인스턴스를 생성하고 operations를 수행한 후 결과를 반환하세요
+  // DoublyLinkedList 인스턴스를 생성하고 operations를 수행한 후 결과를 반환하세요
   throw new Error('구현해주세요');
 };`,
     ],
@@ -756,7 +756,7 @@ const solution = (input: { operations: string[]; values: number[] }): any => {
   }
 }
 
-class NodeMgmt<T> {
+class DoublyLinkedList<T> {
   private head: ListNode<T> | null = null;
   private tail: ListNode<T> | null = null;
 
@@ -772,24 +772,24 @@ class NodeMgmt<T> {
       return;
     }
 
-    let node = this.head;
-    while (node.next !== null) {
-      node = node.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
     }
     
-    const new_node = new ListNode(data);
-    node.next = new_node;
-    new_node.prev = node;
-    this.tail = new_node;
+    const newNode = new ListNode(data);
+    currentNode.next = newNode;
+    newNode.prev = currentNode;
+    this.tail = newNode;
   }
 
-  desc(): T[] {
+  toArray(): T[] {
     const result: T[] = [];
-    let node = this.head;
+    let currentNode = this.head;
     
-    while (node !== null) {
-      result.push(node.data);
-      node = node.next;
+    while (currentNode !== null) {
+      result.push(currentNode.data);
+      currentNode = currentNode.next;
     }
     
     return result;
@@ -800,12 +800,12 @@ class NodeMgmt<T> {
       return null;
     }
 
-    let node = this.head;
-    while (node !== null) {
-      if (node.data === data) {
-        return node;
+    let currentNode = this.head;
+    while (currentNode !== null) {
+      if (currentNode.data === data) {
+        return currentNode;
       }
-      node = node.next;
+      currentNode = currentNode.next;
     }
     
     return null;
@@ -816,12 +816,12 @@ class NodeMgmt<T> {
       return null;
     }
 
-    let node = this.tail;
-    while (node !== null) {
-      if (node.data === data) {
-        return node;
+    let currentNode = this.tail;
+    while (currentNode !== null) {
+      if (currentNode.data === data) {
+        return currentNode;
       }
-      node = node.prev;
+      currentNode = currentNode.prev;
     }
     
     return null;
@@ -833,31 +833,31 @@ const solution = (input: { operations: string[]; values: number[] }): any => {
     return [];
   }
 
-  const nodeMgmt = new NodeMgmt(input.values[0]);
+  const doublyLinkedList = new DoublyLinkedList(input.values[0]);
   let valueIndex = 1;
 
   for (const op of input.operations) {
     if (op === 'insert' && valueIndex < input.values.length) {
-      nodeMgmt.insert(input.values[valueIndex++]);
-    } else if (op === 'desc') {
-      return nodeMgmt.desc();
+      doublyLinkedList.insert(input.values[valueIndex++]);
+    } else if (op === 'toArray') {
+      return doublyLinkedList.toArray();
     } else if (op === 'searchFromHead' && valueIndex < input.values.length) {
-      const node = nodeMgmt.searchFromHead(input.values[valueIndex++]);
-      return node ? node.data : null;
+      const foundNode = doublyLinkedList.searchFromHead(input.values[valueIndex++]);
+      return foundNode ? foundNode.data : null;
     } else if (op === 'searchFromTail' && valueIndex < input.values.length) {
-      const node = nodeMgmt.searchFromTail(input.values[valueIndex++]);
-      return node ? node.data : null;
+      const foundNode = doublyLinkedList.searchFromTail(input.values[valueIndex++]);
+      return foundNode ? foundNode.data : null;
     }
   }
 
-  return nodeMgmt.desc();
+  return doublyLinkedList.toArray();
 };`,
       language: 'typescript',
       explanation:
         '더블 링크드 리스트는 각 노드가 prev와 next 포인터를 모두 가지고 있어 양방향 탐색이 가능합니다. head와 tail을 모두 관리하여 양쪽 끝에서 검색할 수 있습니다.',
     },
     hints: [
-      'Node 클래스는 prev, data, next 세 개의 필드를 가져야 합니다.',
+      'ListNode 클래스는 prev, data, next 세 개의 필드를 가져야 합니다.',
       'insert 시 이전 노드의 next와 새 노드의 prev를 연결해야 합니다.',
       'searchFromHead는 next 포인터를 따라가며 검색합니다.',
       'searchFromTail은 prev 포인터를 따라가며 검색합니다.',
@@ -914,7 +914,7 @@ class ListNode<T> {
   }
 }
 
-class NodeMgmt<T> {
+class DoublyLinkedList<T> {
   private head: ListNode<T> | null = null;
   private tail: ListNode<T> | null = null;
 
@@ -930,24 +930,24 @@ class NodeMgmt<T> {
       return;
     }
 
-    let node = this.head;
-    while (node.next !== null) {
-      node = node.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
     }
     
-    const new_node = new ListNode(data);
-    node.next = new_node;
-    new_node.prev = node;
-    this.tail = new_node;
+    const newNode = new ListNode(data);
+    currentNode.next = newNode;
+    newNode.prev = currentNode;
+    this.tail = newNode;
   }
 
-  desc(): T[] {
+  toArray(): T[] {
     const result: T[] = [];
-    let node = this.head;
+    let currentNode = this.head;
     
-    while (node !== null) {
-      result.push(node.data);
-      node = node.next;
+    while (currentNode !== null) {
+      result.push(currentNode.data);
+      currentNode = currentNode.next;
     }
     
     return result;
@@ -979,7 +979,7 @@ const solution = (input: { values: number[]; insertBefore: Array<{ data: number;
   }
 }
 
-class NodeMgmt<T> {
+class DoublyLinkedList<T> {
   private head: ListNode<T> | null = null;
   private tail: ListNode<T> | null = null;
 
@@ -995,24 +995,24 @@ class NodeMgmt<T> {
       return;
     }
 
-    let node = this.head;
-    while (node.next !== null) {
-      node = node.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
     }
     
-    const new_node = new ListNode(data);
-    node.next = new_node;
-    new_node.prev = node;
-    this.tail = new_node;
+    const newNode = new ListNode(data);
+    currentNode.next = newNode;
+    newNode.prev = currentNode;
+    this.tail = newNode;
   }
 
-  desc(): T[] {
+  toArray(): T[] {
     const result: T[] = [];
-    let node = this.head;
+    let currentNode = this.head;
     
-    while (node !== null) {
-      result.push(node.data);
-      node = node.next;
+    while (currentNode !== null) {
+      result.push(currentNode.data);
+      currentNode = currentNode.next;
     }
     
     return result;
@@ -1025,31 +1025,31 @@ class NodeMgmt<T> {
       return true;
     }
 
-    let node = this.tail;
-    while (node !== null && node.data !== beforeData) {
-      node = node.prev;
+    let currentNode = this.tail;
+    while (currentNode !== null && currentNode.data !== beforeData) {
+      currentNode = currentNode.prev;
     }
 
-    if (node === null) {
+    if (currentNode === null) {
       return false;
     }
 
     // head 앞에 삽입하는 경우
-    if (node.prev === null) {
-      const new_node = new ListNode(data);
-      new_node.next = node;
-      node.prev = new_node;
-      this.head = new_node;
+    if (currentNode.prev === null) {
+      const newNode = new ListNode(data);
+      newNode.next = currentNode;
+      currentNode.prev = newNode;
+      this.head = newNode;
       return true;
     }
 
     // 중간에 삽입
-    const new_node = new ListNode(data);
-    const before_new = node.prev;
-    before_new.next = new_node;
-    new_node.prev = before_new;
-    new_node.next = node;
-    node.prev = new_node;
+    const newNode = new ListNode(data);
+    const beforeNode = currentNode.prev;
+    beforeNode.next = newNode;
+    newNode.prev = beforeNode;
+    newNode.next = currentNode;
+    currentNode.prev = newNode;
     
     return true;
   }
@@ -1060,16 +1060,16 @@ const solution = (input: { values: number[]; insertBefore: Array<{ data: number;
     return [];
   }
 
-  const nodeMgmt = new NodeMgmt(input.values[0]);
+  const doublyLinkedList = new DoublyLinkedList(input.values[0]);
   for (let i = 1; i < input.values.length; i++) {
-    nodeMgmt.insert(input.values[i]);
+    doublyLinkedList.insert(input.values[i]);
   }
 
   for (const { data, beforeData } of input.insertBefore) {
-    nodeMgmt.insertBefore(data, beforeData);
+    doublyLinkedList.insertBefore(data, beforeData);
   }
 
-  return nodeMgmt.desc();
+  return doublyLinkedList.toArray();
 };`,
       language: 'typescript',
       explanation:

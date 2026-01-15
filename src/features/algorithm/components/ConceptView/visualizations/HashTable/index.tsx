@@ -392,7 +392,7 @@ const HashTable = () => {
                           >
                             <div className="text-xs font-mono">
                               <div className="font-semibold">key: {node.key}</div>
-                              <div className="mt-1">val: {node.value}</div>
+                              <div className="mt-1">value: {node.value}</div>
                             </div>
                           </div>
                           

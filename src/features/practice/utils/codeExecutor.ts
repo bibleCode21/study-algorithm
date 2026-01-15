@@ -30,30 +30,30 @@ export const compileTypeScript = async (
 /**
  * 깊은 복사를 수행하는 함수
  */
-const deepClone = (obj: any): any => {
-  if (obj === null || typeof obj !== 'object') {
-    return obj;
+const deepClone = (value: any): any => {
+  if (value === null || typeof value !== 'object') {
+    return value;
   }
 
-  if (obj instanceof Date) {
-    return new Date(obj.getTime());
+  if (value instanceof Date) {
+    return new Date(value.getTime());
   }
 
-  if (obj instanceof Array) {
-    return obj.map((item) => deepClone(item));
+  if (value instanceof Array) {
+    return value.map((item) => deepClone(item));
   }
 
-  if (typeof obj === 'object') {
+  if (typeof value === 'object') {
     const cloned: any = {};
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        cloned[key] = deepClone(obj[key]);
+    for (const key in value) {
+      if (value.hasOwnProperty(key)) {
+        cloned[key] = deepClone(value[key]);
       }
     }
     return cloned;
   }
 
-  return obj;
+  return value;
 };
 
 /**

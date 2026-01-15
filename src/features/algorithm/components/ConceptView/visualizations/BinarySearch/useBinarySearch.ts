@@ -26,10 +26,10 @@ export const useBinarySearch = () => {
   }, []);
 
   // 이진 탐색 알고리즘 실행
-  const performBinarySearch = useCallback((arr: number[], targetValue: number): SearchState[] => {
+  const performBinarySearch = useCallback((array: number[], targetValue: number): SearchState[] => {
     const history: SearchState[] = [];
     let left = 0;
-    let right = arr.length - 1;
+    let right = array.length - 1;
     let found = false;
 
     while (left <= right) {
@@ -43,13 +43,13 @@ export const useBinarySearch = () => {
         found: null, // 탐색 중
       };
 
-      if (arr[mid] === targetValue) {
+      if (array[mid] === targetValue) {
         // 찾은 경우
         state.found = true;
         found = true;
         history.push(state);
         break;
-      } else if (arr[mid] < targetValue) {
+      } else if (array[mid] < targetValue) {
         left = mid + 1;
       } else {
         right = mid - 1;

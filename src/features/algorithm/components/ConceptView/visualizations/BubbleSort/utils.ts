@@ -2,11 +2,11 @@
  * 두 요소를 비교하고 필요시 교환
  */
 export const performComparison = (
-  arr: number[],
+  array: number[],
   i: number,
   j: number
 ): { newArray: number[]; swapped: boolean } => {
-  const newArray = [...arr];
+  const newArray = [...array];
   let swapped = false;
 
   if (newArray[j] > newArray[j + 1]) {
@@ -21,6 +21,6 @@ export const performComparison = (
 /**
  * 배열이 정렬되었는지 확인
  */
-export const isArraySorted = (arr: number[]): boolean => {
-  return arr.every((val, idx) => idx === 0 || arr[idx - 1] <= val);
+export const isArraySorted = (array: number[]): boolean => {
+  return array.every((value, index) => index === 0 || array[index - 1] <= value);
 };

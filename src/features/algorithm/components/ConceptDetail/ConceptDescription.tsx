@@ -17,8 +17,8 @@ const parseMarkdown = (text: string): React.ReactNode[] => {
         if (currentList.length > 0) {
             result.push(
                 <ul key={`list-${result.length}`} className="list-disc list-outside space-y-1 my-3 pl-4">
-                    {currentList.map((item, idx) => (
-                        <li key={idx} className="text-gray-700">
+                    {currentList.map((item, index) => (
+                        <li key={index} className="text-gray-700">
                             {parseInlineMarkdown(item)}
                         </li>
                     ))}

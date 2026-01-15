@@ -70,8 +70,8 @@ export const queueExercises: Exercise[] = [
   const results: number[] = [];
 
   // Enqueue: 큐에 데이터 추가
-  function enqueue(data: number): void {
-    queue.push(data);
+  function enqueue(value: number): void {
+    queue.push(value);
   }
 
   // Dequeue: 큐에서 데이터 제거 및 반환
@@ -79,21 +79,21 @@ export const queueExercises: Exercise[] = [
     if (queue.length === 0) {
       return undefined;
     }
-    const data = queue[0];
+    const value = queue[0];
     queue.shift();
-    return data;
+    return value;
   }
 
   // 모든 요소를 enqueue
-  for (const item of items) {
-    enqueue(item);
+  for (const value of items) {
+    enqueue(value);
   }
 
   // 지정된 개수만큼 dequeue
   for (let i = 0; i < count; i++) {
-    const item = dequeue();
-    if (item !== undefined) {
-      results.push(item);
+    const value = dequeue();
+    if (value !== undefined) {
+      results.push(value);
     }
   }
 

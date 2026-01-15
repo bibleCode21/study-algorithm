@@ -70,8 +70,8 @@ export const stackExercises: Exercise[] = [
   const results: number[] = [];
 
   // Push: 스택에 데이터 추가
-  function push(data: number): void {
-    stack.push(data);
+  function push(value: number): void {
+    stack.push(value);
   }
 
   // Pop: 스택에서 데이터 제거 및 반환
@@ -80,15 +80,15 @@ export const stackExercises: Exercise[] = [
   }
 
   // 모든 요소를 push
-  for (const item of items) {
-    push(item);
+  for (const value of items) {
+    push(value);
   }
 
   // 지정된 개수만큼 pop
   for (let i = 0; i < count; i++) {
-    const item = pop();
-    if (item !== undefined) {
-      results.push(item);
+    const value = pop();
+    if (value !== undefined) {
+      results.push(value);
     }
   }
 

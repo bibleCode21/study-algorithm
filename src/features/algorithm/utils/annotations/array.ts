@@ -41,12 +41,12 @@ export const arrayAnnotations: LanguageAnnotations = {
       {
         line: 9,
         comment:
-          '행 접근: dataList[0]은 첫 번째 행 전체를 반환합니다. 1차원 배열로 반환되므로 [1, 2, 3]이 됩니다.',
+          '행 접근: matrix[0]은 첫 번째 행 전체를 반환합니다. 1차원 배열로 반환되므로 [1, 2, 3]이 됩니다.',
       },
       {
         line: 10,
         comment:
-          '요소 접근: dataList[0][0]은 첫 번째 행의 첫 번째 열 요소에 접근합니다. 이중 인덱스를 사용하여 O(1) 시간에 접근할 수 있습니다.',
+          '요소 접근: matrix[0][0]은 첫 번째 행의 첫 번째 열 요소에 접근합니다. 이중 인덱스를 사용하여 O(1) 시간에 접근할 수 있습니다.',
       },
       {
         line: 18,
@@ -89,7 +89,7 @@ export const arrayAnnotations: LanguageAnnotations = {
       {
         line: 24,
         comment:
-          '시작값과 종료값 지정: arr2 배열을 초기화합니다. 빈 배열로 시작하여 반복문으로 값을 추가합니다.',
+          '시작값과 종료값 지정: array2 배열을 초기화합니다. 빈 배열로 시작하여 반복문으로 값을 추가합니다.',
       },
       {
         line: 25,

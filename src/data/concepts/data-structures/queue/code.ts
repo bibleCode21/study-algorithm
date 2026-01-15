@@ -47,8 +47,8 @@ const second = queue.dequeue(); // 2`,
   },
   {
     language: 'typescript',
-    code: `// LifoQueue 구현 (LIFO - Last-In, First-Out, 스택과 동일)
-class LifoQueue<T> {
+    code: `// Stack 구현 (LIFO - Last-In, First-Out)
+class Stack<T> {
   private items: T[] = [];
 
   constructor(item?: T) {
@@ -57,15 +57,15 @@ class LifoQueue<T> {
     }
   }
 
-  enqueue(item: T): void {
+  push(item: T): void {
     this.items.push(item);
   }
 
-  dequeue(): T | undefined {
-    return this.items.pop(); // 마지막 요소 제거
+  pop(): T | undefined {
+    return this.items.pop();
   }
 
-  top(): T | undefined {
+  peek(): T | undefined {
     return this.items[this.items.length - 1];
   }
 
@@ -79,12 +79,12 @@ class LifoQueue<T> {
 }
 
 // 사용 예제
-const lifoQueue = new LifoQueue<number>();
-lifoQueue.enqueue(1);
-lifoQueue.enqueue(2);
-lifoQueue.enqueue(3);
-const last = lifoQueue.dequeue(); // 3 (가장 나중에 추가된 요소)
-const second = lifoQueue.dequeue(); // 2`,
+const stack = new Stack<number>();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+const last = stack.pop(); // 3 (가장 나중에 추가된 요소)
+const second = stack.pop(); // 2`,
   },
   {
     language: 'typescript',
@@ -141,8 +141,8 @@ const third = priorityQueue.dequeue(); // 'china' (우선순위 15)`,
 const queueList: number[] = [];
 
 // Enqueue 함수
-const enqueue = (data: number): void => {
-  queueList.push(data);
+const enqueue = (item: number): void => {
+  queueList.push(item);
 };
 
 // Dequeue 함수
@@ -150,9 +150,9 @@ const dequeue = (): number | undefined => {
   if (queueList.length === 0) {
     return undefined;
   }
-  const data = queueList[0];
+  const item = queueList[0];
   queueList.shift(); // 첫 번째 요소 제거
-  return data;
+  return item;
 };
 
 // 사용 예제

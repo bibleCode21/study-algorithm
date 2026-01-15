@@ -50,11 +50,11 @@ const add = (data: number): void => {
     return;
   }
   
-  let node = head;
-  while (node.next !== null) {
-    node = node.next;
+  let currentNode = head;
+  while (currentNode.next !== null) {
+    currentNode = currentNode.next;
   }
-  node.next = new Node(data);
+  currentNode.next = new Node(data);
 };
 
 // 사용 예제: 1부터 9까지 추가
@@ -83,11 +83,11 @@ class Node<T> {
 // 링크드 리스트를 배열로 변환하여 반환
 const getAllData = <T>(head: Node<T> | null): T[] => {
   const result: T[] = [];
-  let node = head;
+  let currentNode = head;
   
-  while (node !== null) {
-    result.push(node.data);
-    node = node.next;
+  while (currentNode !== null) {
+    result.push(currentNode.data);
+    currentNode = currentNode.next;
   }
   
   return result;
@@ -129,15 +129,15 @@ const insertBefore = <T>(head: Node<T> | null, targetData: T, newData: T): Node<
   }
 
   // 중간에 삽입
-  let node = head;
-  while (node.next !== null) {
-    if (node.next.data === targetData) {
+  let currentNode = head;
+  while (currentNode.next !== null) {
+    if (currentNode.next.data === targetData) {
       const newNode = new Node(newData);
-      newNode.next = node.next;
-      node.next = newNode;
+      newNode.next = currentNode.next;
+      currentNode.next = newNode;
       return head;
     }
-    node = node.next;
+    currentNode = currentNode.next;
   }
 
   return head;
@@ -183,21 +183,21 @@ class LinkedList<T> {
       return;
     }
 
-    let node = this.head;
-    while (node.next !== null) {
-      node = node.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
     }
-    node.next = new Node(data);
+    currentNode.next = new Node(data);
   }
 
   // 링크드 리스트의 모든 데이터를 배열로 반환
   toArray(): T[] {
     const result: T[] = [];
-    let node = this.head;
+    let currentNode = this.head;
     
-    while (node !== null) {
-      result.push(node.data);
-      node = node.next;
+    while (currentNode !== null) {
+      result.push(currentNode.data);
+      currentNode = currentNode.next;
     }
     
     return result;
@@ -243,20 +243,20 @@ class LinkedList<T> {
       return;
     }
 
-    let node = this.head;
-    while (node.next !== null) {
-      node = node.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
     }
-    node.next = new Node(data);
+    currentNode.next = new Node(data);
   }
 
   toArray(): T[] {
     const result: T[] = [];
-    let node = this.head;
+    let currentNode = this.head;
     
-    while (node !== null) {
-      result.push(node.data);
-      node = node.next;
+    while (currentNode !== null) {
+      result.push(currentNode.data);
+      currentNode = currentNode.next;
     }
     
     return result;
@@ -275,13 +275,13 @@ class LinkedList<T> {
     }
 
     // Case 2: head가 아닌 노드를 삭제하는 경우
-    let node = this.head;
-    while (node.next !== null) {
-      if (node.next.data === data) {
-        node.next = node.next.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      if (currentNode.next.data === data) {
+        currentNode.next = currentNode.next.next;
         return true;
       }
-      node = node.next;
+      currentNode = currentNode.next;
     }
 
     return false;
@@ -336,25 +336,25 @@ class DoublyLinkedList<T> {
       return;
     }
 
-    let node = this.head;
-    while (node.next !== null) {
-      node = node.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
     }
     
     const newNode = new Node(data);
-    node.next = newNode;
-    newNode.prev = node;
+    currentNode.next = newNode;
+    newNode.prev = currentNode;
     this.tail = newNode;
   }
 
   // 링크드 리스트의 모든 데이터를 배열로 반환
   toArray(): T[] {
     const result: T[] = [];
-    let node = this.head;
+    let currentNode = this.head;
     
-    while (node !== null) {
-      result.push(node.data);
-      node = node.next;
+    while (currentNode !== null) {
+      result.push(currentNode.data);
+      currentNode = currentNode.next;
     }
     
     return result;
@@ -405,24 +405,24 @@ class DoublyLinkedList<T> {
       return;
     }
 
-    let node = this.head;
-    while (node.next !== null) {
-      node = node.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
     }
     
     const newNode = new Node(data);
-    node.next = newNode;
-    newNode.prev = node;
+    currentNode.next = newNode;
+    newNode.prev = currentNode;
     this.tail = newNode;
   }
 
   toArray(): T[] {
     const result: T[] = [];
-    let node = this.head;
+    let currentNode = this.head;
     
-    while (node !== null) {
-      result.push(node.data);
-      node = node.next;
+    while (currentNode !== null) {
+      result.push(currentNode.data);
+      currentNode = currentNode.next;
     }
     
     return result;
@@ -434,12 +434,12 @@ class DoublyLinkedList<T> {
       return null;
     }
 
-    let node = this.head;
-    while (node !== null) {
-      if (node.data === data) {
-        return node;
+    let currentNode = this.head;
+    while (currentNode !== null) {
+      if (currentNode.data === data) {
+        return currentNode;
       }
-      node = node.next;
+      currentNode = currentNode.next;
     }
     
     return null;
@@ -451,12 +451,12 @@ class DoublyLinkedList<T> {
       return null;
     }
 
-    let node = this.tail;
-    while (node !== null) {
-      if (node.data === data) {
-        return node;
+    let currentNode = this.tail;
+    while (currentNode !== null) {
+      if (currentNode.data === data) {
+        return currentNode;
       }
-      node = node.prev;
+      currentNode = currentNode.prev;
     }
     
     return null;
@@ -510,24 +510,24 @@ class DoublyLinkedList<T> {
       return;
     }
 
-    let node = this.head;
-    while (node.next !== null) {
-      node = node.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
     }
     
     const newNode = new Node(data);
-    node.next = newNode;
-    newNode.prev = node;
+    currentNode.next = newNode;
+    newNode.prev = currentNode;
     this.tail = newNode;
   }
 
   toArray(): T[] {
     const result: T[] = [];
-    let node = this.head;
+    let currentNode = this.head;
     
-    while (node !== null) {
-      result.push(node.data);
-      node = node.next;
+    while (currentNode !== null) {
+      result.push(currentNode.data);
+      currentNode = currentNode.next;
     }
     
     return result;
@@ -538,12 +538,12 @@ class DoublyLinkedList<T> {
       return null;
     }
 
-    let node = this.tail;
-    while (node !== null) {
-      if (node.data === data) {
-        return node;
+    let currentNode = this.tail;
+    while (currentNode !== null) {
+      if (currentNode.data === data) {
+        return currentNode;
       }
-      node = node.prev;
+      currentNode = currentNode.prev;
     }
     
     return null;
@@ -557,31 +557,31 @@ class DoublyLinkedList<T> {
       return true;
     }
 
-    let node = this.tail;
-    while (node !== null && node.data !== beforeData) {
-      node = node.prev;
+    let currentNode = this.tail;
+    while (currentNode !== null && currentNode.data !== beforeData) {
+      currentNode = currentNode.prev;
     }
 
-    if (node === null) {
+    if (currentNode === null) {
       return false;
     }
 
     // head 앞에 삽입하는 경우
-    if (node.prev === null) {
+    if (currentNode.prev === null) {
       const newNode = new Node(data);
-      newNode.next = node;
-      node.prev = newNode;
+      newNode.next = currentNode;
+      currentNode.prev = newNode;
       this.head = newNode;
       return true;
     }
 
     // 중간에 삽입
     const newNode = new Node(data);
-    const beforeNew = node.prev;
+    const beforeNew = currentNode.prev;
     beforeNew.next = newNode;
     newNode.prev = beforeNew;
-    newNode.next = node;
-    node.prev = newNode;
+    newNode.next = currentNode;
+    currentNode.prev = newNode;
     
     return true;
   }
@@ -633,24 +633,24 @@ class DoublyLinkedList<T> {
       return;
     }
 
-    let node = this.head;
-    while (node.next !== null) {
-      node = node.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
     }
     
     const newNode = new Node(data);
-    node.next = newNode;
-    newNode.prev = node;
+    currentNode.next = newNode;
+    newNode.prev = currentNode;
     this.tail = newNode;
   }
 
   toArray(): T[] {
     const result: T[] = [];
-    let node = this.head;
+    let currentNode = this.head;
     
-    while (node !== null) {
-      result.push(node.data);
-      node = node.next;
+    while (currentNode !== null) {
+      result.push(currentNode.data);
+      currentNode = currentNode.next;
     }
     
     return result;
@@ -661,12 +661,12 @@ class DoublyLinkedList<T> {
       return null;
     }
 
-    let node = this.head;
-    while (node !== null) {
-      if (node.data === data) {
-        return node;
+    let currentNode = this.head;
+    while (currentNode !== null) {
+      if (currentNode.data === data) {
+        return currentNode;
       }
-      node = node.next;
+      currentNode = currentNode.next;
     }
     
     return null;
@@ -680,30 +680,30 @@ class DoublyLinkedList<T> {
       return true;
     }
 
-    let node = this.head;
-    while (node !== null && node.data !== afterData) {
-      node = node.next;
+    let currentNode = this.head;
+    while (currentNode !== null && currentNode.data !== afterData) {
+      currentNode = currentNode.next;
     }
 
-    if (node === null) {
+    if (currentNode === null) {
       return false;
     }
 
     // tail 뒤에 삽입하는 경우
-    if (node.next === null) {
+    if (currentNode.next === null) {
       const newNode = new Node(data);
-      node.next = newNode;
-      newNode.prev = node;
+      currentNode.next = newNode;
+      newNode.prev = currentNode;
       this.tail = newNode;
       return true;
     }
 
     // 중간에 삽입
     const newNode = new Node(data);
-    const afterNew = node.next;
+    const afterNew = currentNode.next;
     newNode.next = afterNew;
-    newNode.prev = node;
-    node.next = newNode;
+    newNode.prev = currentNode;
+    currentNode.next = newNode;
     if (afterNew !== null) {
       afterNew.prev = newNode;
     }
@@ -756,11 +756,11 @@ class LinkedList<T> {
       return;
     }
 
-    let current = this.head;
-    while (current.next !== null) {
-      current = current.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      currentNode = currentNode.next;
     }
-    current.next = new Node(data);
+    currentNode.next = new Node(data);
     this.size++;
   }
 
@@ -791,28 +791,28 @@ class LinkedList<T> {
     }
 
     // 중간에 삽입 (0 < index < size)
-    let current = this.head;
+    let currentNode = this.head;
     for (let i = 0; i < index - 1; i++) {
-      current = current!.next;
+      currentNode = currentNode!.next;
     }
 
     // 0 < index < size이므로 current와 current.next는 항상 유효함
     const newNode = new Node(data);
-    newNode.next = current!.next;
-    current!.next = newNode;
+    newNode.next = currentNode!.next;
+    currentNode!.next = newNode;
     this.size++;
     return true;
   }
 
   // 특정 데이터를 가진 노드 검색
   find(data: T): Node<T> | null {
-    let current = this.head;
+    let currentNode = this.head;
     
-    while (current !== null) {
-      if (current.data === data) {
-        return current;
+    while (currentNode !== null) {
+      if (currentNode.data === data) {
+        return currentNode;
       }
-      current = current.next;
+      currentNode = currentNode.next;
     }
     
     return null;
@@ -832,14 +832,14 @@ class LinkedList<T> {
     }
 
     // 중간 또는 끝 노드 제거
-    let current = this.head;
-    while (current.next !== null) {
-      if (current.next.data === data) {
-        current.next = current.next.next;
+    let currentNode = this.head;
+    while (currentNode.next !== null) {
+      if (currentNode.next.data === data) {
+        currentNode.next = currentNode.next.next;
         this.size--;
         return true;
       }
-      current = current.next;
+      currentNode = currentNode.next;
     }
 
     return false;
@@ -848,11 +848,11 @@ class LinkedList<T> {
   // 리스트의 모든 데이터를 배열로 반환
   toArray(): T[] {
     const result: T[] = [];
-    let current = this.head;
+    let currentNode = this.head;
     
-    while (current !== null) {
-      result.push(current.data);
-      current = current.next;
+    while (currentNode !== null) {
+      result.push(currentNode.data);
+      currentNode = currentNode.next;
     }
     
     return result;
@@ -881,8 +881,8 @@ for (let data = 1; data < 10; data++) {
   linkedList.append(data);
 }
 
-const node = linkedList.find(4);
-const foundData = node?.data; // 4
+const foundNode = linkedList.find(4);
+const foundData = foundNode?.data; // 4
 const size = linkedList.getSize(); // 10
 const isEmpty = linkedList.isEmpty(); // false
 
@@ -958,13 +958,13 @@ class DoublyLinkedList<T> {
 
   // head에서부터 특정 데이터 검색
   findFromHead(data: T): Node<T> | null {
-    let current = this.head;
+    let currentNode = this.head;
     
-    while (current !== null) {
-      if (current.data === data) {
-        return current;
+    while (currentNode !== null) {
+      if (currentNode.data === data) {
+        return currentNode;
       }
-      current = current.next;
+      currentNode = currentNode.next;
     }
     
     return null;
@@ -972,13 +972,13 @@ class DoublyLinkedList<T> {
 
   // tail에서부터 특정 데이터 검색
   findFromTail(data: T): Node<T> | null {
-    let current = this.tail;
+    let currentNode = this.tail;
     
-    while (current !== null) {
-      if (current.data === data) {
-        return current;
+    while (currentNode !== null) {
+      if (currentNode.data === data) {
+        return currentNode;
       }
-      current = current.prev;
+      currentNode = currentNode.prev;
     }
     
     return null;
@@ -986,15 +986,15 @@ class DoublyLinkedList<T> {
 
   // 특정 데이터를 가진 노드 제거
   remove(data: T): boolean {
-    const node = this.findFromHead(data);
+    const targetNode = this.findFromHead(data);
     
-    if (node === null) {
+    if (targetNode === null) {
       return false;
     }
 
     // head 노드 제거
-    if (node.prev === null) {
-      this.head = node.next;
+    if (targetNode.prev === null) {
+      this.head = targetNode.next;
       if (this.head !== null) {
         this.head.prev = null;
       } else {
@@ -1005,17 +1005,17 @@ class DoublyLinkedList<T> {
     }
 
     // tail 노드 제거
-    if (node.next === null) {
-      // node.prev는 항상 유효함 (head 노드가 아니므로)
-      this.tail = node.prev;
+    if (targetNode.next === null) {
+      // targetNode.prev는 항상 유효함 (head 노드가 아니므로)
+      this.tail = targetNode.prev;
       this.tail!.next = null;
       this.size--;
       return true;
     }
 
     // 중간 노드 제거
-    node.prev.next = node.next;
-    node.next.prev = node.prev;
+    targetNode.prev.next = targetNode.next;
+    targetNode.next.prev = targetNode.prev;
     this.size--;
     return true;
   }
@@ -1055,16 +1055,16 @@ class DoublyLinkedList<T> {
     }
 
     // 중간에 삽입 (0 < index < size)
-    let current = this.head;
+    let currentNode = this.head;
     for (let i = 0; i < index; i++) {
-      current = current!.next;
+      currentNode = currentNode!.next;
     }
 
     // 0 < index < size이므로 current와 current.prev는 항상 유효함
-    newNode.prev = current.prev;
-    newNode.next = current;
-    current.prev!.next = newNode;
-    current.prev = newNode;
+    newNode.prev = currentNode.prev;
+    newNode.next = currentNode;
+    currentNode.prev!.next = newNode;
+    currentNode.prev = newNode;
     this.size++;
     return true;
   }
@@ -1072,11 +1072,11 @@ class DoublyLinkedList<T> {
   // 리스트의 모든 데이터를 배열로 반환
   toArray(): T[] {
     const result: T[] = [];
-    let current = this.head;
+    let currentNode = this.head;
     
-    while (current !== null) {
-      result.push(current.data);
-      current = current.next;
+    while (currentNode !== null) {
+      result.push(currentNode.data);
+      currentNode = currentNode.next;
     }
     
     return result;

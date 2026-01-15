@@ -84,8 +84,8 @@ recursive(4);`,
 const stackList: number[] = [];
 
 // Push 함수
-const push = (data: number): void => {
-  stackList.push(data);
+const push = (item: number): void => {
+  stackList.push(item);
 };
 
 // Pop 함수
@@ -111,9 +111,9 @@ const third = pop(); // 7`,
 const stackList: number[] = [];
 
 // Push 함수 직접 구현
-const push = (data: number): void => {
-  stackList[stackList.length] = data; // 배열 끝에 추가
-  // 또는 stackList.push(data) 대신 사용
+const push = (item: number): void => {
+  stackList[stackList.length] = item; // 배열 끝에 추가
+  // 또는 stackList.push(item) 대신 사용
 };
 
 // Pop 함수 직접 구현
@@ -121,9 +121,9 @@ const pop = (): number | undefined => {
   if (stackList.length === 0) {
     return undefined;
   }
-  const data = stackList[stackList.length - 1]; // 마지막 요소 가져오기
+  const item = stackList[stackList.length - 1]; // 마지막 요소 가져오기
   stackList.length = stackList.length - 1; // 배열 길이 줄이기 (마지막 요소 제거)
-  return data;
+  return item;
 };
 
 // 사용 예제

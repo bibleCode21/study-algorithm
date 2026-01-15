@@ -21,33 +21,33 @@ export const treeExercises: Exercise[] = [
     ],
     constraints: [
       '트리의 노드 개수는 0 이상 10^4 이하입니다.',
-      '-100 <= Node.val <= 100',
+      '-100 <= Node.value <= 100',
     ],
     testCases: [
       {
-        input: { val: 3, left: { val: 9, left: null, right: null }, right: { val: 20, left: { val: 15, left: null, right: null }, right: { val: 7, left: null, right: null } } },
+        input: { value: 3, left: { value: 9, left: null, right: null }, right: { value: 20, left: { value: 15, left: null, right: null }, right: { value: 7, left: null, right: null } } },
         expectedOutput: 3,
       },
       {
-        input: { val: 1, left: null, right: { val: 2, left: null, right: null } },
+        input: { value: 1, left: null, right: { value: 2, left: null, right: null } },
         expectedOutput: 2,
       },
       {
-        input: { val: 1, left: null, right: null },
+        input: { value: 1, left: null, right: null },
         expectedOutput: 1,
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 3, left: null, right: null }, right: null }, right: null },
+        input: { value: 1, left: { value: 2, left: { value: 3, left: null, right: null }, right: null }, right: null },
         expectedOutput: 3,
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: { val: 6, left: null, right: null }, right: { val: 7, left: null, right: null } } },
+        input: { value: 1, left: { value: 2, left: { value: 4, left: null, right: null }, right: { value: 5, left: null, right: null } }, right: { value: 3, left: { value: 6, left: null, right: null }, right: { value: 7, left: null, right: null } } },
         expectedOutput: 3,
       },
     ],
     solution: {
       code: `interface TreeNode {
-  val: number;
+  value: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }
@@ -72,7 +72,7 @@ const solution = (root: TreeNode | null): number => {
     ],
     tags: ['트리', '이진 트리', '재귀', 'DFS'],
     templateCode: `interface TreeNode {
-  val: number;
+  value: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }
@@ -102,33 +102,33 @@ const solution = (root: TreeNode | null): number => {
     ],
     constraints: [
       '트리의 노드 개수는 0 이상 10^4 이하입니다.',
-      '-100 <= Node.val <= 100',
+      '-100 <= Node.value <= 100',
     ],
     testCases: [
       {
-        input: { val: 1, left: { val: 2, left: null, right: null }, right: { val: 3, left: null, right: null } },
+        input: { value: 1, left: { value: 2, left: null, right: null }, right: { value: 3, left: null, right: null } },
         expectedOutput: 3,
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: null, right: null } },
+        input: { value: 1, left: { value: 2, left: { value: 4, left: null, right: null }, right: { value: 5, left: null, right: null } }, right: { value: 3, left: null, right: null } },
         expectedOutput: 5,
       },
       {
-        input: { val: 1, left: null, right: null },
+        input: { value: 1, left: null, right: null },
         expectedOutput: 1,
       },
       {
-        input: { val: 1, left: { val: 2, left: null, right: null }, right: null },
+        input: { value: 1, left: { value: 2, left: null, right: null }, right: null },
         expectedOutput: 2,
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: { val: 6, left: null, right: null }, right: { val: 7, left: null, right: null } } },
+        input: { value: 1, left: { value: 2, left: { value: 4, left: null, right: null }, right: { value: 5, left: null, right: null } }, right: { value: 3, left: { value: 6, left: null, right: null }, right: { value: 7, left: null, right: null } } },
         expectedOutput: 7,
       },
     ],
     solution: {
       code: `interface TreeNode {
-  val: number;
+  value: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }
@@ -150,7 +150,7 @@ const solution = (root: TreeNode | null): number => {
     ],
     tags: ['트리', '이진 트리', '재귀', 'DFS'],
     templateCode: `interface TreeNode {
-  val: number;
+  value: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }
@@ -180,33 +180,33 @@ const solution = (root: TreeNode | null): number => {
     ],
     constraints: [
       '트리의 노드 개수는 0 이상 100 이하입니다.',
-      '-100 <= Node.val <= 100',
+      '-100 <= Node.value <= 100',
     ],
     testCases: [
       {
-        input: { val: 1, left: { val: 2, left: null, right: null }, right: { val: 3, left: null, right: null } },
+        input: { value: 1, left: { value: 2, left: null, right: null }, right: { value: 3, left: null, right: null } },
         expectedOutput: [1, 2, 3],
       },
       {
-        input: { val: 1, left: null, right: { val: 2, left: { val: 3, left: null, right: null }, right: null } },
+        input: { value: 1, left: null, right: { value: 2, left: { value: 3, left: null, right: null }, right: null } },
         expectedOutput: [1, 2, 3],
       },
       {
-        input: { val: 1, left: null, right: null },
+        input: { value: 1, left: null, right: null },
         expectedOutput: [1],
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: null, right: null } },
+        input: { value: 1, left: { value: 2, left: { value: 4, left: null, right: null }, right: { value: 5, left: null, right: null } }, right: { value: 3, left: null, right: null } },
         expectedOutput: [1, 2, 4, 5, 3],
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: { val: 6, left: null, right: null }, right: { val: 7, left: null, right: null } } },
+        input: { value: 1, left: { value: 2, left: { value: 4, left: null, right: null }, right: { value: 5, left: null, right: null } }, right: { value: 3, left: { value: 6, left: null, right: null }, right: { value: 7, left: null, right: null } } },
         expectedOutput: [1, 2, 4, 5, 3, 6, 7],
       },
     ],
     solution: {
       code: `interface TreeNode {
-  val: number;
+  value: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }
@@ -219,7 +219,7 @@ const solution = (root: TreeNode | null): number[] => {
       return;
     }
     
-    result.push(node.val);
+    result.push(node.value);
     preorder(node.left);
     preorder(node.right);
   };
@@ -237,7 +237,7 @@ const solution = (root: TreeNode | null): number[] => {
     ],
     tags: ['트리', '이진 트리', '재귀', 'DFS', '전위 순회'],
     templateCode: `interface TreeNode {
-  val: number;
+  value: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }
@@ -267,33 +267,33 @@ const solution = (root: TreeNode | null): number[] => {
     ],
     constraints: [
       '트리의 노드 개수는 0 이상 100 이하입니다.',
-      '-100 <= Node.val <= 100',
+      '-100 <= Node.value <= 100',
     ],
     testCases: [
       {
-        input: { val: 1, left: { val: 2, left: null, right: null }, right: { val: 3, left: null, right: null } },
+        input: { value: 1, left: { value: 2, left: null, right: null }, right: { value: 3, left: null, right: null } },
         expectedOutput: [2, 1, 3],
       },
       {
-        input: { val: 1, left: null, right: { val: 2, left: { val: 3, left: null, right: null }, right: null } },
+        input: { value: 1, left: null, right: { value: 2, left: { value: 3, left: null, right: null }, right: null } },
         expectedOutput: [1, 3, 2],
       },
       {
-        input: { val: 1, left: null, right: null },
+        input: { value: 1, left: null, right: null },
         expectedOutput: [1],
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: null, right: null } },
+        input: { value: 1, left: { value: 2, left: { value: 4, left: null, right: null }, right: { value: 5, left: null, right: null } }, right: { value: 3, left: null, right: null } },
         expectedOutput: [4, 2, 5, 1, 3],
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: { val: 6, left: null, right: null }, right: { val: 7, left: null, right: null } } },
+        input: { value: 1, left: { value: 2, left: { value: 4, left: null, right: null }, right: { value: 5, left: null, right: null } }, right: { value: 3, left: { value: 6, left: null, right: null }, right: { value: 7, left: null, right: null } } },
         expectedOutput: [4, 2, 5, 1, 6, 3, 7],
       },
     ],
     solution: {
       code: `interface TreeNode {
-  val: number;
+  value: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }
@@ -307,7 +307,7 @@ const solution = (root: TreeNode | null): number[] => {
     }
     
     inorder(node.left);
-    result.push(node.val);
+    result.push(node.value);
     inorder(node.right);
   };
   
@@ -324,7 +324,7 @@ const solution = (root: TreeNode | null): number[] => {
     ],
     tags: ['트리', '이진 트리', '재귀', 'DFS', '중위 순회'],
     templateCode: `interface TreeNode {
-  val: number;
+  value: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }
@@ -354,33 +354,33 @@ const solution = (root: TreeNode | null): number[] => {
     ],
     constraints: [
       '트리의 노드 개수는 0 이상 2000 이하입니다.',
-      '-1000 <= Node.val <= 1000',
+      '-1000 <= Node.value <= 1000',
     ],
     testCases: [
       {
-        input: { val: 3, left: { val: 9, left: null, right: null }, right: { val: 20, left: { val: 15, left: null, right: null }, right: { val: 7, left: null, right: null } } },
+        input: { value: 3, left: { value: 9, left: null, right: null }, right: { value: 20, left: { value: 15, left: null, right: null }, right: { value: 7, left: null, right: null } } },
         expectedOutput: [3, 9, 20, 15, 7],
       },
       {
-        input: { val: 1, left: null, right: null },
+        input: { value: 1, left: null, right: null },
         expectedOutput: [1],
       },
       {
-        input: { val: 1, left: { val: 2, left: null, right: null }, right: { val: 3, left: null, right: null } },
+        input: { value: 1, left: { value: 2, left: null, right: null }, right: { value: 3, left: null, right: null } },
         expectedOutput: [1, 2, 3],
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: null }, right: { val: 3, left: null, right: { val: 5, left: null, right: null } } },
+        input: { value: 1, left: { value: 2, left: { value: 4, left: null, right: null }, right: null }, right: { value: 3, left: null, right: { value: 5, left: null, right: null } } },
         expectedOutput: [1, 2, 3, 4, 5],
       },
       {
-        input: { val: 1, left: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 5, left: null, right: null } }, right: { val: 3, left: { val: 6, left: null, right: null }, right: { val: 7, left: null, right: null } } },
+        input: { value: 1, left: { value: 2, left: { value: 4, left: null, right: null }, right: { value: 5, left: null, right: null } }, right: { value: 3, left: { value: 6, left: null, right: null }, right: { value: 7, left: null, right: null } } },
         expectedOutput: [1, 2, 3, 4, 5, 6, 7],
       },
     ],
     solution: {
       code: `interface TreeNode {
-  val: number;
+  value: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }
@@ -394,14 +394,14 @@ const solution = (root: TreeNode | null): number[] => {
   const queue: TreeNode[] = [root];
   
   while (queue.length > 0) {
-    const node = queue.shift()!;
-    result.push(node.val);
+    const currentNode = queue.shift()!;
+    result.push(currentNode.value);
     
-    if (node.left !== null) {
-      queue.push(node.left);
+    if (currentNode.left !== null) {
+      queue.push(currentNode.left);
     }
-    if (node.right !== null) {
-      queue.push(node.right);
+    if (currentNode.right !== null) {
+      queue.push(currentNode.right);
     }
   }
   
@@ -418,7 +418,7 @@ const solution = (root: TreeNode | null): number[] => {
     ],
     tags: ['트리', '이진 트리', 'BFS', '레벨 순회', '큐'],
     templateCode: `interface TreeNode {
-  val: number;
+  value: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }
@@ -448,33 +448,33 @@ const solution = (root: TreeNode | null): number[] => {
     ],
     constraints: [
       '트리의 노드 개수는 1 이상 1000 이하입니다.',
-      '-100 <= Node.val <= 100',
+      '-100 <= Node.value <= 100',
     ],
     testCases: [
       {
-        input: { val: 1, left: { val: 2, left: { val: 3, left: null, right: null }, right: { val: 4, left: null, right: null } }, right: { val: 2, left: { val: 4, left: null, right: null }, right: { val: 3, left: null, right: null } } },
+        input: { value: 1, left: { value: 2, left: { value: 3, left: null, right: null }, right: { value: 4, left: null, right: null } }, right: { value: 2, left: { value: 4, left: null, right: null }, right: { value: 3, left: null, right: null } } },
         expectedOutput: true,
       },
       {
-        input: { val: 1, left: { val: 2, left: null, right: { val: 3, left: null, right: null } }, right: { val: 2, left: null, right: { val: 3, left: null, right: null } } },
+        input: { value: 1, left: { value: 2, left: null, right: { value: 3, left: null, right: null } }, right: { value: 2, left: null, right: { value: 3, left: null, right: null } } },
         expectedOutput: false,
       },
       {
-        input: { val: 1, left: null, right: null },
+        input: { value: 1, left: null, right: null },
         expectedOutput: true,
       },
       {
-        input: { val: 1, left: { val: 2, left: null, right: null }, right: { val: 2, left: null, right: null } },
+        input: { value: 1, left: { value: 2, left: null, right: null }, right: { value: 2, left: null, right: null } },
         expectedOutput: true,
       },
       {
-        input: { val: 1, left: { val: 2, left: null, right: null }, right: { val: 3, left: null, right: null } },
+        input: { value: 1, left: { value: 2, left: null, right: null }, right: { value: 3, left: null, right: null } },
         expectedOutput: false,
       },
     ],
     solution: {
       code: `interface TreeNode {
-  val: number;
+  value: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }
@@ -493,7 +493,7 @@ const solution = (root: TreeNode | null): boolean => {
       return false;
     }
     
-    return left.val === right.val &&
+    return left.value === right.value &&
            isMirror(left.left, right.right) &&
            isMirror(left.right, right.left);
   };
@@ -511,7 +511,7 @@ const solution = (root: TreeNode | null): boolean => {
     ],
     tags: ['트리', '이진 트리', '재귀', 'DFS', '대칭'],
     templateCode: `interface TreeNode {
-  val: number;
+  value: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }

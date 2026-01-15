@@ -9,12 +9,12 @@ export const binarySearchExercises: Exercise[] = [
     description: '정렬된 배열에서 특정 값을 찾는 이진 탐색 알고리즘을 구현하세요. 값을 찾으면 인덱스를 반환하고, 찾지 못하면 -1을 반환하세요.',
     examples: [
       {
-        input: 'arr = [1, 3, 5, 7, 9, 11, 13, 15], target = 7',
+        input: 'array = [1, 3, 5, 7, 9, 11, 13, 15], target = 7',
         output: '3',
         explanation: '배열에서 7은 인덱스 3에 위치합니다.',
       },
       {
-        input: 'arr = [2, 3, 8, 12, 20], target = 5',
+        input: 'array = [2, 3, 8, 12, 20], target = 5',
         output: '-1',
         explanation: '배열에 5가 존재하지 않으므로 -1을 반환합니다.',
       },
@@ -52,16 +52,16 @@ export const binarySearchExercises: Exercise[] = [
       },
     ],
     solution: {
-      code: `function solution(arr: number[], target: number): number {
+      code: `function solution(array: number[], target: number): number {
   let left = 0;
-  let right = arr.length - 1;
+  let right = array.length - 1;
 
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
 
-    if (arr[mid] === target) {
+    if (array[mid] === target) {
       return mid;
-    } else if (arr[mid] < target) {
+    } else if (array[mid] < target) {
       left = mid + 1;
     } else {
       right = mid - 1;
@@ -80,7 +80,7 @@ export const binarySearchExercises: Exercise[] = [
       'left와 right 포인터를 사용하여 탐색 범위를 관리하세요.',
     ],
     tags: ['탐색', '이진 탐색', '분할 정복'],
-    templateCode: `function solution(arr: number[], target: number): number {
+    templateCode: `function solution(array: number[], target: number): number {
   // 여기에 코드를 작성하세요
   throw new Error('구현해주세요');
 }`,
@@ -93,12 +93,12 @@ export const binarySearchExercises: Exercise[] = [
     description: '재귀 함수를 사용하여 이진 탐색 알고리즘을 구현하세요. 값을 찾으면 인덱스를 반환하고, 찾지 못하면 -1을 반환하세요.',
     examples: [
       {
-        input: 'arr = [1, 3, 5, 7, 9, 11, 13, 15], target = 7',
+        input: 'array = [1, 3, 5, 7, 9, 11, 13, 15], target = 7',
         output: '3',
         explanation: '배열에서 7은 인덱스 3에 위치합니다.',
       },
       {
-        input: 'arr = [2, 3, 8, 12, 20], target = 5',
+        input: 'array = [2, 3, 8, 12, 20], target = 5',
         output: '-1',
         explanation: '배열에 5가 존재하지 않으므로 -1을 반환합니다.',
       },
@@ -128,12 +128,12 @@ export const binarySearchExercises: Exercise[] = [
       },
     ],
     solution: {
-      code: `function solution(arr: number[], target: number): number {
+      code: `function solution(array: number[], target: number): number {
   const binarySearchRecursive = (
-    arr: number[],
+    array: number[],
     target: number,
     left: number = 0,
-    right: number = arr.length - 1
+    right: number = array.length - 1
   ): number => {
     if (left > right) {
       return -1;
@@ -141,16 +141,16 @@ export const binarySearchExercises: Exercise[] = [
 
     const mid = Math.floor((left + right) / 2);
 
-    if (arr[mid] === target) {
+    if (array[mid] === target) {
       return mid;
-    } else if (arr[mid] < target) {
-      return binarySearchRecursive(arr, target, mid + 1, right);
+    } else if (array[mid] < target) {
+      return binarySearchRecursive(array, target, mid + 1, right);
     } else {
-      return binarySearchRecursive(arr, target, left, mid - 1);
+      return binarySearchRecursive(array, target, left, mid - 1);
     }
   };
 
-  return binarySearchRecursive(arr, target);
+  return binarySearchRecursive(array, target);
 }`,
       language: 'typescript',
       explanation:
@@ -162,7 +162,7 @@ export const binarySearchExercises: Exercise[] = [
       '찾는 값이 중간값보다 크면 오른쪽 절반에서, 작으면 왼쪽 절반에서 재귀적으로 탐색하세요.',
     ],
     tags: ['탐색', '이진 탐색', '재귀', '분할 정복'],
-    templateCode: `function solution(arr: number[], target: number): number {
+    templateCode: `function solution(array: number[], target: number): number {
   // 여기에 코드를 작성하세요
   // 재귀 함수를 사용하여 이진 탐색을 구현하세요
   throw new Error('구현해주세요');
@@ -176,17 +176,17 @@ export const binarySearchExercises: Exercise[] = [
     description: '정렬된 배열과 타겟 값이 주어졌을 때, 타겟이 삽입되어야 할 인덱스를 찾으세요. 타겟이 배열에 존재하면 해당 인덱스를, 존재하지 않으면 삽입되어야 할 위치의 인덱스를 반환하세요.',
     examples: [
       {
-        input: 'arr = [1, 3, 5, 6], target = 5',
+        input: 'array = [1, 3, 5, 6], target = 5',
         output: '2',
         explanation: '5는 배열에 존재하므로 인덱스 2를 반환합니다.',
       },
       {
-        input: 'arr = [1, 3, 5, 6], target = 2',
+        input: 'array = [1, 3, 5, 6], target = 2',
         output: '1',
         explanation: '2는 배열에 존재하지 않지만, 인덱스 1에 삽입되어야 합니다.',
       },
       {
-        input: 'arr = [1, 3, 5, 6], target = 7',
+        input: 'array = [1, 3, 5, 6], target = 7',
         output: '4',
         explanation: '7은 배열에 존재하지 않지만, 배열의 끝에 삽입되어야 하므로 인덱스 4를 반환합니다.',
       },
@@ -224,16 +224,16 @@ export const binarySearchExercises: Exercise[] = [
       },
     ],
     solution: {
-      code: `function solution(arr: number[], target: number): number {
+      code: `function solution(array: number[], target: number): number {
   let left = 0;
-  let right = arr.length - 1;
+  let right = array.length - 1;
 
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
 
-    if (arr[mid] === target) {
+    if (array[mid] === target) {
       return mid;
-    } else if (arr[mid] < target) {
+    } else if (array[mid] < target) {
       left = mid + 1;
     } else {
       right = mid - 1;
@@ -251,7 +251,7 @@ export const binarySearchExercises: Exercise[] = [
       '이진 탐색이 종료될 때 left는 항상 타겟이 삽입되어야 할 위치를 가리킵니다.',
     ],
     tags: ['탐색', '이진 탐색', '배열'],
-    templateCode: `function solution(arr: number[], target: number): number {
+    templateCode: `function solution(array: number[], target: number): number {
   // 여기에 코드를 작성하세요
   throw new Error('구현해주세요');
 }`,

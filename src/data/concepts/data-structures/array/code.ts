@@ -3,55 +3,55 @@ import { CodeExample } from '@/features/algorithm/types/algorithm';
 export const code: CodeExample[] = [
     {
         language: 'typescript',
-        code: `// 1차원 배열: 리스트로 구현
-const dataList: number[] = [1, 2, 3, 4, 5];
+        code: `// 1차원 배열
+const array: number[] = [1, 2, 3, 4, 5];
 
 // 요소 접근 (O(1))
-const first = dataList[0]; // 1
-const second = dataList[1]; // 2
+const first = array[0]; // 1
+const second = array[1]; // 2
 
 // 요소 추가/제거
-dataList.push(6);        // 끝에 추가 (O(1))
-dataList.pop();          // 끝에서 제거 (O(1))
-dataList.unshift(0);     // 앞에 추가 (O(n))
-dataList.shift();        // 앞에서 제거 (O(n))
+array.push(6);        // 끝에 추가 (O(1))
+array.pop();          // 끝에서 제거 (O(1))
+array.unshift(0);     // 앞에 추가 (O(n))
+array.shift();        // 앞에서 제거 (O(n))
 
 // 배열 순회: 모든 요소의 합 구하기
 let sum = 0;
-for (let i = 0; i < dataList.length; i++) {
-  sum += dataList[i];
+for (let i = 0; i < array.length; i++) {
+  sum += array[i];
 }`,
     },
     {
         language: 'typescript',
-        code: `// 2차원 배열: 리스트로 구현
-const dataList: number[][] = [
+        code: `// 2차원 배열
+const matrix: number[][] = [
   [1, 2, 3],
   [4, 5, 6],
   [7, 8, 9]
 ];
 
 // 2차원 배열 접근
-const row0 = dataList[0];      // [1, 2, 3]
-const value00 = dataList[0][0];   // 1
-const value01 = dataList[0][1];   // 2
-const value02 = dataList[0][2];   // 3
-const value10 = dataList[1][0];   // 4
-const value11 = dataList[1][1];   // 5
+const row0 = matrix[0];      // [1, 2, 3]
+const value00 = matrix[0][0];   // 1
+const value01 = matrix[0][1];   // 2
+const value02 = matrix[0][2];   // 3
+const value10 = matrix[1][0];   // 4
+const value11 = matrix[1][1];   // 5
 
 // 2차원 배열 순회: 모든 요소의 합 구하기
 let total = 0;
-for (let i = 0; i < dataList.length; i++) {
-  for (let j = 0; j < dataList[i].length; j++) {
-    total += dataList[i][j];
+for (let i = 0; i < matrix.length; i++) {
+  for (let j = 0; j < matrix[i].length; j++) {
+    total += matrix[i][j];
   }
 }
 
 // 역순으로 순회하여 1차원 배열로 변환 (9, 8, 7, 6, 5, 4, 3, 2, 1 순서)
 const reversed: number[] = [];
-for (let i = dataList.length - 1; i >= 0; i--) {
-  for (let j = dataList[i].length - 1; j >= 0; j--) {
-    reversed.push(dataList[i][j]);
+for (let i = matrix.length - 1; i >= 0; i--) {
+  for (let j = matrix[i].length - 1; j >= 0; j--) {
+    reversed.push(matrix[i][j]);
   }
 }`,
     },
@@ -73,18 +73,18 @@ const range3: number[] = Array.from({ length: 11 }, (_, i) => i * 2);
 // [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
 // for 루프에서 range 활용: 0부터 9까지 배열 생성
-const arr1: number[] = [];
+const array1: number[] = [];
 for (let i = 0; i < 10; i++) {
-  arr1.push(i);
+  array1.push(i);
 }
-// arr1은 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+// array1은 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 // 시작값, 종료값 지정: 1부터 10까지 배열 생성
-const arr2: number[] = [];
+const array2: number[] = [];
 for (let i = 1; i <= 10; i++) {
-  arr2.push(i);
+  array2.push(i);
 }
-// arr2는 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+// array2는 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 // 2씩 증가: 짝수만 배열에 추가
 const evenNumbers: number[] = [];

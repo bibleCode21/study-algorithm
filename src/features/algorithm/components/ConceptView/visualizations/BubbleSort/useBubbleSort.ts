@@ -103,9 +103,9 @@ export const useBubbleSort = () => {
     if (isAnimating || isAutoSorting) return;
 
     setIsAutoSorting(true);
-    const arr = [...arrayRef.current];
-    const n = arr.length;
-    let currentArray = [...arr];
+    const arraySnapshot = [...arrayRef.current];
+    const n = arraySnapshot.length;
+    let currentArray = [...arraySnapshot];
     let pass = 0;
     let comparison = 0;
 

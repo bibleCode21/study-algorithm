@@ -6,9 +6,9 @@ export const code: CodeExample[] = [
     code: `// 삽입 정렬 기본 구현
 // 두 번째 인덱스부터 시작하여 해당 인덱스의 값을 앞의 정렬된 부분에 삽입하는 방식
 
-const insertionSort = (arr: number[]): number[] => {
-  const n = arr.length;
-  const result = [...arr]; // 원본 배열 보호
+const insertionSort = (array: number[]): number[] => {
+  const n = array.length;
+  const result = [...array]; // 원본 배열 보호
 
   // 두 번째 인덱스부터 시작 (인덱스 1부터)
   for (let i = 1; i < n; i++) {
@@ -30,8 +30,8 @@ const insertionSort = (arr: number[]): number[] => {
 };
 
 // 사용 예제
-const arr = [9, 3, 2, 5];
-const sorted = insertionSort(arr);
+const array = [9, 3, 2, 5];
+const sorted = insertionSort(array);
 // sorted는 [2, 3, 5, 9]`,
   },
   {
@@ -39,7 +39,7 @@ const sorted = insertionSort(arr);
     code: `// 삽입 정렬 단계별 이해
 // 데이터가 4개일 때 삽입 정렬의 동작 과정을 단계별로 확인
 
-// 예: dataList = [9, 3, 2, 5]
+// 예: array = [9, 3, 2, 5]
 
 // 첫 번째 실행 (i=1, key=3)
 // 3과 9 비교, 3이 작으므로 9를 뒤로 이동: [3, 9, 2, 5]
@@ -54,9 +54,9 @@ const sorted = insertionSort(arr);
 // 5와 9 비교, 5가 작으므로 9를 뒤로 이동: [2, 3, 9, 9]
 // 5와 3 비교, 5가 크므로 종료, key(5)를 result[2]에 삽입: [2, 3, 5, 9]
 
-const insertionSort = (arr: number[]): number[] => {
-  const n = arr.length;
-  const result = [...arr];
+const insertionSort = (array: number[]): number[] => {
+  const n = array.length;
+  const result = [...array];
 
   for (let i = 1; i < n; i++) {
     const key = result[i];
@@ -82,9 +82,9 @@ const sorted = insertionSort([9, 3, 2, 5]);
     code: `// 삽입 정렬 최적화 버전 (조기 종료)
 // 이미 정렬된 부분에서 올바른 위치를 찾으면 즉시 종료
 
-const insertionSortOptimized = (arr: number[]): number[] => {
-  const n = arr.length;
-  const result = [...arr];
+const insertionSortOptimized = (array: number[]): number[] => {
+  const n = array.length;
+  const result = [...array];
 
   for (let i = 1; i < n; i++) {
     const key = result[i];
@@ -104,13 +104,13 @@ const insertionSortOptimized = (arr: number[]): number[] => {
 };
 
 // 사용 예제
-const arr1 = [64, 34, 25, 12, 22, 11, 90];
-const sorted1 = insertionSortOptimized(arr1);
+const array1 = [64, 34, 25, 12, 22, 11, 90];
+const sorted1 = insertionSortOptimized(array1);
 // sorted1는 [11, 12, 22, 25, 34, 64, 90]
 
 // 이미 정렬된 배열 (최적화 효과)
-const arr2 = [1, 2, 3, 4, 5];
-const sorted2 = insertionSortOptimized(arr2);
+const array2 = [1, 2, 3, 4, 5];
+const sorted2 = insertionSortOptimized(array2);
 // sorted2는 [1, 2, 3, 4, 5] (각 요소가 이미 올바른 위치에 있어 빠르게 처리)`,
   },
 ];

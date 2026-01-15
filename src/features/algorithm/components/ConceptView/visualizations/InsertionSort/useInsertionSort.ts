@@ -13,9 +13,9 @@ type GeneratorState = {
 };
 
 // Generator 함수: 삽입 정렬
-const insertionSortGenerator = function* (arr: number[]): Generator<GeneratorState, number[], unknown> {
-  const array = [...arr]; // 실제 동작 배열
-  const visualizationArray: (number | null)[] = [...arr]; // 시각화용 배열
+const insertionSortGenerator = function* (inputArray: number[]): Generator<GeneratorState, number[], unknown> {
+  const array = [...inputArray]; // 실제 동작 배열
+  const visualizationArray: (number | null)[] = [...inputArray]; // 시각화용 배열
   const n = array.length;
 
   for (let i = 1; i < n; i++) {
