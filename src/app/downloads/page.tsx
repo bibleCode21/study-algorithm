@@ -17,9 +17,6 @@ const DownloadsPage = () => {
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
             이력서 · 포트폴리오 다운로드
           </h1>
-          <p className="text-gray-600">
-            채용 담당자가 바로 확인할 수 있도록 핵심 자료를 한 곳에 정리했습니다.
-          </p>
         </header>
 
         <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 shadow-sm">
@@ -32,7 +29,7 @@ const DownloadsPage = () => {
                 </p>
               </div>
               <a
-                href="/resume.pdf"
+                href="/kjh_resume.pdf"
                 download
                 className="inline-flex items-center justify-center rounded-lg bg-gray-900 px-4 py-2 text-sm font-semibold text-white hover:bg-gray-800 transition"
               >
@@ -44,11 +41,11 @@ const DownloadsPage = () => {
               <div>
                 <h2 className="text-xl font-semibold text-gray-900">포트폴리오</h2>
                 <p className="text-sm text-gray-600">
-                  주요 프로젝트 결과물 요약 (PDF)
+                  주요 프로젝트 아키텍쳐 및 성과 요약 (PDF)
                 </p>
               </div>
               <a
-                href="/portfolio.pdf"
+                href="/kjh_portfolio.pdf"
                 download
                 className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-500 transition"
               >
