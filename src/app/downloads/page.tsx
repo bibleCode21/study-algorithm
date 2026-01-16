@@ -25,7 +25,7 @@ const DownloadsPage = () => {
               <div>
                 <h2 className="text-xl font-semibold text-gray-900">이력서</h2>
                 <p className="text-sm text-gray-600">
-                  최신 버전 요약 이력서 (PDF)
+                  한장으로 요약한 이력서 (PDF)
                 </p>
               </div>
               <a
