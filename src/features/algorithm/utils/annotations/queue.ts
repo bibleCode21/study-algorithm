@@ -41,27 +41,47 @@ export const queueAnnotations: LanguageAnnotations = {
           'size 메서드: 큐에 저장된 데이터의 개수를 반환합니다. 배열의 길이를 반환하므로 O(1) 시간이 소요됩니다.',
       },
     ],
-    // 두 번째 예제: Stack 구현 (1-38줄)
+    // 두 번째 예제: 원형 큐 구현 (1-58줄)
     [
       {
         line: 2,
         comment:
-          'Stack 클래스: LIFO(Last-In, First-Out) 구조를 구현하는 스택입니다.',
+          'CircularQueue 클래스: 고정 크기의 원형 큐로, 인덱스를 순환시키며 FIFO 구조를 유지합니다.',
       },
       {
-        line: 11,
+        line: 3,
         comment:
-          'push 메서드: 스택의 끝에 데이터를 추가합니다. push 메서드를 사용하여 O(1) 시간에 추가합니다.',
+          'items 배열: 고정 크기의 슬롯을 미리 만들어 두고 큐 요소를 저장합니다.',
       },
       {
-        line: 15,
+        line: 8,
         comment:
-          'pop 메서드: 스택의 끝에서 데이터를 제거하고 반환합니다. pop 메서드를 사용하여 O(1) 시간에 제거합니다. 이것이 LIFO 구조의 특징입니다.',
+          '생성자: capacity 값을 받아 고정 크기 배열을 초기화합니다.',
       },
       {
-        line: 19,
+        line: 12,
         comment:
-          'peek 메서드: 스택의 가장 위에 있는 데이터를 확인합니다. 데이터를 제거하지 않고 확인만 합니다.',
+          'enqueue 메서드: 가득 차면 false를 반환하고, 그렇지 않으면 rear 위치에 추가합니다.',
+      },
+      {
+        line: 22,
+        comment:
+          'dequeue 메서드: 비어 있으면 undefined를 반환하고, front 위치의 값을 꺼낸 뒤 인덱스를 순환시킵니다.',
+      },
+      {
+        line: 33,
+        comment:
+          'peek 메서드: front 위치의 값을 제거 없이 확인합니다.',
+      },
+      {
+        line: 41,
+        comment:
+          'isFull 메서드: length와 capacity를 비교하여 포화 여부를 확인합니다.',
+      },
+      {
+        line: 45,
+        comment:
+          'size 메서드: 현재 저장된 요소 수를 반환합니다.',
       },
     ],
     // 세 번째 예제: PriorityQueue 구현 (1-46줄)

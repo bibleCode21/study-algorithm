@@ -47,44 +47,64 @@ const second = queue.dequeue(); // 2`,
   },
   {
     language: 'typescript',
-    code: `// Stack 구현 (LIFO - Last-In, First-Out)
-class Stack<T> {
-  private items: T[] = [];
+    code: `// 원형 큐 구현 (고정 크기)
+class CircularQueue<T> {
+  private items: Array<T | undefined>;
+  private front = 0;
+  private rear = 0;
+  private length = 0;
 
-  constructor(item?: T) {
-    if (item !== undefined) {
-      this.items.push(item);
+  constructor(private capacity: number) {
+    this.items = new Array<T | undefined>(capacity);
+  }
+
+  enqueue(item: T): boolean {
+    if (this.isFull()) {
+      return false;
     }
+    this.items[this.rear] = item;
+    this.rear = (this.rear + 1) % this.capacity;
+    this.length += 1;
+    return true;
   }
 
-  push(item: T): void {
-    this.items.push(item);
-  }
-
-  pop(): T | undefined {
-    return this.items.pop();
+  dequeue(): T | undefined {
+    if (this.isEmpty()) {
+      return undefined;
+    }
+    const item = this.items[this.front];
+    this.items[this.front] = undefined;
+    this.front = (this.front + 1) % this.capacity;
+    this.length -= 1;
+    return item;
   }
 
   peek(): T | undefined {
-    return this.items[this.items.length - 1];
+    return this.items[this.front];
   }
 
   isEmpty(): boolean {
-    return this.items.length === 0;
+    return this.length === 0;
+  }
+
+  isFull(): boolean {
+    return this.length === this.capacity;
   }
 
   size(): number {
-    return this.items.length;
+    return this.length;
   }
 }
 
 // 사용 예제
-const stack = new Stack<number>();
-stack.push(1);
-stack.push(2);
-stack.push(3);
-const last = stack.pop(); // 3 (가장 나중에 추가된 요소)
-const second = stack.pop(); // 2`,
+const circularQueue = new CircularQueue<number>(3);
+circularQueue.enqueue(1);
+circularQueue.enqueue(2);
+circularQueue.enqueue(3);
+const full = circularQueue.enqueue(4); // false (가득 참)
+const first = circularQueue.dequeue(); // 1
+circularQueue.enqueue(4); // 재사용
+const second = circularQueue.dequeue(); // 2`,
   },
   {
     language: 'typescript',
