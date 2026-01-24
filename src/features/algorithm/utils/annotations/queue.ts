@@ -54,32 +54,32 @@ export const queueAnnotations: LanguageAnnotations = {
           'items 배열: 고정 크기의 슬롯을 미리 만들어 두고 큐 요소를 저장합니다.',
       },
       {
-        line: 8,
+        line: 9,
         comment:
           '생성자: capacity 값을 받아 고정 크기 배열을 초기화합니다.',
       },
       {
-        line: 12,
+        line: 14,
         comment:
           'enqueue 메서드: 가득 차면 false를 반환하고, 그렇지 않으면 rear 위치에 추가합니다.',
       },
       {
-        line: 22,
+        line: 24,
         comment:
           'dequeue 메서드: 비어 있으면 undefined를 반환하고, front 위치의 값을 꺼낸 뒤 인덱스를 순환시킵니다.',
       },
       {
-        line: 33,
+        line: 35,
         comment:
           'peek 메서드: front 위치의 값을 제거 없이 확인합니다.',
       },
       {
-        line: 41,
+        line: 43,
         comment:
           'isFull 메서드: length와 capacity를 비교하여 포화 여부를 확인합니다.',
       },
       {
-        line: 45,
+        line: 47,
         comment:
           'size 메서드: 현재 저장된 요소 수를 반환합니다.',
       },

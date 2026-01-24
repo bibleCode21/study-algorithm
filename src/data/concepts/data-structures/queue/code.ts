@@ -50,11 +50,13 @@ const second = queue.dequeue(); // 2`,
     code: `// 원형 큐 구현 (고정 크기)
 class CircularQueue<T> {
   private items: Array<T | undefined>;
+  private capacity: number;
   private front = 0;
   private rear = 0;
   private length = 0;
 
-  constructor(private capacity: number) {
+  constructor(capacity: number) {
+    this.capacity = capacity;
     this.items = new Array<T | undefined>(capacity);
   }
 
