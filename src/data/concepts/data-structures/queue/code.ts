@@ -65,6 +65,8 @@ class CircularQueue<T> {
       return false;
     }
     this.items[this.rear] = item;
+    // 모듈로 연산을 사용하여 rear 포인터를 다음 위치로 이동
+    // 배열의 끝에 도달하면 0으로 돌아가 원형 구조를 유지
     this.rear = (this.rear + 1) % this.capacity;
     this.length += 1;
     return true;
@@ -76,6 +78,8 @@ class CircularQueue<T> {
     }
     const item = this.items[this.front];
     this.items[this.front] = undefined;
+    // 모듈로 연산을 사용하여 front 포인터를 다음 위치로 이동
+    // 배열의 끝에 도달하면 0으로 돌아가 원형 구조를 유지
     this.front = (this.front + 1) % this.capacity;
     this.length -= 1;
     return item;
