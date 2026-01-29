@@ -9,7 +9,7 @@ const getConceptPath = (conceptId: string): string => {
   // 데이터 구조
   const dataStructures = ['array', 'stack', 'queue', 'linked-list', 'heap', 'hash-table', 'tree'];
   // 알고리즘
-  const algorithms = ['bubble-sort', 'insertion-sort', 'binary-search'];
+  const algorithms = ['bubble-sort', 'insertion-sort', 'selection-sort', 'binary-search'];
   
   if (dataStructures.includes(conceptId)) {
     return `./data-structures/${conceptId}/code`;
