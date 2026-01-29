@@ -41,12 +41,12 @@ export const selectionSortAnnotations: LanguageAnnotations = {
           '최소값 비교: 현재까지의 최소값(result[lowest])과 현재 요소(result[index])를 비교하여, 현재 요소가 더 작으면 lowest를 index로 갱신합니다.',
       },
       {
-        line: 18,
+        line: 20,
         comment:
           '교환: 찾은 최소값(result[lowest])을 맨 앞 위치(result[stand])와 교환합니다. 구조 분해 할당을 사용하여 두 값을 한 번에 교환합니다.',
       },
       {
-        line: 21,
+        line: 23,
         comment:
           '정렬된 배열 반환: 정렬이 완료된 배열을 반환합니다. 원본 배열은 변경되지 않았습니다.',
       },
@@ -89,7 +89,7 @@ export const selectionSortAnnotations: LanguageAnnotations = {
           '최소값 비교: result[lowest] > result[index]이면 lowest를 index로 갱신합니다.',
       },
       {
-        line: 22,
+        line: 23,
         comment:
           '교환: 최소값을 stand 위치와 교환합니다.',
       },
@@ -132,7 +132,7 @@ export const selectionSortAnnotations: LanguageAnnotations = {
           '최소값 비교: 더 작은 값을 찾으면 lowest를 갱신합니다.',
       },
       {
-        line: 18,
+        line: 19,
         comment:
           '교환: 찾은 최소값을 stand 위치와 교환합니다. 각 패스마다 최대 1번만 교환합니다.',
       },
